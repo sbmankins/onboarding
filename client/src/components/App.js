@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 
 import NavBar from './NavBar';
-const Dashboard = () => <h2>Dashboard</h2>
+import Dashboard from './Dashboard';
 const EmployeeNew = () => <h2>EmployeeNew</h2>
 const EmployeeDetail = () => <h2>EmployeeDetail</h2>
 
