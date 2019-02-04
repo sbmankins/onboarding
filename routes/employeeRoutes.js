@@ -16,8 +16,8 @@ module.exports = app => {
       dateCreated: Date.now()
     });
 
-    try{
-      let newEmployee = await Employee.save();
+    try {
+      await employee.save();
       res.status(201).send({response:'Employee created'});
       } catch (err){
         if (err.name === 'MongoError' && err.code === 11000) {
@@ -26,5 +26,4 @@ module.exports = app => {
       res.status(500).send(err);
       }
     });
-  });
 };
