@@ -7,7 +7,7 @@ const employeeSchema = new Schema ({
   startDate: Date,
   dateCreated: Date,
   _manager: {type: Schema.Types.ObjectId, ref: 'Manager'},
-  _admin: {type: Schema.Types.ObjectId, ref: 'Admin'};,
+  _admin: {type: Schema.Types.ObjectId, ref: 'Admin'},
   status: String
 });
 
