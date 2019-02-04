@@ -6,6 +6,7 @@ import Dashboard from './Dashboard';
 import EmployeeNew from './forms/EmployeeNew';
 const EmployeeDetail = () => <h2>EmployeeDetail</h2>
 
+
 const App = () => {
   return (
 
