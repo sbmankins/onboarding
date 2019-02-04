@@ -1,7 +1,10 @@
 import React from 'react';
 
-export default ()=> {
+export default ({input, label}) => {
   return(
-    <input />
+    <div>
+      <label>{label}</label>
+      <input {...input}/>
+    </div>
   );
 };
