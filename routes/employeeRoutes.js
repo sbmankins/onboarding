@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Employee = mongoose.models('employees');
+const Employee = mongoose.model('employees');
 
 module.exports = app => {
 
