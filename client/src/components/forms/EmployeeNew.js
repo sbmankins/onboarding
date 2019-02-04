@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
+import EmployeeForm from './EmployeeForm'
 
 class EmployeeNew extends Component{
   render(){
     return(
-      <div>Employee New!</div>
+      <EmployeeForm />
     );
   }
 }
