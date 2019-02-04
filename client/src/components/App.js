@@ -1,12 +1,9 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Route
-} from 'react-router-dom';
-
+import {BrowserRouter,Route} from 'react-router-dom';
+import {connect} from 'react-redux';
 import NavBar from './NavBar';
 import Dashboard from './Dashboard';
-const EmployeeNew = () => <h2>EmployeeNew</h2>
+import EmployeeNew from './forms/EmployeeNew';
 const EmployeeDetail = () => <h2>EmployeeDetail</h2>
 
 const App = () => {
