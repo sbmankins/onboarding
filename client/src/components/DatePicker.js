@@ -24,13 +24,13 @@ class DatePicker extends PureComponent {
   render() {
     const {
       input,
-      meta: { touched, error, warning },
+      meta: { touched, error/*, warning */},
       placeholder,
-      disabled,
-      required,
+      disabled
+    //  required,
     } = this.props;
     const { focused } = this.state;
-    const invalid = error !== undefined && error !== null;
+    //const invalid = error !== undefined && error !== null;
 
     return (
       <React.Fragment>
@@ -39,6 +39,7 @@ class DatePicker extends PureComponent {
           showDefaultInputIcon={true}
           displayFormat="YYYY-MM-DD"
           numberOfMonths={1}
+          required ={true}
           disabled={disabled}
           placeholder={placeholder}
           date={input.value}
