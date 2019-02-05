@@ -1,2 +1,5 @@
 # onboarding
-To start in Dev type  'npm run dev' from server directory at command line.
+To start in Dev
+In the top project directory, run:
+$ npm install
+$ npm run dev
