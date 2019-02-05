@@ -7,7 +7,6 @@ import DatePicker, {
   normalizeDates,
 } from '../DatePicker';
 import Button from '@material-ui/core/Button';
-import FormGroup from '@material-ui/core/FormGroup';
 
 
 class EmployeeForm extends Component{
@@ -20,7 +19,7 @@ class EmployeeForm extends Component{
         <Field label="Manager:  " type="text" name="manager" component={FormField}/>
         <Field label="Admin:  " type="text" name="admin" component={FormField}/>
         <div style={{margin:'10px 0 0 10px'}}>
-        <FieldDatePicker name="dateStart" placeholder="Start Date" component={DatePicker} parse={normalizeDates} format={formatDates}/>
+          <FieldDatePicker name="dateStart" placeholder="Start Date" component={DatePicker} parse={normalizeDates} format={formatDates}/>
         </div>
     </div>
     );
@@ -28,10 +27,10 @@ class EmployeeForm extends Component{
 
   render(){
     return(
-        <FormGroup onSubmit={this.props.handleSubmit(values => console.log(values))}>
+        <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
           {this.renderFields()}
           <Button variant="contained" color="primary" style={{margin: '30px 0 0 10px', width: '50px'}} type="submit">submit</Button>
-        </FormGroup>
+        </form>
     );
   };
 }

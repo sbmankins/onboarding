@@ -13,10 +13,10 @@ const NavBar = (props) => {
   const { classes } = props;
 
   return (
-        <div>
+        <div style ={{marginBottom: '20px'}}>
           <AppBar>
             <Toolbar style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Link style={{ textDecoration: 'none', color: 'white' }} to={'/'}><Typography variant="title" color="inherit">Bayer IT Onboarding</Typography></Link>
+              <Link style={{ textDecoration: 'none', color: 'white' }} to={'/'}><Typography variant="headline" color="inherit">Bayer IT Onboarding</Typography></Link>
               <Link style={{ textDecoration: 'none', color: 'white' }} to={'/new'}><Typography variant="button" color="inherit">New</Typography></Link>
             </Toolbar>
           </AppBar>
