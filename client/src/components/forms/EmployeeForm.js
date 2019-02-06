@@ -7,8 +7,40 @@ import {Link} from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import employeeFormFields from './employeeFormFields';
+import SearchSelect from './SearchSelect';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormLabel from '@material-ui/core/FormLabel'
 
-
+const colors = [
+  {
+    label: "Red",
+    value: "r"
+  },
+  {
+    label: "Blue",
+    value: "b"
+  },
+  {
+    label: "Green",
+    value: "g"
+  },
+  {
+    label: "Orange",
+    value: "o"
+  },
+  {
+    label: "Purple",
+    value: "p"
+  },
+  {
+    label: "Brown",
+    value: "b"
+  },
+  {
+    label: "Teal",
+    value: "t"
+  }
+];
 class EmployeeForm extends Component{
 
   renderFields(){
@@ -22,23 +54,42 @@ class EmployeeForm extends Component{
 
   render(){
     return(
-      <Paper style={{margin:'0 20px', padding:'10px', background:'#edeeef'}} elevation={1}>
-        <Typography style={{margin: '0 0 20px 20px'}} variant="h4">Employee Detail</Typography>
+      <Paper style={{width:'80%', margin:'0 auto', padding:'10px', background:'#edeeef'}} elevation={1}>
+        <Paper style={{background:'#dbe2ef', padding:'20px', marginBottom:'20px'}}>
+        <Typography style={{textAlign:'center', color:'#626f78'}} variant="title">Employee Detail</Typography>
+        </Paper>
         <form onSubmit={this.props.handleSubmit(this.props.handleSubmit(this.props.onEmployeeSubmit))}>
           <Grid container spacing={24}>
             {this.renderFields()}
+            <Grid item xs={7}>
+              <Paper style={{margin:'0px 20px', padding:'10px'}}>
+                <FormGroup style={{margin: '10px 10px 0 10px'}}>
+                  <FormLabel><Typography variant='body1'>Dropdown Example</Typography></FormLabel>
+                  <Field
+                name="favoriteColor"
+                component={SearchSelect}
+                options={colors}
+                clearable={true}
+                placeholder="Favorite Color"
+                />
+              </FormGroup>
+            </Paper>
           </Grid>
-          <Button variant="contained" color="secondary" style={{padding: '10px', margin: '30px 30px 0 10px', width: '100px'}}>
+        </Grid>
+          <Button variant="contained" color="secondary" style={{margin: '30px 30px 0 10px', width: '100px'}}>
             <Link to="/" style={{textDecoration:'none', color:'white', display: 'block', height: '100%'}}>Cancel</Link>
           </Button>
-          <Button variant="contained" color="primary" style={{padding: '10px', margin: '30px 0 0 10px', width: '100px'}} type="submit">Next</Button>
-        </form>
-      </Paper>
+          <Button variant="contained" color="primary" style={{margin: '30px 0 0 10px', width: '100px'}} type="submit">Next</Button>
+      </form>
+    </Paper>
     );
   };
 }
 
 function validate (values){
+  //console.log(values.dateStart);
+  //console.log(values.test);
+
   const errors = {};
 
   _.each(employeeFormFields, ({name, type})=>{

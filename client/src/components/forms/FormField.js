@@ -10,8 +10,8 @@ import Grid from '@material-ui/core/Grid';
 export default ({input, label, meta: {touched, error}}) => {
   return(
     <Grid item xs={7}>
-      <Paper style={{margin:'10px 20px', padding:'10px'}}>
-        <FormGroup style={{margin: '10px 20px 0 20px'}}>
+      <Paper style={{margin:'0px 20px', padding:'10px'}}>
+        <FormGroup style={{margin: '10px 10px 0 10px'}}>
           <FormLabel><Typography variant='body1'>{label}</Typography></FormLabel>
           <TextField {...input} />
           <div style={{color:'red'}}>

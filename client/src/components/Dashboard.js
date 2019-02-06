@@ -1,11 +1,12 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper'
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
 const Dashboard = () => {
   return(
-    <Paper style={{margin:'0 20px', padding:'10px', background:'#edeeef'}} elevation={1}>
+    <Paper style={{width:'80%', margin:'0 auto', padding:'10px', background:'#edeeef'}} elevation={1}>
       <div style={{textAlign: 'center'}}>
-        <h1>Dashboard Will Go Here</h1>
+        <Typography variant="headline">Dashboard Will Go Here</Typography>
       </div>
     </Paper>
   );

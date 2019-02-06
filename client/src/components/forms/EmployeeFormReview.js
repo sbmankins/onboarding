@@ -16,14 +16,23 @@ const EmployeeFormReview = ({onCancel, formValues}) => {
     );
   });
   return(
-    <Paper elevation={1} style={{margin:'20px 20px', background:'#edeeef'}}>
-    <div style={{margin:'20px 20px'}}>
-      <Typography variant="headline" gutterBottom style={{marginTop:'20px'}}>Please confirm your entries</Typography>
+    <Paper style={{width:'50%', margin:'0 auto', padding:'10px', background:'#edeeef'}} elevation={1}>
+      <Paper style={{background:'#dbe2ef', padding:'20px', marginBottom:'20px'}}>
+        <Typography style={{textAlign:'center', color:'#626f78'}} variant="title">Please confirm entries</Typography>
+      </Paper>
+      <div style={{margin:'20px 20px'}}>
         {reviewFields}
-        <Button variant="contained" color="secondary" style={{padding: '10px', margin: '30px 20px 10px 10px', width: '100px'}} onClick={onCancel}>
+        <div  style={{marginBottom:'10px'}}>
+          <Typography style={{fontWeight:'bold'}}>Favorite Color</Typography>
+          <div><Typography variant="body1">{formValues.favoriteColor}</Typography></div>
+        </div>
+        <Button variant="contained" color="secondary" style={{margin: '30px 20px 10px 10px', width: '100px'}} onClick={onCancel}>
           Back
         </Button>
-    </div>
+        <Button variant="contained" color="primary" style={{margin: '30px 20px 10px 10px', width: '100px'}} onClick={onCancel}>
+          Submit
+        </Button>
+      </div>
     </Paper>
   );
 };
