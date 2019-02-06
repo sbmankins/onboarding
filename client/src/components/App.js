@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter,Route} from 'react-router-dom';
-import {connect} from 'react-redux';
 import 'typeface-roboto';
 import NavBar from './NavBar';
 import Dashboard from './Dashboard';

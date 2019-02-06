@@ -6,7 +6,7 @@ class EmployeeNew extends Component{
   state = {showFormReview: false};
     renderContent(){
       if (this.state.showFormReview){
-        return <EmployeeFormReview />;
+        return <EmployeeFormReview onCancel={()=> this.setState({showFormReview:false})}/>;
       }
       return <EmployeeForm onEmployeeSubmit={() => this.setState ({showFormReview: true})}/>;
     };

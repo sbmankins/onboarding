@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const PORT = 5000;
 require('./models/Employee');
 require('./models/Manager');
 require('./models/Admin');
 
-const PORT = 5000;
 
 
 mongoose.connect(
