@@ -1,5 +1,5 @@
 # onboarding
-To start in Dev
-In the top project directory, run:
-$ npm install
-$ npm run dev
+To start in Dev</br>
+In the top project directory, run:</br>
+$ npm install</br>
+$ npm run dev</br>
