@@ -4,26 +4,31 @@ const Employee = mongoose.model('employees');
 module.exports = app => {
 
   app.post('/api/employees', async (req,res) => {
-    const {firstName, lastName, startDate, _admin, _manager, status} = req.body;
+    console.log(req.body);
+    const {firstName, lastName, dateStart, admin, manager, buddy, favoriteColor} = req.body;
 
-    const Employee = new Employee({
+    const employee = new Employee({
       firstName,
       lastName,
-      startDate,
-      _admin,
-      _manager,
-      status,
+      dateStart,
+      admin,
+      manager,
+      buddy,
+      favoriteColor,
       dateCreated: Date.now()
     });
 
     try {
       await employee.save();
+      console.log('employee saved');
       res.status(201).send({response:'Employee created'});
       } catch (err){
         if (err.name === 'MongoError' && err.code === 11000) {
           res.status(409).send(new MyError('Duplicate key', [err.message]));
+          console.log(err.name);
         }
       res.status(500).send(err);
+      console.log(err.name);
       }
     });
 };

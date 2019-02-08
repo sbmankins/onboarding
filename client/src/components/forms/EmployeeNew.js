@@ -1,3 +1,4 @@
+import {reduxForm} from 'redux-form';
 import React, {Component} from 'react';
 import EmployeeForm from './EmployeeForm';
 import EmployeeFormReview from './EmployeeFormReview';
@@ -18,4 +19,6 @@ class EmployeeNew extends Component{
     };
   }
 
-export default EmployeeNew;
+export default reduxForm({
+  form: 'employeeForm'
+})(EmployeeNew);

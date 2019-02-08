@@ -5,8 +5,9 @@ import Button from '@material-ui/core/Button';
 import {connect} from 'react-redux';
 import employeeFormFields from './employeeFormFields';
 import _ from 'lodash';
+import * as actions from '../../actions';
 
-const EmployeeFormReview = ({onCancel, formValues}) => {
+const EmployeeFormReview = ({onCancel, formValues, submitEmployee}) => {
   const reviewFields = _.map(employeeFormFields, ({name, label}) => {
     return(
       <div key={name} style={{marginBottom:'10px'}}>
@@ -29,7 +30,7 @@ const EmployeeFormReview = ({onCancel, formValues}) => {
         <Button variant="contained" color="secondary" style={{margin: '30px 20px 10px 10px', width: '100px'}} onClick={onCancel}>
           Back
         </Button>
-        <Button variant="contained" color="primary" style={{margin: '30px 20px 10px 10px', width: '100px'}} onClick={onCancel}>
+        <Button variant="contained" color="primary" style={{margin: '30px 20px 10px 10px', width: '100px'}} onClick={()=>submitEmployee(formValues)}>
           Submit
         </Button>
       </div>
@@ -42,4 +43,4 @@ function mapStateToProps(state){
   return {formValues: state.form.employeeForm.values};
 };
 
-export default connect(mapStateToProps) (EmployeeFormReview);
+export default connect(mapStateToProps, actions) (EmployeeFormReview);
