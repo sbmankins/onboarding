@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const mongoose = require('mongoose')
+const { Schema } = mongoose
 
-const adminSchema = new Schema ({
-  name: {type: String, required: true}
-});
+const adminSchema = new Schema({
+    name: { type: String, required: true },
+})
 
-mongoose.model('admins', adminSchema);
+mongoose.model('admins', adminSchema)
