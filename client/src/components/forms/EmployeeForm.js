@@ -13,32 +13,12 @@ import FormLabel from '@material-ui/core/FormLabel'
 
 const colors = [
     {
-        label: 'Red',
-        value: 'r',
+        label: 'Test1',
+        value: 'Test1',
     },
     {
-        label: 'Blue',
-        value: 'b',
-    },
-    {
-        label: 'Green',
-        value: 'g',
-    },
-    {
-        label: 'Orange',
-        value: 'o',
-    },
-    {
-        label: 'Purple',
-        value: 'p',
-    },
-    {
-        label: 'Brown',
-        value: 'b',
-    },
-    {
-        label: 'Teal',
-        value: 't',
+        label: 'Test2',
+        value: 'Test2',
     },
 ]
 class EmployeeForm extends Component {
@@ -101,7 +81,7 @@ class EmployeeForm extends Component {
                                         </Typography>
                                     </FormLabel>
                                     <Field
-                                        name="favoriteColor"
+                                        name="Test"
                                         component={SearchSelect}
                                         options={colors}
                                         clearable={true}

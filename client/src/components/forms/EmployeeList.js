@@ -42,35 +42,35 @@ const Good = {
 
 let DividerColor = false
 
-let New = {}
+let NewBackground = {}
 let NewColor = {}
 
 class EmployeeList extends Component {
     componentDidMount() {
         this.props.fetchEmployees()
+        console.log(this.state)
     }
 
     renderEmployees() {
         return this.props.employees.map(employee => {
-            let start = new Date()
-            start = employee.dateStart
+            const start = employee.dateStart
 
             const between = daysBetween(start)
-            console.log(between)
 
             if (between >= 7) {
-                New = Good
+                NewBackground = Good
                 NewColor = Normaltext
                 DividerColor = false
-            } else if (between <= 7) {
-                New = Warning
+            } else if (between > 0 && between <= 7) {
+                NewBackground = Warning
                 NewColor = Normaltext
                 DividerColor = false
-            } else if (!between || between === 0) {
-                New = Danger
+            } else {
+                NewBackground = Danger
                 NewColor = Dangertext
                 DividerColor = true
             }
+
             return (
                 <Grid
                     item
@@ -80,7 +80,7 @@ class EmployeeList extends Component {
                     xs={12}
                     key={employee._id}
                 >
-                    <Card style={New}>
+                    <Card style={NewBackground}>
                         <CardContent>
                             <Typography
                                 style={NewColor}
@@ -137,8 +137,6 @@ class EmployeeList extends Component {
                                 style={NewColor}
                                 onClick={() => {
                                     this.props.deleteEmployee(employee._id)
-                                    this.setState({ state: this.state })
-                                    console.log(employee._id)
                                 }}
                             >
                                 Delete
