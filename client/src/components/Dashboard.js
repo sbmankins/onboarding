@@ -1,46 +1,44 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import EmployeeList from './forms/EmployeeList'
 import Grid from '@material-ui/core/Grid'
+import { connect } from 'react-redux'
 
-const Dashboard = () => {
-    return (
-        <Paper
-            style={{
-                width: '90%',
-                margin: '0 auto',
-                padding: '10px',
-                background: '#edeeef',
-            }}
-            elevation={1}
-        >
+class Dashboard extends Component {
+    render() {
+        return (
             <Paper
                 style={{
-                    background: '#dbe2ef',
-                    padding: '20px',
-                    marginBottom: '20px',
+                    width: '90%',
+                    margin: '0 auto',
+                    padding: '10px',
+                    background: '#edeeef',
+                    textAlign: 'center',
                 }}
+                elevation={1}
             >
-                <Typography
-                    style={{ textAlign: 'center', color: '#626f78' }}
-                    variant="title"
+                <Paper
+                    style={{
+                        background: '#dbe2ef',
+                        padding: '20px',
+                        marginBottom: '20px',
+                    }}
                 >
-                    Dashboard
-                </Typography>
+                    <Typography
+                        style={{ textAlign: 'center', color: '#626f78' }}
+                        variant="title"
+                    >
+                        Dashboard
+                    </Typography>
+                </Paper>
+                <div style={{ flexGrow: 1 }}>
+                    <Grid container justify="space-evenly" spacing={24}>
+                        <EmployeeList />
+                    </Grid>
+                </div>
             </Paper>
-            <div style={{ flexGrow: 1 }}>
-                <Grid
-                    container
-                    // direction="row"
-                    // justify="space-between"
-                    // alignItems="flex-start"
-                    spacing={24}
-                >
-                    <EmployeeList />
-                </Grid>
-            </div>
-        </Paper>
-    )
+        )
+    }
 }
-export default Dashboard
+export default connect()(Dashboard)

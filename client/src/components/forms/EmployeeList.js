@@ -1,50 +1,148 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchEmployees } from '../../actions'
+import { fetchEmployees, deleteEmployee } from '../../actions'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import { Link } from 'react-router-dom'
+import Divider from '@material-ui/core/Divider'
+import { daysBetween } from './daysBetween'
 
-class SurveyList extends Component {
+//import { Link } from 'react-router-dom'
+
+const Normaltext = {
+    color: 'black',
+}
+const Warning = {
+    backgroundColor: '#faf096',
+    height: '200px',
+    width: '250px',
+    margin: '20px',
+}
+
+const Dangertext = {
+    color: 'white',
+}
+
+const Danger = {
+    backgroundColor: '#c82121',
+    height: '200px',
+    width: '250px',
+    margin: '20px',
+}
+
+const Good = {
+    backgroundColor: '#acdeaa',
+    height: '200px',
+    width: '250px',
+    margin: '20px',
+}
+
+let DividerColor = false
+
+let New = {}
+let NewColor = {}
+
+class EmployeeList extends Component {
     componentDidMount() {
         this.props.fetchEmployees()
     }
 
     renderEmployees() {
         return this.props.employees.map(employee => {
+            let start = new Date()
+            start = employee.dateStart
+
+            const between = daysBetween(start)
+            console.log(between)
+
+            if (between >= 7) {
+                New = Good
+                NewColor = Normaltext
+                DividerColor = false
+            } else if (between <= 7) {
+                New = Warning
+                NewColor = Normaltext
+                DividerColor = false
+            } else if (!between || between === 0) {
+                New = Danger
+                NewColor = Dangertext
+                DividerColor = true
+            }
             return (
                 <Grid
                     item
                     style={{
                         display: 'inline-block',
                     }}
-                    xs={6}
+                    xs={12}
                     key={employee._id}
                 >
-                    <Card
-                        style={{
-                            height: '200px',
-                            width: '285px',
-                            margin: '20px',
-                        }}
-                    >
+                    <Card style={New}>
                         <CardContent>
-                            <Typography variant="title" component="h6">
-                                Name: {employee.firstName} {employee.lastName}
+                            <Typography
+                                style={NewColor}
+                                variant="title"
+                                component="h6"
+                            >
+                                {employee.firstName} {employee.lastName}
                             </Typography>
-                            <Typography>adjective</Typography>
-                            <Typography component="p">
-                                well meaning and kindly.
-                                <br />
-                                {'"a benevolent smile"'}
-                            </Typography>
+                            <Divider
+                                style={{ margin: '5px 0 5px 0' }}
+                                variant="middle"
+                                light={DividerColor}
+                            />
+                            <div style={{ textAlign: 'Left' }}>
+                                <Typography style={NewColor} component="p">
+                                    <strong>Manager:</strong> {employee.manager}
+                                </Typography>
+                                <Typography style={NewColor} component="p">
+                                    <strong>Admin:</strong> {employee.admin}
+                                </Typography>
+                                <Divider
+                                    style={{
+                                        margin: '5px 0 5px 0',
+                                    }}
+                                    variant="middle"
+                                    light={DividerColor}
+                                />
+                                <Grid container spacing={24}>
+                                    <Grid item xs={6}>
+                                        <Typography
+                                            style={NewColor}
+                                            component="p"
+                                        >
+                                            <strong>Start Date:</strong>{' '}
+                                            {new Date(
+                                                employee.dateStart
+                                            ).toLocaleDateString()}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xs={6}>
+                                        <Typography
+                                            style={NewColor}
+                                            component="p"
+                                        >
+                                            <strong>Status:</strong> To DO
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </div>
                         </CardContent>
                         <CardActions>
-                            <Button>Learn More</Button>
+                            <Button style={NewColor}>Edit</Button>
+                            <Button
+                                style={NewColor}
+                                onClick={() => {
+                                    this.props.deleteEmployee(employee._id)
+                                    this.setState({ state: this.state })
+                                    console.log(employee._id)
+                                }}
+                            >
+                                Delete
+                            </Button>
                         </CardActions>
                     </Card>
                 </Grid>
@@ -57,11 +155,18 @@ class SurveyList extends Component {
     }
 }
 
-function mapStateToProps({ employees }) {
-    return { employees }
+function mapStateToProps(state) {
+    return { employees: state.employees }
 }
+
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         //note that this code assumes deleteSurvery is a thunk
+//         handleDeleteEmployee: id => dispatch(deleteEmployee(id)),
+//     }
+// }
 
 export default connect(
     mapStateToProps,
-    { fetchEmployees }
-)(SurveyList)
+    { fetchEmployees, deleteEmployee }
+)(EmployeeList)
