@@ -65,7 +65,6 @@ module.exports = app => {
         try {
             await Employee.deleteOne({ _id: req.params.id })
             res.status(201).send({ response: 'Employee Deleted' })
-            console.log('I think it should have deleted')
         } catch (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
                 res.status(409).send(

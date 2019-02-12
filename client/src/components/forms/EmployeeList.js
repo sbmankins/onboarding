@@ -42,35 +42,39 @@ const Good = {
 
 let DividerColor = false
 
-let NewBackground = {}
+let New = {}
 let NewColor = {}
 
 class EmployeeList extends Component {
     componentDidMount() {
         this.props.fetchEmployees()
-        console.log(this.state)
     }
 
     renderEmployees() {
         return this.props.employees.map(employee => {
-            const start = employee.dateStart
+            let start = new Date()
+            start = employee.dateStart
+            console.log('dateStart' + employee.dateStart)
 
             const between = daysBetween(start)
+            console.log(employee.dateStart)
 
             if (between >= 7) {
-                NewBackground = Good
+                New = Good
                 NewColor = Normaltext
                 DividerColor = false
+                console.log(between)
             } else if (between > 0 && between <= 7) {
-                NewBackground = Warning
+                New = Warning
                 NewColor = Normaltext
                 DividerColor = false
+                console.log(between)
             } else {
-                NewBackground = Danger
+                New = Danger
                 NewColor = Dangertext
                 DividerColor = true
+                console.log(between)
             }
-
             return (
                 <Grid
                     item
@@ -80,7 +84,7 @@ class EmployeeList extends Component {
                     xs={12}
                     key={employee._id}
                 >
-                    <Card style={NewBackground}>
+                    <Card style={New}>
                         <CardContent>
                             <Typography
                                 style={NewColor}
@@ -117,7 +121,9 @@ class EmployeeList extends Component {
                                             <strong>Start Date:</strong>{' '}
                                             {new Date(
                                                 employee.dateStart
-                                            ).toLocaleDateString()}
+                                            ).toLocaleDateString('en-US', {
+                                                timeZone: 'UTC',
+                                            })}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
@@ -137,6 +143,8 @@ class EmployeeList extends Component {
                                 style={NewColor}
                                 onClick={() => {
                                     this.props.deleteEmployee(employee._id)
+                                    this.setState({ state: this.state })
+                                    console.log(employee._id)
                                 }}
                             >
                                 Delete

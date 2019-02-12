@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid'
 import { connect } from 'react-redux'
 
 class Dashboard extends Component {
+    state = { employees: [] }
+
     render() {
         return (
             <Paper
