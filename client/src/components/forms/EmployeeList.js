@@ -63,9 +63,11 @@ class EmployeeList extends Component {
         console.log(id)
         this.props.deleteEmployee(id)
         console.log(this.props)
+
         this.setState({
             employees: this.state.filter(employee => employee.id !== this.id),
         })
+
         console.log(this.state)
         //this.props.onDelete(this.state.employee)
     }
