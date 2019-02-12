@@ -46,6 +46,8 @@ let New = {}
 let NewColor = {}
 
 class EmployeeList extends Component {
+    state = { employees: [] }
+
     componentDidMount() {
         this.props.fetchEmployees()
     }
@@ -164,13 +166,6 @@ class EmployeeList extends Component {
 function mapStateToProps(state) {
     return { employees: state.employees }
 }
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         //note that this code assumes deleteSurvery is a thunk
-//         handleDeleteEmployee: id => dispatch(deleteEmployee(id)),
-//     }
-// }
 
 export default connect(
     mapStateToProps,
