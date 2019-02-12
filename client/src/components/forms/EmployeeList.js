@@ -46,14 +46,31 @@ let New = {}
 let NewColor = {}
 
 class EmployeeList extends Component {
-    state = { employees: fetchEmployees() }
+    constructor(props) {
+        super(props)
+        this.onEmployeeDelete = this.onEmployeeDelete.bind(this)
+    }
+
+    state = { employee: fetchEmployees() }
 
     componentDidMount() {
         this.props.fetchEmployees()
     }
 
+    onEmployeeDelete = (event, id) => {
+        event.preventDefault()
+        console.log(event)
+        console.log(id)
+        this.props.deleteEmployee(id)
+        console.log(this.props)
+        this.setState({ employees: fetchEmployees() })
+        console.log(this.state)
+        //this.props.onDelete(this.state.employee)
+    }
+
     renderEmployees() {
         return this.props.employees.map(employee => {
+            const id = employee._id
             let start = new Date()
             start = employee.dateStart
 
@@ -138,11 +155,9 @@ class EmployeeList extends Component {
                             <Button style={NewColor}>Edit</Button>
                             <Button
                                 style={NewColor}
-                                onClick={() => {
-                                    this.props.deleteEmployee(employee._id)
-
-                                    console.log(employee._id)
-                                }}
+                                onClick={(event, key) =>
+                                    this.onEmployeeDelete(event, id)
+                                }
                             >
                                 Delete
                             </Button>
@@ -158,8 +173,14 @@ class EmployeeList extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { employees: state.employees }
+// onClick={() => {
+//     this.props.deleteEmployee(employee._id)
+//
+//     console.log(employee._id)
+// }}
+
+function mapStateToProps({ employees }) {
+    return { employees }
 }
 
 export default connect(

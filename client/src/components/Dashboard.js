@@ -3,7 +3,6 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import EmployeeList from './forms/EmployeeList'
 import Grid from '@material-ui/core/Grid'
-import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
@@ -32,15 +31,9 @@ const styles = theme => ({
 })
 
 class Dashboard extends Component {
-    state = { employee: {} }
-
-    deleteEmployee(employee) {
-        let index = this.state.employee
-            .map(element => element.employee)
-            .indexOf(employee)
-        this.state.employee.splice(index, 1)
+    onEmployeeDelete(employee) {
+        console.log(employee)
     }
-
     render() {
         const { classes } = this.props
         return (
@@ -52,13 +45,12 @@ class Dashboard extends Component {
                 </Paper>
                 <div className={classes.cardContainer}>
                     <Grid container justify="space-evenly" spacing={24}>
-                        <EmployeeList
-                            deleteEmployee={this.deleteEmployee.bind(this)}
-                        />
+                        <EmployeeList onDelete={this.onEmployeeDelete} />
                     </Grid>
                 </div>
             </Paper>
         )
     }
 }
-export default connect()(withStyles(styles)(Dashboard))
+
+export default withStyles(styles)(Dashboard)
