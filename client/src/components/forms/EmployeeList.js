@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Divider from '@material-ui/core/Divider'
 import { daysBetween } from './daysBetween'
+import { bindActionCreators } from 'redux'
 
 //import { Link } from 'react-router-dom'
 
@@ -46,12 +47,12 @@ let New = {}
 let NewColor = {}
 
 class EmployeeList extends Component {
-    constructor(props) {
-        super(props)
-        this.onEmployeeDelete = this.onEmployeeDelete.bind(this)
-    }
+    //     constructor(props) {
+    //         super(props)
+    //         this.onEmployeeDelete = this.onEmployeeDelete.bind(this)
+    //     }
 
-    state = { employee: fetchEmployees() }
+    state = { employees: fetchEmployees() }
 
     componentDidMount() {
         this.props.fetchEmployees()
@@ -59,16 +60,21 @@ class EmployeeList extends Component {
 
     onEmployeeDelete = (event, id) => {
         event.preventDefault()
-        console.log(event)
-        console.log(id)
+
         this.props.deleteEmployee(id)
-        console.log(this.props)
+        // console.log(event)
+        // console.log(id)
+        // this.props.deleteEmployee(id)
+        // console.log(this.props)
+        // console.log(this.state)
+        //
+        // this.setState({
+        //     employees: this.state.employees.filter(
+        //         employee => employee.id !== this.id
+        //     ),
+        // })
 
-        this.setState({
-            employees: this.state.filter(employee => employee.id !== this.id),
-        })
-
-        console.log(this.state)
+        //console.log('from EmpList: ' + this.state);
         //this.props.onDelete(this.state.employee)
     }
 
@@ -182,6 +188,12 @@ class EmployeeList extends Component {
 //
 //     console.log(employee._id)
 // }}
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(
+        { deleteEmployee: deleteEmployee, fetchEmployees: fetchEmployees },
+        dispatch
+    )
+}
 
 function mapStateToProps({ employees }) {
     return { employees }
@@ -189,5 +201,6 @@ function mapStateToProps({ employees }) {
 
 export default connect(
     mapStateToProps,
-    { fetchEmployees, deleteEmployee }
+    mapDispatchToProps
+    // { fetchEmployees, deleteEmployee }
 )(EmployeeList)

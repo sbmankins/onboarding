@@ -6,7 +6,9 @@ export default function(state = [], action) {
             return action.payload
 
         case DELETE_EMPLOYEE:
-            return state.filter(employee => employee.id !== action.id)
+            const employeeID = action.payload
+            console.log('from reducer ' + employeeID)
+            return state.filter(employee => employee.id !== employeeID)
 
         default:
             return state
