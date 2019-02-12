@@ -32,7 +32,14 @@ const styles = theme => ({
 })
 
 class Dashboard extends Component {
-    state = { employees: [] }
+    state = { employee: {} }
+
+    deleteEmployee(employee) {
+        let index = this.state.employee
+            .map(element => element.employee)
+            .indexOf(employee)
+        this.state.employee.splice(index, 1)
+    }
 
     render() {
         const { classes } = this.props
@@ -45,7 +52,9 @@ class Dashboard extends Component {
                 </Paper>
                 <div className={classes.cardContainer}>
                     <Grid container justify="space-evenly" spacing={24}>
-                        <EmployeeList />
+                        <EmployeeList
+                            deleteEmployee={this.deleteEmployee.bind(this)}
+                        />
                     </Grid>
                 </div>
             </Paper>

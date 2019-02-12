@@ -6,7 +6,7 @@ export default function(state = [], action) {
             return action.payload
 
         case DELETE_EMPLOYEE:
-            return state.filter(employee => employee._id !== action.id)
+            return state.filter(employee => employee.id !== action.id)
 
         default:
             return state

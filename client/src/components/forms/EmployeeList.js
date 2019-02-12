@@ -46,7 +46,7 @@ let New = {}
 let NewColor = {}
 
 class EmployeeList extends Component {
-    state = { employees: [] }
+    state = { employees: fetchEmployees() }
 
     componentDidMount() {
         this.props.fetchEmployees()
@@ -56,26 +56,21 @@ class EmployeeList extends Component {
         return this.props.employees.map(employee => {
             let start = new Date()
             start = employee.dateStart
-            console.log('dateStart' + employee.dateStart)
 
             const between = daysBetween(start)
-            console.log(employee.dateStart)
 
             if (between >= 7) {
                 New = Good
                 NewColor = Normaltext
                 DividerColor = false
-                console.log(between)
             } else if (between > 0 && between <= 7) {
                 New = Warning
                 NewColor = Normaltext
                 DividerColor = false
-                console.log(between)
             } else {
                 New = Danger
                 NewColor = Dangertext
                 DividerColor = true
-                console.log(between)
             }
             return (
                 <Grid
@@ -145,7 +140,7 @@ class EmployeeList extends Component {
                                 style={NewColor}
                                 onClick={() => {
                                     this.props.deleteEmployee(employee._id)
-                                    this.setState({ state: this.state })
+
                                     console.log(employee._id)
                                 }}
                             >
