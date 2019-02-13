@@ -1,27 +1,60 @@
-import _ from 'lodash'
-import React, { Component } from 'react'
-import { reduxForm, Field } from 'redux-form'
-import Button from '@material-ui/core/Button'
-import Paper from '@material-ui/core/Paper'
-import { Link } from 'react-router-dom'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import employeeFormFields from './employeeFormFields'
-import SearchSelect from './SearchSelect'
-import FormGroup from '@material-ui/core/FormGroup'
-import FormLabel from '@material-ui/core/FormLabel'
+import _ from 'lodash';
+import React, { Component } from 'react';
+import { reduxForm, Field } from 'redux-form';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import employeeFormFields from './employeeFormFields';
+import SearchSelect from './SearchSelect';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormLabel from '@material-ui/core/FormLabel';
 
-const colors = [
-    {
-        label: 'Test1',
-        value: 'Test1',
-    },
-    {
-        label: 'Test2',
-        value: 'Test2',
-    },
-]
+import axios from 'axios';
+
+// const colors = [
+//     {
+//         label: 'Test1',
+//         value: 'Test1',
+//     },
+//     {
+//         label: 'Test2',
+//         value: 'Test2',
+//     },
+// ]
 class EmployeeForm extends Component {
+    state = { adminOptions: [] };
+
+    componentDidMount() {
+        axios
+            .get('/api/admins')
+            .then(response => {
+                console.log(response.data);
+                this.setState({
+                    adminOptions: response.data,
+                });
+                console.log(this.state.adminOptions);
+            })
+            .catch(error => console.log(error.response));
+
+        // const adminOps = _.map(
+        //     this.state.adminOptions.data,
+        //     ({ _id, name }) => {
+        //         return {
+        //             label: name,
+        //             value: _id,
+        //         };
+        //     }
+        // );
+
+        //    console.log(this.state.adminOptions);
+
+        //    this.setState({ adminOptions: adminOps });
+
+        //console.log(this.state.adminOptions);
+    }
+
     renderFields() {
         return _.map(employeeFormFields, ({ label, name, component, type }) => {
             return (
@@ -32,8 +65,8 @@ class EmployeeForm extends Component {
                     label={label}
                     name={name}
                 />
-            )
-        })
+            );
+        });
     }
 
     render() {
@@ -81,9 +114,16 @@ class EmployeeForm extends Component {
                                         </Typography>
                                     </FormLabel>
                                     <Field
-                                        name="Test"
+                                        name="_admin"
                                         component={SearchSelect}
-                                        options={colors}
+                                        options={this.state.adminOptions.map(
+                                            ({ name, _id }) => {
+                                                return {
+                                                    label: name,
+                                                    value: _id,
+                                                };
+                                            }
+                                        )}
                                         clearable={true}
                                         placeholder="Favorite Color"
                                     />
@@ -118,7 +158,7 @@ class EmployeeForm extends Component {
                     </Button>
                 </form>
             </Paper>
-        )
+        );
     }
 }
 
@@ -126,19 +166,19 @@ function validate(values) {
     //console.log(values.dateStart);
     //console.log(values.test);
 
-    const errors = {}
+    const errors = {};
 
     _.each(employeeFormFields, ({ name, type }) => {
         if (!values[name] && values[type] !== 'date') {
-            errors[name] = 'You must provide a value'
+            errors[name] = 'You must provide a value';
         }
-    })
+    });
 
-    return errors
+    return errors;
 }
 
 export default reduxForm({
     validate,
     form: 'employeeForm',
     destroyOnUnmount: false,
-})(EmployeeForm)
+})(EmployeeForm);

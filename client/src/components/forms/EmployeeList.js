@@ -1,92 +1,84 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchEmployees, deleteEmployee } from '../../actions'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
-import Divider from '@material-ui/core/Divider'
-import { daysBetween } from './daysBetween'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchEmployees, deleteEmployee } from '../../actions';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import { daysBetween } from './daysBetween';
 
 //import { Link } from 'react-router-dom'
 
 const Normaltext = {
     color: 'black',
-}
+};
 const Warning = {
     backgroundColor: '#faf096',
     height: '200px',
     width: '250px',
     margin: '20px',
-}
+};
 
 const Dangertext = {
     color: 'white',
-}
+};
 
 const Danger = {
     backgroundColor: '#c82121',
     height: '200px',
     width: '250px',
     margin: '20px',
-}
+};
 
 const Good = {
     backgroundColor: '#acdeaa',
     height: '200px',
     width: '250px',
     margin: '20px',
-}
+};
 
-let DividerColor = false
+let DividerColor = false;
 
-let New = {}
-let NewColor = {}
+let New = {};
+let NewColor = {};
 
 class EmployeeList extends Component {
-    state = { employees: [] }
+    state = { employees: [] };
 
     componentDidMount() {
-        this.props.fetchEmployees()
+        this.props.fetchEmployees();
     }
 
     onEmployeeDelete = (event, id) => {
-        event.preventDefault()
-
-        this.props.deleteEmployee(id)
-
-        this.setState({ employees: this.props.fetchEmployees() })
-
-        //
-        // this.setState({
-        //     employees: this.state.employees.filter(
-        //         employee => employee.id !== this.id
-        //     ),
-        // })
-    }
+        event.preventDefault();
+        this.props.deleteEmployee(id);
+        this.setState({ employees: this.props.fetchEmployees() });
+    };
 
     renderEmployees() {
         return this.props.employees.map(employee => {
-            const id = employee._id
-            let start = new Date()
-            start = employee.dateStart
+            const id = employee._id;
+            let start = new Date();
+            start = employee.dateStart;
+            console.log(employee);
 
-            const between = daysBetween(start)
+            const between = daysBetween(start);
 
             if (between >= 7) {
-                New = Good
-                NewColor = Normaltext
-                DividerColor = false
+                New = Good;
+                NewColor = Normaltext;
+                DividerColor = false;
             } else if (between > 0 && between <= 7) {
-                New = Warning
-                NewColor = Normaltext
-                DividerColor = false
+                New = Warning;
+                NewColor = Normaltext;
+                DividerColor = false;
             } else {
-                New = Danger
-                NewColor = Dangertext
-                DividerColor = true
+                New = Danger;
+                NewColor = Dangertext;
+                DividerColor = true;
             }
 
             return (
@@ -117,7 +109,7 @@ class EmployeeList extends Component {
                                     <strong>Manager:</strong> {employee.manager}
                                 </Typography>
                                 <Typography style={NewColor} component="p">
-                                    <strong>Admin:</strong> {employee.admin}
+                                    <strong>Admin:</strong> {employee._admin}
                                 </Typography>
                                 <Divider
                                     style={{
@@ -164,20 +156,20 @@ class EmployeeList extends Component {
                         </CardActions>
                     </Card>
                 </Grid>
-            )
-        })
+            );
+        });
     }
 
     render() {
-        return <div>{this.renderEmployees()}</div>
+        return <div>{this.renderEmployees()}</div>;
     }
 }
 
 function mapStateToProps({ employees }) {
-    return { employees }
+    return { employees };
 }
 
 export default connect(
     mapStateToProps,
     { fetchEmployees, deleteEmployee }
-)(EmployeeList)
+)(EmployeeList);

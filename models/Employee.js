@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 //const ManagerSchema = require(./Manager);
 //const BuddySchema = require(./Buddy);
 //const AdminSchema = require(./Admin);
@@ -25,9 +25,9 @@ const employeeSchema = new Schema({
     //status: String,
     manager: { type: String, required: true },
     //_manager: {type: Schema.Types.ObjectId, ref: 'Manager', required: true},
-    admin: { type: String, required: true },
-    //_admin: {type: Schema.Types.ObjectId, ref: 'Admin', required: true},
+    // admin: { type: String, required: true },
+    _admin: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
     //_vendor: {type: Schema.Types.ObjectId, ref: 'Vendor'}
-})
+});
 
-mongoose.model('employees', employeeSchema)
+mongoose.model('employees', employeeSchema);

@@ -1,12 +1,12 @@
-import React from 'react'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
-import Button from '@material-ui/core/Button'
-import { connect } from 'react-redux'
-import employeeFormFields from './employeeFormFields'
-import _ from 'lodash'
-import * as actions from '../../actions'
-import { withRouter } from 'react-router-dom'
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import employeeFormFields from './employeeFormFields';
+import _ from 'lodash';
+import * as actions from '../../actions';
+import { withRouter } from 'react-router-dom';
 
 const EmployeeFormReview = ({
     onCancel,
@@ -22,8 +22,8 @@ const EmployeeFormReview = ({
                     <Typography variant="body1">{formValues[name]}</Typography>
                 </div>
             </div>
-        )
-    })
+        );
+    });
     return (
         <Paper
             style={{
@@ -52,11 +52,11 @@ const EmployeeFormReview = ({
                 {reviewFields}
                 <div style={{ marginBottom: '10px' }}>
                     <Typography style={{ fontWeight: 'bold' }}>
-                        Favorite Color
+                        Admin
                     </Typography>
                     <div>
                         <Typography variant="body1">
-                            {formValues.favoriteColor}
+                            {formValues._admin}
                         </Typography>
                     </div>
                 </div>
@@ -78,14 +78,14 @@ const EmployeeFormReview = ({
                 </Button>
             </div>
         </Paper>
-    )
-}
+    );
+};
 
 function mapStateToProps(state) {
-    return { formValues: state.form.employeeForm.values }
+    return { formValues: state.form.employeeForm.values };
 }
 
 export default connect(
     mapStateToProps,
     actions
-)(withRouter(EmployeeFormReview))
+)(withRouter(EmployeeFormReview));
