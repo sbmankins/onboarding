@@ -11,6 +11,7 @@ import SearchSelect from './SearchSelect';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import { withRouter } from 'react-router-dom';
+import employeeFormFieldValid from './employeeFormFieldValid';
 import axios from 'axios';
 
 class EmployeeForm extends Component {
@@ -26,13 +27,6 @@ class EmployeeForm extends Component {
                 });
             })
             .catch(error => console.log(error.response));
-
-        this.props.history.push({
-            pathname: '/new',
-            state: {
-                adminName: '',
-            },
-        });
     }
 
     handleChange(event) {
@@ -160,8 +154,8 @@ class EmployeeForm extends Component {
 function validate(values) {
     const errors = {};
 
-    _.each(employeeFormFields, ({ name, type }) => {
-        if (!values[name] && values[type] !== 'date') {
+    _.each(employeeFormFieldValid, ({ name }) => {
+        if (!values[name]) {
             errors[name] = 'You must provide a value';
         }
     });

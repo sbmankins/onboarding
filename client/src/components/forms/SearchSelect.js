@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react'
-import { withStyles } from '@material-ui/core/styles'
-import Select from 'react-select'
-import Typography from '@material-ui/core/Typography'
-import TextField from '@material-ui/core/TextField'
-import MenuItem from '@material-ui/core/MenuItem'
+import React, { PureComponent } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import Select from 'react-select';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = theme => ({
     selectWrapper: {
@@ -38,7 +38,7 @@ const styles = theme => ({
         left: 2,
         fontSize: 16,
     },
-})
+});
 
 const NoOptionsMessage = props => {
     return (
@@ -49,12 +49,12 @@ const NoOptionsMessage = props => {
         >
             {props.children}
         </Typography>
-    )
-}
+    );
+};
 
 const inputComponent = ({ inputRef, ...props }) => {
-    return <div ref={inputRef} {...props} />
-}
+    return <div ref={inputRef} {...props} />;
+};
 
 const Control = props => {
     return (
@@ -69,8 +69,8 @@ const Control = props => {
                 },
             }}
         />
-    )
-}
+    );
+};
 
 const Option = props => {
     return (
@@ -85,8 +85,8 @@ const Option = props => {
         >
             {props.children}
         </MenuItem>
-    )
-}
+    );
+};
 
 const Placeholder = props => {
     return (
@@ -97,8 +97,8 @@ const Placeholder = props => {
         >
             {props.children}
         </Typography>
-    )
-}
+    );
+};
 
 const SingleValue = props => {
     return (
@@ -108,15 +108,15 @@ const SingleValue = props => {
         >
             {props.children}
         </Typography>
-    )
-}
+    );
+};
 
 function ValueContainer(props) {
     return (
         <div className={props.selectProps.classes.valueContainer}>
             {props.children}
         </div>
-    )
+    );
 }
 
 const components = {
@@ -126,14 +126,14 @@ const components = {
     Placeholder,
     SingleValue,
     ValueContainer,
-}
+};
 
 type SearchSelectProps = {
     classes: Object,
     options: Array<Object>,
     clearable: Boolean,
     placeholder: String,
-}
+};
 
 class SearchSelect extends PureComponent<SearchSelectProps> {
     render() {
@@ -142,7 +142,8 @@ class SearchSelect extends PureComponent<SearchSelectProps> {
             options,
             placeholder,
             input: { value, onChange, onBlur },
-        } = this.props
+            meta: { touched, error },
+        } = this.props;
 
         return (
             <div className={classes.selectWrapper}>
@@ -158,10 +159,12 @@ class SearchSelect extends PureComponent<SearchSelectProps> {
                     options={options}
                     placeholder={placeholder}
                     components={components}
+                    required
                 />
+                <div style={{ color: 'red' }}>{touched && error}</div>
             </div>
-        )
+        );
     }
 }
 
-export default withStyles(styles)(SearchSelect)
+export default withStyles(styles)(SearchSelect);

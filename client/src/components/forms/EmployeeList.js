@@ -17,8 +17,8 @@ const Normaltext = {
 };
 const Warning = {
     backgroundColor: '#faf096',
-    height: '225px',
-    width: '250px',
+    // height: '225px',
+    // width: '250px',
     margin: '20px',
 };
 
@@ -28,15 +28,15 @@ const Dangertext = {
 
 const Danger = {
     backgroundColor: '#c82121',
-    height: '225px',
-    width: '250px',
+    // height: '225px',
+    // width: '250px',
     margin: '20px',
 };
 
 const Good = {
     backgroundColor: '#acdeaa',
-    height: '225px',
-    width: '250px',
+    // height: '225px',
+    // width: '250px',
     margin: '20px',
 };
 
