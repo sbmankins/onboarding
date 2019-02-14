@@ -5,9 +5,7 @@ const Employee = mongoose.model('employees');
 module.exports = app => {
     app.get('/api/admins', async (req, res) => {
         const admins = await Admin.find();
-        console.log('I made it to the admin route');
         res.send(admins);
-        console.log(admins);
     });
 
     app.get('/api/employees', async (req, res) => {
@@ -20,14 +18,17 @@ module.exports = app => {
                     as: 'admin',
                 },
             },
-        ]);
+            { $sort: { 'admin.name': -1 } },
+        ]).sort({
+            dateStart: 'ascending',
+            lastName: 'ascending',
+            manager: 'ascending',
+        });
 
-        console.log(employees);
         res.send(employees);
     });
 
     app.post('/api/employees', async (req, res) => {
-        console.log(req.body);
         const {
             firstName,
             lastName,
@@ -50,7 +51,7 @@ module.exports = app => {
 
         try {
             await employee.save();
-            console.log('employee saved');
+
             res.status(201).send({ response: 'Employee created' });
         } catch (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
@@ -65,8 +66,6 @@ module.exports = app => {
     });
 
     app.delete('/api/:id', async (req, res) => {
-        console.log(req.params.id);
-
         try {
             await Employee.deleteOne({ _id: req.params.id });
             res.status(201).send({ response: 'Employee Deleted' });

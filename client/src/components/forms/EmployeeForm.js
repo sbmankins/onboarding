@@ -26,22 +26,25 @@ class EmployeeForm extends Component {
                 });
             })
             .catch(error => console.log(error.response));
+
+        this.props.history.push({
+            pathname: '/new',
+            state: {
+                adminName: '',
+            },
+        });
     }
 
     handleChange(event) {
-        console.log(event);
-
         const adminName = this.state.adminOptions.find(o => o._id === event)
             .name;
 
-        console.log(this.state);
         this.props.history.push({
             pathname: '/new',
             state: {
                 adminName: adminName,
             },
         });
-        console.log(this.props.history);
     }
 
     renderFields() {

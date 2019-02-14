@@ -24,8 +24,7 @@ const EmployeeFormReview = ({
             </div>
         );
     });
-    console.log(formValues);
-    console.log(history);
+
     return (
         <Paper
             style={{

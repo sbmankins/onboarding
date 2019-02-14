@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import EmployeeList from './forms/EmployeeList'
-import Grid from '@material-ui/core/Grid'
-import { withStyles } from '@material-ui/core/styles'
+import React, { Component } from 'react';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import EmployeeList from './forms/EmployeeList';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     outerContainer: {
@@ -28,14 +28,12 @@ const styles = theme => ({
     cardContainer: {
         flexGrow: 1,
     },
-})
+});
 
 class Dashboard extends Component {
-    onEmployeeDelete(employee) {
-        console.log(employee)
-    }
+    onEmployeeDelete(employee) {}
     render() {
-        const { classes } = this.props
+        const { classes } = this.props;
         return (
             <Paper className={classes.outerContainer} elevation={1}>
                 <Paper className={classes.headerContainer}>
@@ -49,8 +47,8 @@ class Dashboard extends Component {
                     </Grid>
                 </div>
             </Paper>
-        )
+        );
     }
 }
 
-export default withStyles(styles)(Dashboard)
+export default withStyles(styles)(Dashboard);

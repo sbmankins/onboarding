@@ -63,7 +63,6 @@ class EmployeeList extends Component {
             const id = employee._id;
             let start = new Date();
             start = employee.dateStart;
-            console.log(employee);
 
             const between = daysBetween(start);
 
