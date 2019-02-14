@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Employee = mongoose.model('employees');
 const Admin = mongoose.model('admins');
+const Employee = mongoose.model('employees');
 
 module.exports = app => {
     app.get('/api/admins', async (req, res) => {
@@ -9,21 +9,20 @@ module.exports = app => {
         res.send(admins);
         console.log(admins);
     });
+
     app.get('/api/employees', async (req, res) => {
-        const employees = await Employee.find()
-            .select({
-                firstName: true,
-                lastName: true,
-                dateStart: true,
-                manager: true,
-                admin: true,
-            })
-            .sort({
-                dateStart: 'ascending',
-                manager: 'ascending',
-                admin: 'ascending',
-                lastName: 'ascending',
-            });
+        const employees = await Employee.aggregate([
+            {
+                $lookup: {
+                    localField: '_admin',
+                    from: 'admins',
+                    foreignField: '_id',
+                    as: 'admin',
+                },
+            },
+        ]);
+
+        console.log(employees);
         res.send(employees);
     });
 
@@ -36,7 +35,6 @@ module.exports = app => {
             _admin,
             manager,
             buddy,
-            favoriteColor,
         } = req.body;
 
         const employee = new Employee({

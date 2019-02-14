@@ -10,21 +10,11 @@ import employeeFormFields from './employeeFormFields';
 import SearchSelect from './SearchSelect';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
-
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
-// const colors = [
-//     {
-//         label: 'Test1',
-//         value: 'Test1',
-//     },
-//     {
-//         label: 'Test2',
-//         value: 'Test2',
-//     },
-// ]
 class EmployeeForm extends Component {
-    state = { adminOptions: [] };
+    state = { adminOptions: [], admin: '' };
 
     componentDidMount() {
         axios
@@ -34,25 +24,24 @@ class EmployeeForm extends Component {
                 this.setState({
                     adminOptions: response.data,
                 });
-                console.log(this.state.adminOptions);
             })
             .catch(error => console.log(error.response));
+    }
 
-        // const adminOps = _.map(
-        //     this.state.adminOptions.data,
-        //     ({ _id, name }) => {
-        //         return {
-        //             label: name,
-        //             value: _id,
-        //         };
-        //     }
-        // );
+    handleChange(event) {
+        console.log(event);
 
-        //    console.log(this.state.adminOptions);
+        const adminName = this.state.adminOptions.find(o => o._id === event)
+            .name;
 
-        //    this.setState({ adminOptions: adminOps });
-
-        //console.log(this.state.adminOptions);
+        console.log(this.state);
+        this.props.history.push({
+            pathname: '/new',
+            state: {
+                adminName: adminName,
+            },
+        });
+        console.log(this.props.history);
     }
 
     renderFields() {
@@ -110,11 +99,13 @@ class EmployeeForm extends Component {
                                 >
                                     <FormLabel>
                                         <Typography variant="body1">
-                                            Dropdown Example
+                                            Admin
                                         </Typography>
                                     </FormLabel>
+
                                     <Field
                                         name="_admin"
+                                        simpleValue={false}
                                         component={SearchSelect}
                                         options={this.state.adminOptions.map(
                                             ({ name, _id }) => {
@@ -124,8 +115,9 @@ class EmployeeForm extends Component {
                                                 };
                                             }
                                         )}
+                                        onChange={e => this.handleChange(e)}
                                         clearable={true}
-                                        placeholder="Favorite Color"
+                                        placeholder="Select a person"
                                     />
                                 </FormGroup>
                             </Paper>
@@ -163,9 +155,6 @@ class EmployeeForm extends Component {
 }
 
 function validate(values) {
-    //console.log(values.dateStart);
-    //console.log(values.test);
-
     const errors = {};
 
     _.each(employeeFormFields, ({ name, type }) => {
@@ -177,8 +166,10 @@ function validate(values) {
     return errors;
 }
 
-export default reduxForm({
-    validate,
-    form: 'employeeForm',
-    destroyOnUnmount: false,
-})(EmployeeForm);
+export default withRouter(
+    reduxForm({
+        validate,
+        form: 'employeeForm',
+        destroyOnUnmount: false,
+    })(EmployeeForm)
+);

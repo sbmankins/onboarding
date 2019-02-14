@@ -17,7 +17,7 @@ const Normaltext = {
 };
 const Warning = {
     backgroundColor: '#faf096',
-    height: '200px',
+    height: '225px',
     width: '250px',
     margin: '20px',
 };
@@ -28,14 +28,14 @@ const Dangertext = {
 
 const Danger = {
     backgroundColor: '#c82121',
-    height: '200px',
+    height: '225px',
     width: '250px',
     margin: '20px',
 };
 
 const Good = {
     backgroundColor: '#acdeaa',
-    height: '200px',
+    height: '225px',
     width: '250px',
     margin: '20px',
 };
@@ -109,7 +109,8 @@ class EmployeeList extends Component {
                                     <strong>Manager:</strong> {employee.manager}
                                 </Typography>
                                 <Typography style={NewColor} component="p">
-                                    <strong>Admin:</strong> {employee._admin}
+                                    <strong>Admin:</strong>{' '}
+                                    {employee.admin[0].name}
                                 </Typography>
                                 <Divider
                                     style={{

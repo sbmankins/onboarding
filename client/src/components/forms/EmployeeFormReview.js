@@ -24,6 +24,8 @@ const EmployeeFormReview = ({
             </div>
         );
     });
+    console.log(formValues);
+    console.log(history);
     return (
         <Paper
             style={{
@@ -56,7 +58,7 @@ const EmployeeFormReview = ({
                     </Typography>
                     <div>
                         <Typography variant="body1">
-                            {formValues._admin}
+                            {history.location.state.adminName}
                         </Typography>
                     </div>
                 </div>

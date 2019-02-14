@@ -2,9 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const PORT = 5000;
-require('./models/Employee');
 require('./models/Manager');
 require('./models/Admin');
+require('./models/Employee');
 
 mongoose.connect(
     'mongodb://localhost:27017/onboardingDB',
@@ -22,7 +22,6 @@ app.get('/', (req, res) => {
 });
 
 require('./routes/employeeRoutes')(app);
-// require('./routes/adminRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
     //Express will serve main.js, main.css, etc
