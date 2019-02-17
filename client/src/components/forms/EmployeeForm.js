@@ -21,13 +21,11 @@ class EmployeeForm extends Component {
         axios
             .get('/api/admins')
             .then(response => {
-                console.log(response.data);
                 this.setState({
                     adminOptions: response.data,
                 });
             })
             .catch(error => console.log(error.response));
-        console.log('test:  ', this.props);
         if (this.props._reduxForm.history.location.state !== undefined) {
             this.setState({
                 editing: this.props._reduxForm.history.location.state.editing,
@@ -40,8 +38,6 @@ class EmployeeForm extends Component {
     handleChange(event) {
         const adminName = this.state.adminOptions.find(o => o._id === event)
             .name;
-        console.log('ADMIN NAME  ', adminName);
-
         this.props.history.push({
             pathname: '/new',
             state: {

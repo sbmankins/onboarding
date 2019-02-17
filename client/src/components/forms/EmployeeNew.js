@@ -8,9 +8,7 @@ class EmployeeNew extends Component {
     state = { showFormReview: false, employee: {}, editing: false };
 
     componentDidMount() {
-        console.log('EmployeeNew Props', this.props);
         if (this.props.history.location.state !== undefined) {
-            console.log(this.props.history.location.state.employee);
             const id = this.props.history.location.state.employee;
             axios
                 .get(`/api/${id}`)
@@ -24,19 +22,11 @@ class EmployeeNew extends Component {
                 })
                 .catch(error => console.log(error.response));
         }
-
-        // this.setState(
-        //     { editing: this.props.history.location.state.editing },
-        //     () => {
-        //         console.log('editing:  ', this.state.editing);
-        //     }
-        // );
     }
 
     handleInitialize() {
         if (this.state.employee) {
             this.setState({ editing: true });
-            console.log('init form:  ' + this.state.employee._id);
             const initData = {
                 firstName: this.state.employee.firstName,
                 lastName: this.state.employee.lastName,

@@ -13,28 +13,19 @@ class EmployeeFormReview extends Component {
 
     componentDidMount() {
         if (this.props.location.state.editing !== undefined) {
-            this.setState(
-                { editing: this.props.location.state.editing },
-                () => {
-                    console.log(this.state.editing);
-                }
-            );
+            this.setState({ editing: this.props.location.state.editing });
         } else {
             this.setState({ editing: false });
         }
 
         if (this.props.location.state.employee !== undefined) {
-            this.setState(
-                { employee: this.props.location.state.employee },
-                () => {
-                    console.log(this.state.employee);
-                }
-            );
+            this.setState({ employee: this.props.location.state.employee });
         } else {
             this.setState({ employee: '' });
         }
     }
     renderButton() {
+        const id = this.state.employee;
         const {
             formValues,
             history,
@@ -51,7 +42,7 @@ class EmployeeFormReview extends Component {
                         width: '100px',
                     }}
                     onClick={() => {
-                        editEmployee(this.state.id, formValues, history);
+                        editEmployee(id, formValues, history);
                     }}
                 >
                     Submit
@@ -93,7 +84,7 @@ class EmployeeFormReview extends Component {
     }
 
     render() {
-        const { formValues, onCancel, history, submitEmployee } = this.props;
+        const { onCancel, history } = this.props;
 
         return (
             <Paper

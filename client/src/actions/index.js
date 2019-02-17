@@ -31,8 +31,10 @@ export const fetchOneEmployee = id => async dispatch => {
 };
 
 export const editEmployee = (id, values, history) => async dispatch => {
-    console.log('action: ' + id);
-    const res = await axios.post(`api/${id}`, values);
+    console.log(
+        'action: ' + id + 'values:  ' + values + 'histroy:  ' + history
+    );
+    const res = await axios.put(`api/${id}`, values);
     history.push('/');
     dispatch({ type: EDIT_EMPLOYEE, payload: res.data });
 };

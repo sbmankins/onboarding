@@ -67,7 +67,7 @@ let NewColor = {};
 class EmployeeList extends Component {
     state = {
         employees: [],
-        employee: [],
+        employee: {},
         employeeID: '',
         toDashboard: false,
         editing: false,
@@ -75,6 +75,7 @@ class EmployeeList extends Component {
 
     componentDidMount() {
         this.props.fetchEmployees();
+
         this.setState({ editing: false });
     }
 
@@ -86,142 +87,139 @@ class EmployeeList extends Component {
 
     handleEditClick = (event, id) => {
         event.preventDefault();
-        this.setState(
-            { employeeID: id, toDashboard: true, editing: true },
-            function() {
-                console.log('EmployeeID: ' + this.state.employeeID);
-            }
-        );
-
-        //  this.props.handleStateChange(this.state.editing);
+        this.setState({ employeeID: id, toDashboard: true, editing: true });
     };
 
     renderEmployees() {
         const { classes } = this.props;
-        return this.props.employees.map(employee => {
-            const id = employee._id;
-            let start = new Date();
-            start = employee.dateStart;
+        return (
+            this.props.employees &&
+            this.props.employees.map(employee => {
+                const id = employee._id;
+                let start = new Date();
+                start = employee.dateStart;
 
-            const between = daysBetween(start);
+                const between = daysBetween(start);
 
-            if (between >= 7) {
-                New = Good;
-                NewColor = Normaltext;
-                DividerColor = false;
-            } else if (between > 0 && between <= 7) {
-                New = Warning;
-                NewColor = Normaltext;
-                DividerColor = false;
-            } else {
-                New = Danger;
-                NewColor = Dangertext;
-                DividerColor = true;
-            }
+                if (between >= 7) {
+                    New = Good;
+                    NewColor = Normaltext;
+                    DividerColor = false;
+                } else if (between > 0 && between <= 7) {
+                    New = Warning;
+                    NewColor = Normaltext;
+                    DividerColor = false;
+                } else {
+                    New = Danger;
+                    NewColor = Dangertext;
+                    DividerColor = true;
+                }
 
-            return (
-                <Grid
-                    item
-                    style={{
-                        display: 'inline-block',
-                    }}
-                    xs={12}
-                    key={employee._id}
-                >
-                    <Card style={New}>
-                        <CardContent>
-                            <Typography
-                                style={NewColor}
-                                variant="title"
-                                component="h6"
-                            >
-                                {employee.firstName} {employee.lastName}
-                            </Typography>
-                            <Divider
-                                style={{ margin: '5px 0 5px 0' }}
-                                variant="middle"
-                                light={DividerColor}
-                            />
-                            <div style={{ textAlign: 'Left' }}>
-                                <Typography style={NewColor} component="p">
-                                    <strong>Manager:</strong> {employee.manager}
-                                </Typography>
-                                <Typography style={NewColor} component="p">
-                                    <strong>Admin:</strong>{' '}
-                                    {employee.admin[0].name}
+                return (
+                    <Grid
+                        item
+                        style={{
+                            display: 'inline-block',
+                        }}
+                        xs={12}
+                        key={employee._id}
+                    >
+                        <Card style={New}>
+                            <CardContent>
+                                <Typography
+                                    style={NewColor}
+                                    variant="title"
+                                    component="h6"
+                                >
+                                    {employee.firstName} {employee.lastName}
                                 </Typography>
                                 <Divider
-                                    style={{
-                                        margin: '5px 0 5px 0',
-                                    }}
+                                    style={{ margin: '5px 0 5px 0' }}
                                     variant="middle"
                                     light={DividerColor}
                                 />
-                                <Grid container spacing={24}>
-                                    <Grid item xs={6}>
-                                        <Typography
-                                            style={NewColor}
-                                            component="p"
-                                        >
-                                            <strong>Start Date:</strong>{' '}
-                                            {new Date(
-                                                employee.dateStart
-                                            ).toLocaleDateString('en-US', {
-                                                timeZone: 'UTC',
-                                            })}
-                                        </Typography>
+                                <div style={{ textAlign: 'Left' }}>
+                                    <Typography style={NewColor} component="p">
+                                        <strong>Manager:</strong>{' '}
+                                        {employee.manager}
+                                    </Typography>
+                                    <Typography style={NewColor} component="p">
+                                        <strong>Admin:</strong>{' '}
+                                        {employee.admin[0].name}
+                                    </Typography>
+                                    <Divider
+                                        style={{
+                                            margin: '5px 0 5px 0',
+                                        }}
+                                        variant="middle"
+                                        light={DividerColor}
+                                    />
+                                    <Grid container spacing={24}>
+                                        <Grid item xs={6}>
+                                            <Typography
+                                                style={NewColor}
+                                                component="p"
+                                            >
+                                                <strong>Start Date:</strong>{' '}
+                                                {new Date(
+                                                    employee.dateStart
+                                                ).toLocaleDateString('en-US', {
+                                                    timeZone: 'UTC',
+                                                })}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <Typography
+                                                style={NewColor}
+                                                component="p"
+                                            >
+                                                <strong>Status:</strong> To DO
+                                            </Typography>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={6}>
-                                        <Typography
-                                            style={NewColor}
-                                            component="p"
-                                        >
-                                            <strong>Status:</strong> To DO
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            </div>
-                        </CardContent>
-                        <CardActions>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                editing="true"
-                                className={classes.button}
-                                style={{ padding: '3px' }}
-                                onClick={(e, key) =>
-                                    this.handleEditClick(e, id)
-                                }
-                            >
-                                <EditIcon
-                                    style={{
-                                        color: 'white',
-                                        fontSize: '1.25rem',
-                                    }}
-                                    className={classes.iconRight}
-                                />
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                className={classes.button}
-                                onClick={(event, key) =>
-                                    this.onEmployeeDelete(event, id)
-                                }
-                            >
-                                <DeleteIcon
-                                    style={{
-                                        color: 'white',
-                                        fontSize: '1.25rem',
-                                    }}
-                                    className={classes.iconRight}
-                                />
-                            </Button>
-                        </CardActions>
-                    </Card>
-                </Grid>
-            );
-        });
+                                </div>
+                            </CardContent>
+                            <CardActions>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    editing="true"
+                                    className={classes.button}
+                                    style={{ padding: '3px' }}
+                                    onClick={(e, key) =>
+                                        this.handleEditClick(e, id)
+                                    }
+                                >
+                                    <EditIcon
+                                        style={{
+                                            color: 'white',
+                                            fontSize: '1.5rem',
+                                        }}
+                                        className={classes.iconRight}
+                                    />
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    className={classes.button}
+                                    onClick={(event, key) =>
+                                        this.onEmployeeDelete(event, id)
+                                    }
+                                >
+                                    <DeleteIcon
+                                        style={{
+                                            color: 'white',
+                                            fontSize: '1.25rem',
+                                        }}
+                                        className={classes.iconRight}
+                                    />
+                                </Button>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                );
+            })
+        );
     }
 
     render() {
