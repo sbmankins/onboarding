@@ -13,9 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
-import compose from 'recompose/compose';
 
-//import { Link } from 'react-router-dom'
 const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
@@ -36,8 +34,6 @@ const Normaltext = {
 };
 const Warning = {
     backgroundColor: '#faf096',
-    // height: '225px',
-    // width: '250px',
     margin: '20px',
 };
 
@@ -47,15 +43,11 @@ const Dangertext = {
 
 const Danger = {
     backgroundColor: '#c82121',
-    // height: '225px',
-    // width: '250px',
     margin: '20px',
 };
 
 const Good = {
     backgroundColor: '#acdeaa',
-    // height: '225px',
-    // width: '250px',
     margin: '20px',
 };
 
@@ -244,14 +236,12 @@ const mapStateToProps = state => {
     return {
         employees: state.employees,
         employee: state.employee,
-        //editing: state.editing,
     };
 };
 
-export default compose(
-    withStyles(styles),
-    connect(
-        mapStateToProps,
-        { fetchEmployees, deleteEmployee }
-    )
+EmployeeList = connect(
+    mapStateToProps,
+    { fetchEmployees, deleteEmployee }
 )(EmployeeList);
+
+export default withStyles(styles)(EmployeeList);

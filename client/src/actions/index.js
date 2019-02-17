@@ -19,21 +19,16 @@ export const fetchEmployees = () => async dispatch => {
 };
 
 export const deleteEmployee = id => async dispatch => {
-    console.log('action: ' + id);
     const req = await axios.delete(`/api/${id}`);
     dispatch({ type: DELETE_EMPLOYEE, payload: req });
 };
 
 export const fetchOneEmployee = id => async dispatch => {
-    console.log('action: ' + id);
     const res = await axios.get(`api/${id}`);
     dispatch({ type: FETCH_ONE_EMPLOYEE, payload: res.data });
 };
 
 export const editEmployee = (id, values, history) => async dispatch => {
-    console.log(
-        'action: ' + id + 'values:  ' + values + 'histroy:  ' + history
-    );
     const res = await axios.put(`api/${id}`, values);
     history.push('/');
     dispatch({ type: EDIT_EMPLOYEE, payload: res.data });

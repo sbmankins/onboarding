@@ -30,9 +30,7 @@ module.exports = app => {
 
     app.get('/api/:id', async (req, res) => {
         try {
-            console.log(req.params.id);
             const employee = await Employee.findById(req.params.id);
-            console.log(employee);
             res.send(employee);
         } catch (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
@@ -47,7 +45,6 @@ module.exports = app => {
     });
 
     app.put('/api/:id', async (req, res) => {
-        console.log('I made it to edit' + req.body);
         const employee = await Employee.findByIdAndUpdate(
             req.params.id,
             { $set: req.body },

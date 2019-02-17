@@ -174,7 +174,7 @@ EmployeeForm = reduxForm({
     form: 'employeeForm',
     destroyOnUnmount: false,
     enableReinitialize: true,
-    keepDirtyOnReinitialize: true, // a unique identifier for this form
+    keepDirtyOnReinitialize: true,
 })(EmployeeForm);
-// Decorate with reduxForm(). It will read the initialValues prop provided by connect()
+
 export default withRouter(EmployeeForm);
