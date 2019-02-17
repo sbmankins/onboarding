@@ -10,9 +10,9 @@ import employeeFormFields from './employeeFormFields';
 import SearchSelect from './SearchSelect';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
-import { withRouter } from 'react-router-dom';
 import employeeFormFieldValid from './employeeFormFieldValid';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 class EmployeeForm extends Component {
     state = { adminOptions: [], admin: '' };
@@ -27,11 +27,20 @@ class EmployeeForm extends Component {
                 });
             })
             .catch(error => console.log(error.response));
+        console.log('test:  ', this.props);
+        if (this.props._reduxForm.history.location.state !== undefined) {
+            this.setState({
+                editing: this.props._reduxForm.history.location.state.editing,
+            });
+        } else {
+            this.setState({ editing: false });
+        }
     }
 
     handleChange(event) {
         const adminName = this.state.adminOptions.find(o => o._id === event)
             .name;
+        console.log('ADMIN NAME  ', adminName);
 
         this.props.history.push({
             pathname: '/new',
@@ -84,6 +93,7 @@ class EmployeeForm extends Component {
                     onSubmit={this.props.handleSubmit(
                         this.props.handleSubmit(this.props.onEmployeeSubmit)
                     )}
+                    //onInitialValues={...props}
                 >
                     <Grid container spacing={24}>
                         {this.renderFields()}
@@ -163,10 +173,12 @@ function validate(values) {
     return errors;
 }
 
-export default withRouter(
-    reduxForm({
-        validate,
-        form: 'employeeForm',
-        destroyOnUnmount: false,
-    })(EmployeeForm)
-);
+EmployeeForm = reduxForm({
+    validate,
+    form: 'employeeForm',
+    destroyOnUnmount: false,
+    enableReinitialize: true,
+    keepDirtyOnReinitialize: true, // a unique identifier for this form
+})(EmployeeForm);
+// Decorate with reduxForm(). It will read the initialValues prop provided by connect()
+export default withRouter(EmployeeForm);

@@ -4,6 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import EmployeeList from './forms/EmployeeList';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     outerContainer: {
@@ -28,6 +31,10 @@ const styles = theme => ({
     cardContainer: {
         flexGrow: 1,
     },
+
+    fab: {
+        margin: theme.spacing.unit,
+    },
 });
 
 class Dashboard extends Component {
@@ -46,6 +53,28 @@ class Dashboard extends Component {
                         <EmployeeList onDelete={this.onEmployeeDelete} />
                     </Grid>
                 </div>
+                <Fab
+                    style={{
+                        float: 'right',
+                        margin: 0,
+                        top: 'auto',
+                        right: 20,
+                        bottom: 20,
+                        left: 'auto',
+                        position: 'fixed',
+                    }}
+                    color="primary"
+                    aria-label="Add"
+                    className={classes.fab}
+                >
+                    {' '}
+                    <Link
+                        style={{ textDecoration: 'none', color: 'white' }}
+                        to={'/new'}
+                    >
+                        <AddIcon />
+                    </Link>
+                </Fab>
             </Paper>
         );
     }

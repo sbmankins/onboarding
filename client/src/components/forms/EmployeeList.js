@@ -9,8 +9,27 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { daysBetween } from './daysBetween';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import { withStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
+import compose from 'recompose/compose';
 
 //import { Link } from 'react-router-dom'
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    leftIcon: {
+        marginRight: theme.spacing.unit,
+    },
+    rightIcon: {
+        marginLeft: theme.spacing.unit,
+    },
+    iconSmall: {
+        fontSize: 12,
+    },
+});
 
 const Normaltext = {
     color: 'black',
@@ -46,10 +65,17 @@ let New = {};
 let NewColor = {};
 
 class EmployeeList extends Component {
-    state = { employees: [] };
+    state = {
+        employees: [],
+        employee: [],
+        employeeID: '',
+        toDashboard: false,
+        editing: false,
+    };
 
     componentDidMount() {
         this.props.fetchEmployees();
+        this.setState({ editing: false });
     }
 
     onEmployeeDelete = (event, id) => {
@@ -58,7 +84,20 @@ class EmployeeList extends Component {
         this.setState({ employees: this.props.fetchEmployees() });
     };
 
+    handleEditClick = (event, id) => {
+        event.preventDefault();
+        this.setState(
+            { employeeID: id, toDashboard: true, editing: true },
+            function() {
+                console.log('EmployeeID: ' + this.state.employeeID);
+            }
+        );
+
+        //  this.props.handleStateChange(this.state.editing);
+    };
+
     renderEmployees() {
+        const { classes } = this.props;
         return this.props.employees.map(employee => {
             const id = employee._id;
             let start = new Date();
@@ -144,14 +183,39 @@ class EmployeeList extends Component {
                             </div>
                         </CardContent>
                         <CardActions>
-                            <Button style={NewColor}>Edit</Button>
                             <Button
-                                style={NewColor}
+                                variant="contained"
+                                color="primary"
+                                editing="true"
+                                className={classes.button}
+                                style={{ padding: '3px' }}
+                                onClick={(e, key) =>
+                                    this.handleEditClick(e, id)
+                                }
+                            >
+                                <EditIcon
+                                    style={{
+                                        color: 'white',
+                                        fontSize: '1.25rem',
+                                    }}
+                                    className={classes.iconRight}
+                                />
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                className={classes.button}
                                 onClick={(event, key) =>
                                     this.onEmployeeDelete(event, id)
                                 }
                             >
-                                Delete
+                                <DeleteIcon
+                                    style={{
+                                        color: 'white',
+                                        fontSize: '1.25rem',
+                                    }}
+                                    className={classes.iconRight}
+                                />
                             </Button>
                         </CardActions>
                     </Card>
@@ -161,15 +225,35 @@ class EmployeeList extends Component {
     }
 
     render() {
+        if (this.state.toDashboard === true && this.state.employee) {
+            return (
+                <Redirect
+                    to={{
+                        pathname: '/new',
+                        state: {
+                            employee: this.state.employeeID,
+                            editing: this.state.editing,
+                        },
+                    }}
+                />
+            );
+        }
         return <div>{this.renderEmployees()}</div>;
     }
 }
 
-function mapStateToProps({ employees }) {
-    return { employees };
-}
+const mapStateToProps = state => {
+    return {
+        employees: state.employees,
+        employee: state.employee,
+        //editing: state.editing,
+    };
+};
 
-export default connect(
-    mapStateToProps,
-    { fetchEmployees, deleteEmployee }
+export default compose(
+    withStyles(styles),
+    connect(
+        mapStateToProps,
+        { fetchEmployees, deleteEmployee }
+    )
 )(EmployeeList);
