@@ -1,0 +1,205 @@
+NICE TO HAVE IF TIME
+
+
+Code
+
+----renderField.js------
+import React from 'react'
+
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} placeholder={label} type={type}/>
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+)
+
+export default renderField
+
+
+
+----WizardForm.js-----
+
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import WizardFormFirstPage from './WizardFormFirstPage'
+import WizardFormSecondPage from './WizardFormSecondPage'
+import WizardFormThirdPage from './WizardFormThirdPage'
+
+class WizardForm extends Component {
+  constructor(props) {
+    super(props)
+    this.nextPage = this.nextPage.bind(this)
+    this.previousPage = this.previousPage.bind(this)
+    this.state = {
+      page: 1
+    }
+  }
+  nextPage() {
+    this.setState({ page: this.state.page + 1 })
+  }
+
+  previousPage() {
+    this.setState({ page: this.state.page - 1 })
+  }
+
+  render() {
+    const { onSubmit } = this.props
+    const { page } = this.state
+    return (<div>
+        {page === 1 && <WizardFormFirstPage onSubmit={this.nextPage}/>}
+        {page === 2 && <WizardFormSecondPage previousPage={this.previousPage} onSubmit={this.nextPage}/>}
+        {page === 3 && <WizardFormThirdPage previousPage={this.previousPage} onSubmit={onSubmit}/>}
+      </div>
+    )
+  }
+}
+
+WizardForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired
+}
+
+export default WizardForm
+
+
+-----validate.js------
+
+const validate = values => {
+  const errors = {}
+  if (!values.firstName) {
+    errors.firstName = 'Required'
+  }
+  if (!values.lastName) {
+    errors.lastName = 'Required'
+  }
+  if (!values.email) {
+    errors.email = 'Required'
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address'
+  }
+  if (!values.sex) {
+    errors.sex = 'Required'
+  }
+  if (!values.favoriteColor) {
+    errors.favoriteColor = 'Required'
+  }
+  return errors
+}
+
+export default validate
+WizardFormFirstPage.js
+import React from 'react'
+import { Field, reduxForm } from 'redux-form'
+import validate from './validate'
+import renderField from './renderField'
+
+const WizardFormFirstPage = (props) => {
+  const { handleSubmit } = props
+  return (
+    <form onSubmit={handleSubmit}>
+      <Field name="firstName" type="text" component={renderField} label="First Name"/>
+      <Field name="lastName" type="text" component={renderField} label="Last Name"/>
+      <div>
+        <button type="submit" className="next">Next</button>
+      </div>
+    </form>
+  )
+}
+
+export default reduxForm({
+  form: 'wizard',                 // <------ same form name
+  destroyOnUnmount: false,        // <------ preserve form data
+  forceUnregisterOnUnmount: true,  // <------ unregister fields on unmount
+  validate
+})(WizardFormFirstPage)
+
+----WizardFormSecondPage.js--------
+
+import React from 'react'
+import { Field, reduxForm } from 'redux-form'
+import validate from './validate'
+import renderField from './renderField'
+
+const renderError = ({ meta: { touched, error } }) => touched && error ?
+  <span>{error}</span> : false
+
+const WizardFormSecondPage = (props) => {
+  const { handleSubmit, previousPage } = props
+  return (
+    <form onSubmit={handleSubmit}>
+      <Field name="email" type="email" component={renderField} label="Email"/>
+      <div>
+        <label>Sex</label>
+        <div>
+          <label><Field name="sex" component="input" type="radio" value="male"/> Male</label>
+          <label><Field name="sex" component="input" type="radio" value="female"/> Female</label>
+          <Field name="sex" component={renderError}/>
+        </div>
+      </div>
+      <div>
+        <button type="button" className="previous" onClick={previousPage}>Previous</button>
+        <button type="submit" className="next">Next</button>
+      </div>
+    </form>
+  )
+}
+
+export default reduxForm({
+  form: 'wizard',  //Form name is same
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: true,  // <------ unregister fields on unmount
+  validate
+})(WizardFormSecondPage)
+
+-----WizardFormThirdPage.js-----
+
+import React from 'react'
+import { Field, reduxForm } from 'redux-form'
+import validate from './validate'
+const colors = [ 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet' ]
+
+const renderColorSelector = ({ input, meta: { touched, error } }) => (
+  <div>
+    <select {...input}>
+      <option value="">Select a color...</option>
+      {colors.map(val => <option value={val} key={val}>{val}</option>)}
+    </select>
+    {touched && error && <span>{error}</span>}
+  </div>
+)
+
+const WizardFormThirdPage = (props) => {
+  const { handleSubmit, pristine, previousPage, submitting } = props
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Favorite Color</label>
+        <Field name="favoriteColor" component={renderColorSelector}/>
+      </div>
+      <div>
+        <label htmlFor="employed">Employed</label>
+        <div>
+          <Field name="employed" id="employed" component="input" type="checkbox"/>
+        </div>
+      </div>
+      <div>
+        <label>Notes</label>
+        <div>
+          <Field name="notes" component="textarea" placeholder="Notes"/>
+        </div>
+      </div>
+      <div>
+        <button type="button" className="previous" onClick={previousPage}>Previous</button>
+        <button type="submit" disabled={pristine || submitting}>Submit</button>
+      </div>
+    </form>
+  )
+}
+export default reduxForm({
+  form: 'wizard', //Form name is same
+  destroyOnUnmount: false,
+  forceUnregisterOnUnmount: true,  // <------ unregister fields on unmount
+  validate
+})(WizardFormThirdPage)

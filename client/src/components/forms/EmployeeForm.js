@@ -174,7 +174,7 @@ EmployeeForm = reduxForm({
     form: 'employeeForm',
     destroyOnUnmount: false,
     enableReinitialize: true,
-    keepDirtyOnReinitialize: true,
+    //keepDirtyOnReinitialize: true,
 })(EmployeeForm);
 
 export default withRouter(EmployeeForm);

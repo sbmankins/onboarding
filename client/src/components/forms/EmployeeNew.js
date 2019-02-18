@@ -3,11 +3,14 @@ import React, { Component } from 'react';
 import EmployeeForm from './EmployeeForm';
 import EmployeeFormReview from './EmployeeFormReview';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 class EmployeeNew extends Component {
     state = { showFormReview: false, employee: {}, editing: false };
 
     componentDidMount() {
+        console.log(this.props);
+        console.log(this.state);
         if (this.props.history.location.state !== undefined) {
             const id = this.props.history.location.state.employee;
             axios
@@ -27,6 +30,7 @@ class EmployeeNew extends Component {
     handleInitialize() {
         if (this.state.employee) {
             this.setState({ editing: true });
+
             const initData = {
                 firstName: this.state.employee.firstName,
                 lastName: this.state.employee.lastName,
@@ -63,7 +67,7 @@ class EmployeeNew extends Component {
         return <div>{this.renderContent()}</div>;
     }
 }
-
-export default reduxForm({
+EmployeeNew = reduxForm({
     form: 'employeeForm',
 })(EmployeeNew);
+export default connect()(EmployeeNew);

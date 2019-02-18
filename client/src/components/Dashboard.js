@@ -37,8 +37,7 @@ const styles = theme => ({
     },
 });
 
-class Dashboard extends Component {
-    onEmployeeDelete(employee) {}
+class DashboardGrid extends Component {
     render() {
         const { classes } = this.props;
         return (
@@ -80,4 +79,4 @@ class Dashboard extends Component {
     }
 }
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(DashboardGrid);
