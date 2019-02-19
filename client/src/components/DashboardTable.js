@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { Link, Redirect } from 'react-router-dom';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
     fab: {
@@ -136,9 +137,12 @@ class DashboardTable extends Component {
                             icon: 'delete_forever',
                             tooltip: 'Delete',
                             onClick: (event, rowData) => {
-                                this.onEmployeeDelete(event, rowData.id);
+                                if (window.confirm('Delete the item?')) {
+                                    this.onEmployeeDelete(event, rowData.id);
+                                }
                             },
                         },
+                        //},
                     ]}
                     data={this.props.employees.map(employee => {
                         return {
@@ -164,28 +168,30 @@ class DashboardTable extends Component {
                     }}
                 />
 
-                <Fab
-                    style={{
-                        float: 'right',
-                        margin: 0,
-                        top: 'auto',
-                        right: 20,
-                        bottom: 20,
-                        left: 'auto',
-                        position: 'fixed',
-                    }}
-                    color="primary"
-                    aria-label="Add"
-                    className={classes.fab}
-                >
-                    {' '}
-                    <Link
-                        style={{ textDecoration: 'none', color: 'white' }}
-                        to={'/new'}
+                <Tooltip title="Add" aria-label="Add">
+                    <Fab
+                        style={{
+                            float: 'right',
+                            margin: 0,
+                            top: 'auto',
+                            right: 20,
+                            bottom: 20,
+                            left: 'auto',
+                            position: 'fixed',
+                        }}
+                        color="primary"
+                        aria-label="Add"
+                        className={classes.fab}
                     >
-                        <AddIcon />
-                    </Link>
-                </Fab>
+                        {' '}
+                        <Link
+                            style={{ textDecoration: 'none', color: 'white' }}
+                            to={'/new'}
+                        >
+                            <AddIcon />
+                        </Link>
+                    </Fab>
+                </Tooltip>
             </Paper>
         );
     }

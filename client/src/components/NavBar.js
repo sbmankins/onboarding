@@ -4,11 +4,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import ListIcon from '@material-ui/icons/List';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = theme => ({
     toolbar: theme.mixins.toolbar,
@@ -32,7 +33,7 @@ const NavBar = props => {
     const { classes } = props;
 
     return (
-        <div style={{ marginBottom: '15px' }}>
+        <div style={{ marginBottom: '20px' }}>
             <Grid
                 container
                 direction="row"
@@ -77,34 +78,44 @@ const NavBar = props => {
                             alignItems="baseline"
                         >
                             <Grid item>
-                                <IconButton>
-                                    <Link
-                                        className={classes.linkStyleRight}
-                                        to={'/listview'}
-                                    >
-                                        <AssignmentIcon />
-                                    </Link>
-                                </IconButton>
+                                <Tooltip
+                                    title="Dashboard"
+                                    aria-label="Dashboard"
+                                >
+                                    <IconButton>
+                                        <Link
+                                            className={classes.linkStyleRight}
+                                            to={'/'}
+                                        >
+                                            <DashboardIcon />
+                                        </Link>
+                                    </IconButton>
+                                </Tooltip>
                             </Grid>
                             <Grid item>
-                                <IconButton>
-                                    <Link
-                                        className={classes.linkStyleRight}
-                                        to={'/'}
-                                    >
-                                        <DashboardIcon />
-                                    </Link>
-                                </IconButton>
+                                <Tooltip title="Table" aria-label="Table">
+                                    <IconButton>
+                                        <Link
+                                            className={classes.linkStyleRight}
+                                            to={'/listview'}
+                                        >
+                                            <ListIcon />
+                                        </Link>
+                                    </IconButton>
+                                </Tooltip>
                             </Grid>
+
                             <Grid item>
-                                <IconButton>
-                                    <Link
-                                        className={classes.linkStyleRight}
-                                        to={'/new'}
-                                    >
-                                        <AddIcon />
-                                    </Link>
-                                </IconButton>
+                                <Tooltip title="Add" aria-label="Add">
+                                    <IconButton>
+                                        <Link
+                                            className={classes.linkStyleRight}
+                                            to={'/new'}
+                                        >
+                                            <AddIcon />
+                                        </Link>
+                                    </IconButton>
+                                </Tooltip>
                             </Grid>
                         </Grid>
                     </Toolbar>

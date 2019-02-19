@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 import EmployeeList from './forms/EmployeeList';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
@@ -52,28 +53,30 @@ class Dashboard extends Component {
                         <EmployeeList onDelete={this.onEmployeeDelete} />
                     </Grid>
                 </div>
-                <Fab
-                    style={{
-                        float: 'right',
-                        margin: 0,
-                        top: 'auto',
-                        right: 20,
-                        bottom: 20,
-                        left: 'auto',
-                        position: 'fixed',
-                    }}
-                    color="primary"
-                    aria-label="Add"
-                    className={classes.fab}
-                >
-                    {' '}
-                    <Link
-                        style={{ textDecoration: 'none', color: 'white' }}
-                        to={'/new'}
+                <Tooltip title="Add" aria-label="Add">
+                    <Fab
+                        style={{
+                            float: 'right',
+                            margin: 0,
+                            top: 'auto',
+                            right: 20,
+                            bottom: 20,
+                            left: 'auto',
+                            position: 'fixed',
+                        }}
+                        color="primary"
+                        aria-label="Add"
+                        className={classes.fab}
                     >
-                        <AddIcon />
-                    </Link>
-                </Fab>
+                        {' '}
+                        <Link
+                            style={{ textDecoration: 'none', color: 'white' }}
+                            to={'/new'}
+                        >
+                            <AddIcon />
+                        </Link>
+                    </Fab>
+                </Tooltip>
             </Paper>
         );
     }

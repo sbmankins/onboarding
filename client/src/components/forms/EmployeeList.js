@@ -6,6 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { daysBetween } from './daysBetween';
@@ -178,40 +179,57 @@ class EmployeeList extends Component {
                                 </div>
                             </CardContent>
                             <CardActions>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    editing="true"
-                                    className={classes.button}
-                                    style={{ padding: '3px' }}
-                                    onClick={(e, key) =>
-                                        this.handleEditClick(e, id)
-                                    }
-                                >
-                                    <EditIcon
+                                <Tooltip title="Edit" aria-label="Edit">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        editing="true"
+                                        className={classes.button}
                                         style={{
-                                            color: 'white',
-                                            fontSize: '1.6rem',
+                                            padding: '3px',
+                                            borderRadius: '5px',
                                         }}
-                                        className={classes.iconRight}
-                                    />
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    className={classes.button}
-                                    onClick={(event, key) =>
-                                        this.onEmployeeDelete(event, id)
-                                    }
-                                >
-                                    <DeleteForeverIcon
-                                        style={{
-                                            color: 'white',
-                                            fontSize: '1.3rem',
+                                        onClick={(e, key) =>
+                                            this.handleEditClick(e, id)
+                                        }
+                                    >
+                                        <EditIcon
+                                            style={{
+                                                color: 'white',
+                                                fontSize: '1.6rem',
+                                            }}
+                                            className={classes.iconRight}
+                                        />
+                                    </Button>
+                                </Tooltip>
+                                <Tooltip title="Delete" aria-label="Delete">
+                                    <Button
+                                        style={{ borderRadius: '5px' }}
+                                        variant="contained"
+                                        color="secondary"
+                                        className={classes.button}
+                                        onClick={(event, key) => {
+                                            if (
+                                                window.confirm(
+                                                    'Delete the item?'
+                                                )
+                                            ) {
+                                                this.onEmployeeDelete(
+                                                    event,
+                                                    id
+                                                );
+                                            }
                                         }}
-                                        className={classes.iconRight}
-                                    />
-                                </Button>
+                                    >
+                                        <DeleteForeverIcon
+                                            style={{
+                                                color: 'white',
+                                                fontSize: '1.3rem',
+                                            }}
+                                            className={classes.iconRight}
+                                        />
+                                    </Button>
+                                </Tooltip>
                             </CardActions>
                         </Card>
                     </Grid>

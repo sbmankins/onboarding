@@ -144,76 +144,79 @@ class EmployeeForm extends Component {
                     )}
                     //onInitialValues={...props}
                 >
-                    <Grid container spacing={24}>
-                        {this.renderFields()}
-                        <Grid item xs={7}>
-                            <Paper
-                                style={{ margin: '0px 20px', padding: '10px' }}
-                            >
-                                <FormGroup
-                                    style={{ margin: '10px 10px 0 10px' }}
-                                >
-                                    <FormLabel>
-                                        <Typography variant="body1">
-                                            Admin
-                                        </Typography>
-                                    </FormLabel>
+                    <Grid
+                        container
+                        spacing={12}
+                        direction="row"
+                        justify="center"
+                    >
+                        <Paper
+                            style={{
+                                width: '90%',
+                                margin: '0px 20px',
+                                padding: '10px',
+                            }}
+                        >
+                            <Grid container>{this.renderFields()}</Grid>
+                            <Grid container>
+                                <Grid item sx={6}>
+                                    <FormGroup style={{ margin: '10px' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Admin
+                                            </Typography>
+                                        </FormLabel>
 
-                                    <Field
-                                        name="_admin"
-                                        simpleValue={false}
-                                        component={SearchSelect}
-                                        options={this.state.adminOptions.map(
-                                            ({ name, _id }) => {
-                                                return {
-                                                    label: name,
-                                                    value: _id,
-                                                };
+                                        <Field
+                                            name="_admin"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.adminOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            onChange={e =>
+                                                this.handleAdminChange(e)
                                             }
-                                        )}
-                                        onChange={e =>
-                                            this.handleAdminChange(e)
-                                        }
-                                        clearable={true}
-                                        placeholder="Select a person"
-                                    />
-                                </FormGroup>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={7}>
-                            <Paper
-                                style={{ margin: '0px 20px', padding: '10px' }}
-                            >
-                                <FormGroup
-                                    style={{ margin: '10px 10px 0 10px' }}
-                                >
-                                    <FormLabel>
-                                        <Typography variant="body1">
-                                            Manager
-                                        </Typography>
-                                    </FormLabel>
+                                            clearable={true}
+                                            placeholder="Select a person"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Manager
+                                            </Typography>
+                                        </FormLabel>
 
-                                    <Field
-                                        name="_manager"
-                                        simpleValue={false}
-                                        component={SearchSelect}
-                                        options={this.state.managerOptions.map(
-                                            ({ name, _id }) => {
-                                                return {
-                                                    label: name,
-                                                    value: _id,
-                                                };
+                                        <Field
+                                            name="_manager"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.managerOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            onChange={e =>
+                                                this.handleManagerChange(e)
                                             }
-                                        )}
-                                        onChange={e =>
-                                            this.handleManagerChange(e)
-                                        }
-                                        clearable={true}
-                                        placeholder="Select a person"
-                                    />
-                                </FormGroup>
-                            </Paper>
-                        </Grid>
+                                            clearable={true}
+                                            placeholder="Select a person"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                            </Grid>
+                        </Paper>
                     </Grid>
                     <Button
                         variant="contained"
@@ -268,3 +271,12 @@ EmployeeForm = reduxForm({
 })(EmployeeForm);
 
 export default withRouter(EmployeeForm);
+
+// </Paper>
+// <Paper
+//     style={{
+//         width: '90%',
+//         margin: '20px 20px',
+//         padding: '10px',
+//     }}
+// >
