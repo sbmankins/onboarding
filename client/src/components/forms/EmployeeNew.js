@@ -6,11 +6,18 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 
 class EmployeeNew extends Component {
-    state = { showFormReview: false, employee: {}, editing: false };
+    state = {
+        showFormReview: false,
+        employee: {},
+        editing: false,
+        initData: {},
+        adminOptions: [],
+        managerOptions: [],
+        adminName: '',
+        managerName: '',
+    };
 
     componentDidMount() {
-        console.log(this.props);
-        console.log(this.state);
         if (this.props.history.location.state !== undefined) {
             const id = this.props.history.location.state.employee;
             axios
@@ -20,7 +27,10 @@ class EmployeeNew extends Component {
                         {
                             employee: response.data,
                         },
-                        () => this.handleInitialize()
+                        () => {
+                            console.log(response.data);
+                            this.handleInitialize();
+                        }
                     );
                 })
                 .catch(error => console.log(error.response));
@@ -34,11 +44,28 @@ class EmployeeNew extends Component {
             const initData = {
                 firstName: this.state.employee.firstName,
                 lastName: this.state.employee.lastName,
-                _manager: this.state.employee._manager,
-                _admin: this.state.employee._admin,
+                _manager: this.state.employee._manager._id,
+                _admin: this.state.employee._admin._id,
                 dateStart: this.state.employee.dateStart,
                 buddy: this.state.employee.buddy,
             };
+
+            this.setState(
+                {
+                    initData: initData,
+                    managerName: this.state.employee._manager.name,
+                    adminName: this.state.employee._admin.name,
+                },
+                () => {
+                    this.props.history.push({
+                        pathname: '/new',
+                        state: {
+                            adminName: this.state.adminName,
+                            managerName: this.state.managerName,
+                        },
+                    });
+                }
+            );
 
             this.props.initialize(initData);
         } else {
@@ -67,6 +94,7 @@ class EmployeeNew extends Component {
         return <div>{this.renderContent()}</div>;
     }
 }
+
 EmployeeNew = reduxForm({
     form: 'employeeForm',
 })(EmployeeNew);

@@ -1,10 +1,10 @@
-import React from 'react'
-import FormLabel from '@material-ui/core/FormLabel'
-import TextField from '@material-ui/core/TextField'
-import FormGroup from '@material-ui/core/FormGroup'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
+import React from 'react';
+import FormLabel from '@material-ui/core/FormLabel';
+import TextField from '@material-ui/core/TextField';
+import FormGroup from '@material-ui/core/FormGroup';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 export default ({ input, label, meta: { touched, error } }) => {
     return (
@@ -19,5 +19,5 @@ export default ({ input, label, meta: { touched, error } }) => {
                 </FormGroup>
             </Paper>
         </Grid>
-    )
-}
+    );
+};

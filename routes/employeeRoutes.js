@@ -43,8 +43,12 @@ module.exports = app => {
 
     app.get('/api/:id', async (req, res) => {
         try {
-            const employee = await Employee.findById(req.params.id);
+            const employee = await Employee.findById(req.params.id)
+                .populate('_admin')
+                .populate('_manager')
+                .exec();
             res.send(employee);
+            console.log(employee);
         } catch (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
                 res.status(409).send(
@@ -58,7 +62,6 @@ module.exports = app => {
     });
 
     app.put('/api/:id', async (req, res) => {
-        console.log('made it to the put route');
         const employee = await Employee.findByIdAndUpdate(
             req.params.id,
             { $set: req.body },

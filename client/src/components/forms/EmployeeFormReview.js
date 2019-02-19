@@ -12,8 +12,6 @@ class EmployeeFormReview extends Component {
     state = { editing: false, employeeID: '' };
 
     componentDidMount() {
-        console.log(this.props.location);
-
         if (this.props.history.location.state.editing !== undefined) {
             this.setState({
                 editing: this.props.location.state.editing,

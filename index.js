@@ -2,9 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const PORT = 5000;
-require('./models/Manager');
-require('./models/Admin');
 require('./models/Employee');
+require('./models/Admin');
+require('./models/Manager');
 
 mongoose.connect(
     'mongodb://localhost:27017/onboardingDB',

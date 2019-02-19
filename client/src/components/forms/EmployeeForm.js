@@ -42,7 +42,7 @@ class EmployeeForm extends Component {
                 });
             })
             .catch(error => console.log(error.response));
-        console.log(this.props.location.state);
+
         if (this.props.location.state !== undefined) {
             this.setState({ employeeID: this.props.location.state.employee });
         }
@@ -56,6 +56,24 @@ class EmployeeForm extends Component {
         }
     }
 
+    componentDidUpdate() {
+        //This is rediculous
+        if (
+            this.props.location.state !== undefined &&
+            ((this.state.adminName === '' ||
+                this.state.adminName === undefined) &&
+                this.props.location.state.adminName !== undefined) &&
+            ((this.state.managerName === '' ||
+                this.state.managerName === undefined) &&
+                this.props.location.state.managerName !== undefined)
+        ) {
+            this.setState({
+                adminName: this.props.location.state.adminName,
+                managerName: this.props.location.state.managerName,
+            });
+        }
+    }
+
     handleAdminChange(event) {
         const adminName = this.state.adminOptions.find(o => o._id === event)
             .name;
@@ -66,10 +84,10 @@ class EmployeeForm extends Component {
         this.props.history.push({
             pathname: '/new',
             state: {
-                adminName: this.state.adminName,
-                managerName: this.state.managerName,
                 editing: this.state.editing,
                 employeeID: this.state.employeeID,
+                adminName: this.state.adminName,
+                managerName: this.state.managerName,
             },
         });
     }

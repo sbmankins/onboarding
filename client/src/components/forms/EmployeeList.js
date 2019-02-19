@@ -191,7 +191,7 @@ class EmployeeList extends Component {
                                     <EditIcon
                                         style={{
                                             color: 'white',
-                                            fontSize: '1.5rem',
+                                            fontSize: '1.6rem',
                                         }}
                                         className={classes.iconRight}
                                     />

@@ -1,25 +1,25 @@
-import React, { PureComponent } from 'react'
-import 'react-dates/initialize'
-import 'react-dates/lib/css/_datepicker.css'
-import { SingleDatePicker } from 'react-dates'
-import moment from 'moment'
-import { Field } from 'redux-form'
+import React, { PureComponent } from 'react';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import { SingleDatePicker } from 'react-dates';
+import moment from 'moment';
+import { Field } from 'redux-form';
 
 class DatePicker extends PureComponent {
     constructor(props) {
-        super(props)
-        moment.locale('us')
+        super(props);
+        moment.locale('us');
     }
 
     state = {
         focused: false,
-    }
+    };
 
     onFocusChange = value => {
-        this.setState({ focused: !this.state.focused })
-        const { input } = this.props
-        input.onFocus(value)
-    }
+        this.setState({ focused: !this.state.focused });
+        const { input } = this.props;
+        input.onFocus(value);
+    };
 
     render() {
         const {
@@ -28,8 +28,8 @@ class DatePicker extends PureComponent {
             placeholder,
             disabled,
             //  required,
-        } = this.props
-        const { focused } = this.state
+        } = this.props;
+        const { focused } = this.state;
         //const invalid = error !== undefined && error !== null;
 
         return (
@@ -50,14 +50,14 @@ class DatePicker extends PureComponent {
                 />
                 {error && touched && <span>{error}</span>}
             </React.Fragment>
-        )
+        );
     }
 }
 
-export const formatDates = value => (value ? moment(value) : null)
+export const formatDates = value => (value ? moment(value) : null);
 
 export const normalizeDates = value =>
-    value ? value.format('YYYY-MM-DD') : null
+    value ? value.format('YYYY-MM-DD') : null;
 
 export const FieldDatePicker = props => {
     return (
@@ -68,7 +68,7 @@ export const FieldDatePicker = props => {
             component={DatePicker}
             props={props}
         />
-    )
-}
+    );
+};
 
-export default DatePicker
+export default DatePicker;

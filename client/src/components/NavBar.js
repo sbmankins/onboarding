@@ -17,29 +17,51 @@ const NavBar = props => {
     const { classes } = props;
 
     return (
-        <div style={{ marginBottom: '40px' }}>
+        <div style={{ marginBottom: '45px' }}>
             <AppBar>
                 <Toolbar style={{ flexGrow: 1 }}>
                     <Grid
                         container
                         direction="row"
-                        spacing={24}
-                        justify="flex-start"
+                        spacing={6}
+                        justify="space-between"
+                        alignItems="center"
                         style={{ margin: '10px' }}
                     >
-                        <Grid item xs={12}>
-                            <Link
-                                style={{
-                                    textDecoration: 'none',
-                                    color: 'white',
-                                }}
-                                to={'/'}
-                            >
-                                <Typography variant="headline" color="inherit">
-                                    Bayer IT Onboarding
-                                </Typography>
-                            </Link>
+                        <Grid item xs={6}>
+                            <span>
+                                <Link
+                                    style={{
+                                        textDecoration: 'none',
+                                        color: 'white',
+                                    }}
+                                    to={'/'}
+                                >
+                                    {' '}
+                                    <Typography
+                                        variant="headline"
+                                        color="inherit"
+                                    >
+                                        Bayer Crop Science
+                                    </Typography>
+                                </Link>
+                            </span>
+                            <span>
+                                <Link
+                                    style={{
+                                        textDecoration: 'none',
+                                        color: 'white',
+                                    }}
+                                    to={'/'}
+                                >
+                                    {' '}
+                                    <Typography variant="body1" color="inherit">
+                                        IT Onboarding
+                                    </Typography>
+                                </Link>
+                            </span>
                         </Grid>
+
                         <Grid
                             container
                             direction="row"
