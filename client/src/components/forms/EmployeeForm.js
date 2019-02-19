@@ -13,6 +13,45 @@ import FormLabel from '@material-ui/core/FormLabel';
 import employeeFormFieldValid from './employeeFormFieldValid';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    outterContainer: {
+        width: '80%',
+        margin: '0 auto',
+        padding: '10px',
+        background: '#edeeef',
+    },
+
+    headingContainer: {
+        background: '#dbe2ef',
+        padding: '20px',
+        marginBottom: '20px',
+    },
+
+    formContainer: {
+        width: '90%',
+        margin: '0px 20px',
+        padding: '10px',
+    },
+
+    titleText: {
+        textAlign: 'center',
+        color: '#626f78',
+    },
+
+    buttonLink: {
+        textDecoration: 'none',
+        color: 'white',
+        display: 'block',
+        height: '100%',
+    },
+
+    formButton: {
+        margin: '30px 30px 0 10px',
+        width: '100px',
+    },
+});
 
 class EmployeeForm extends Component {
     state = {
@@ -114,27 +153,11 @@ class EmployeeForm extends Component {
     }
 
     render() {
+        const { classes } = this.props;
         return (
-            <Paper
-                style={{
-                    width: '80%',
-                    margin: '0 auto',
-                    padding: '10px',
-                    background: '#edeeef',
-                }}
-                elevation={1}
-            >
-                <Paper
-                    style={{
-                        background: '#dbe2ef',
-                        padding: '20px',
-                        marginBottom: '20px',
-                    }}
-                >
-                    <Typography
-                        style={{ textAlign: 'center', color: '#626f78' }}
-                        variant="title"
-                    >
+            <Paper className={classes.outterContainer} elevation={1}>
+                <Paper className={classes.headingContainer}>
+                    <Typography className={classes.titleText} variant="title">
                         Employee Detail
                     </Typography>
                 </Paper>
@@ -150,13 +173,7 @@ class EmployeeForm extends Component {
                         direction="row"
                         justify="center"
                     >
-                        <Paper
-                            style={{
-                                width: '90%',
-                                margin: '0px 20px',
-                                padding: '10px',
-                            }}
-                        >
+                        <Paper className={classes.formContainer}>
                             <Grid container>{this.renderFields()}</Grid>
                             <Grid container>
                                 <Grid item sx={6}>
@@ -221,24 +238,16 @@ class EmployeeForm extends Component {
                     <Button
                         variant="contained"
                         color="secondary"
-                        style={{ margin: '30px 30px 0 10px', width: '100px' }}
+                        className={classes.formButton}
                     >
-                        <Link
-                            to="/"
-                            style={{
-                                textDecoration: 'none',
-                                color: 'white',
-                                display: 'block',
-                                height: '100%',
-                            }}
-                        >
+                        <Link to="/" className={classes.buttonLink}>
                             Cancel
                         </Link>
                     </Button>
                     <Button
                         variant="contained"
                         color="primary"
-                        style={{ margin: '30px 0 0 10px', width: '100px' }}
+                        className={classes.formButton}
                         type="submit"
                         onClick={e => this.handleSubmit(e)}
                     >
@@ -270,13 +279,6 @@ EmployeeForm = reduxForm({
     //keepDirtyOnReinitialize: true,
 })(EmployeeForm);
 
-export default withRouter(EmployeeForm);
+EmployeeForm = withRouter(EmployeeForm);
 
-// </Paper>
-// <Paper
-//     style={{
-//         width: '90%',
-//         margin: '20px 20px',
-//         padding: '10px',
-//     }}
-// >
+export default withStyles(styles)(EmployeeForm);

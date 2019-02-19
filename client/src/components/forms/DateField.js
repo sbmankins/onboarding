@@ -2,7 +2,6 @@ import React from 'react';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import DatePicker, {
     FieldDatePicker,
     formatDates,
