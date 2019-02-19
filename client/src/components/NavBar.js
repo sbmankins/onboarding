@@ -8,35 +8,44 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
 
 const styles = theme => ({
     toolbar: theme.mixins.toolbar,
+
+    linkStyle: {
+        textDecoration: 'none',
+        color: 'white',
+    },
+
+    linkStyleRight: {
+        textAlign: 'right',
+        textDecoration: 'none',
+        color: 'white',
+    },
+    button: {
+        margin: theme.spacing.unit,
+    },
 });
 
 const NavBar = props => {
     const { classes } = props;
 
     return (
-        <div style={{ marginBottom: '45px' }}>
-            <AppBar>
-                <Toolbar style={{ flexGrow: 1 }}>
-                    <Grid
-                        container
-                        direction="row"
-                        spacing={6}
-                        justify="space-between"
-                        alignItems="center"
-                        style={{ margin: '10px' }}
-                    >
+        <div style={{ marginBottom: '15px' }}>
+            <Grid
+                container
+                direction="row"
+                spacing={8}
+                justify="space-between"
+                alignItems="center"
+                style={{ margin: '10px' }}
+            >
+                <AppBar>
+                    <Toolbar style={{ flexGrow: 1 }}>
                         <Grid item xs={6}>
                             <span>
-                                <Link
-                                    style={{
-                                        textDecoration: 'none',
-                                        color: 'white',
-                                    }}
-                                    to={'/'}
-                                >
+                                <Link className={classes.linkStyle} to={'/'}>
                                     {' '}
                                     <Typography
                                         variant="headline"
@@ -47,15 +56,13 @@ const NavBar = props => {
                                 </Link>
                             </span>
                             <span>
-                                <Link
-                                    style={{
-                                        textDecoration: 'none',
-                                        color: 'white',
-                                    }}
-                                    to={'/'}
-                                >
+                                <Link className={classes.linkStyle} to={'/'}>
                                     {' '}
-                                    <Typography variant="body1" color="inherit">
+                                    <Typography
+                                        variant="body1"
+                                        color="inherit"
+                                        gutterBottom="true"
+                                    >
                                         IT Onboarding
                                     </Typography>
                                 </Link>
@@ -65,65 +72,47 @@ const NavBar = props => {
                         <Grid
                             container
                             direction="row"
-                            spacing={8}
+                            spacing={4}
                             justify="flex-end"
+                            alignItems="baseline"
                         >
-                            <Grid item xs={1}>
-                                <Link
-                                    style={{
-                                        textAlign: 'right',
-                                        textDecoration: 'none',
-                                        color: 'white',
-                                    }}
-                                    to={'/listview'}
-                                >
-                                    <AssignmentIcon />
-                                </Link>
+                            <Grid item>
+                                <IconButton>
+                                    <Link
+                                        className={classes.linkStyleRight}
+                                        to={'/listview'}
+                                    >
+                                        <AssignmentIcon />
+                                    </Link>
+                                </IconButton>
                             </Grid>
-                            <Grid item xs={1}>
-                                <Link
-                                    style={{
-                                        textAlign: 'right',
-                                        textDecoration: 'none',
-                                        color: 'white',
-                                    }}
-                                    to={'/'}
-                                >
-                                    <DashboardIcon />
-                                </Link>
+                            <Grid item>
+                                <IconButton>
+                                    <Link
+                                        className={classes.linkStyleRight}
+                                        to={'/'}
+                                    >
+                                        <DashboardIcon />
+                                    </Link>
+                                </IconButton>
                             </Grid>
-                            <Grid item xs={1}>
-                                <Link
-                                    style={{
-                                        textAlign: 'right',
-                                        textDecoration: 'none',
-                                        color: 'white',
-                                    }}
-                                    to={'/new'}
-                                >
-                                    <AddIcon />
-                                </Link>
+                            <Grid item>
+                                <IconButton>
+                                    <Link
+                                        className={classes.linkStyleRight}
+                                        to={'/new'}
+                                    >
+                                        <AddIcon />
+                                    </Link>
+                                </IconButton>
                             </Grid>
                         </Grid>
-                    </Grid>
-                </Toolbar>
-            </AppBar>
+                    </Toolbar>
+                </AppBar>
+            </Grid>
             <div className={classes.toolbar} />
         </div>
     );
 };
 
 export default withStyles(styles)(NavBar);
-
-// <Link
-//     style={{
-//         textAlign: 'right',
-//         textDecoration: 'none',
-//         color: 'white',
-//     }}
-//     to={'/new'}
-// >
-//     <Typography variant="button" color="inherit">
-//         New
-//     </Typography>
-// </Link>

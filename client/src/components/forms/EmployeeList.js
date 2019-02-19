@@ -207,7 +207,7 @@ class EmployeeList extends Component {
                                     <DeleteForeverIcon
                                         style={{
                                             color: 'white',
-                                            fontSize: '1.25rem',
+                                            fontSize: '1.3rem',
                                         }}
                                         className={classes.iconRight}
                                     />
