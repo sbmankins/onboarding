@@ -34,7 +34,7 @@ class EmployeeNew extends Component {
             const initData = {
                 firstName: this.state.employee.firstName,
                 lastName: this.state.employee.lastName,
-                manager: this.state.employee.manager,
+                _manager: this.state.employee._manager,
                 _admin: this.state.employee._admin,
                 dateStart: this.state.employee.dateStart,
                 buddy: this.state.employee.buddy,

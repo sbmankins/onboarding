@@ -20,7 +20,7 @@ export default [
         component: DateField,
         type: 'date',
     },
-    { label: 'Manager', name: 'manager', component: FormField, type: 'text' },
+    //{ label: 'Manager', name: 'manager', component: FormField, type: 'text' },
     // { label: 'Admin', name: 'admin', component: FormField, type: 'text' },
     {
         label: 'Onboarding Buddy',

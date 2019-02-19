@@ -9,28 +9,33 @@ import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 
 class EmployeeFormReview extends Component {
-    state = { editing: false, id: '' };
+    state = { editing: false, employeeID: '' };
 
     componentDidMount() {
-        if (this.props.location.state.editing !== undefined) {
-            this.setState({ editing: this.props.location.state.editing });
+        console.log(this.props.location);
+
+        if (this.props.history.location.state.editing !== undefined) {
+            this.setState({
+                editing: this.props.location.state.editing,
+            });
         } else {
             this.setState({ editing: false });
         }
-
-        if (this.props.location.state.employee !== undefined) {
-            this.setState({ employee: this.props.location.state.employee });
+        if (this.props.history.location.state.employeeID !== undefined) {
+            this.setState({
+                employeeID: this.props.location.state.employeeID,
+            });
         } else {
-            this.setState({ employee: '' });
+            this.setState({ editing: false });
         }
     }
     renderButton() {
-        const id = this.state.employee;
         const {
             formValues,
             history,
             submitEmployee,
             editEmployee,
+            location,
         } = this.props;
         if (this.state.editing === true) {
             return (
@@ -42,7 +47,11 @@ class EmployeeFormReview extends Component {
                         width: '100px',
                     }}
                     onClick={() => {
-                        editEmployee(id, formValues, history);
+                        editEmployee(
+                            location.state.employeeID,
+                            formValues,
+                            history
+                        );
                     }}
                 >
                     Submit
@@ -119,6 +128,16 @@ class EmployeeFormReview extends Component {
                         <div>
                             <Typography variant="body1">
                                 {history.location.state.adminName}
+                            </Typography>
+                        </div>
+                    </div>
+                    <div style={{ marginBottom: '10px' }}>
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            Manager
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {history.location.state.managerName}
                             </Typography>
                         </div>
                     </div>

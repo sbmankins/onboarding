@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
@@ -16,14 +17,15 @@ const NavBar = props => {
     const { classes } = props;
 
     return (
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginBottom: '40px' }}>
             <AppBar>
                 <Toolbar style={{ flexGrow: 1 }}>
                     <Grid
                         container
                         direction="row"
-                        spacing={12}
+                        spacing={24}
                         justify="flex-start"
+                        style={{ margin: '10px' }}
                     >
                         <Grid item xs={12}>
                             <Link
@@ -41,7 +43,7 @@ const NavBar = props => {
                         <Grid
                             container
                             direction="row"
-                            spacing={2}
+                            spacing={8}
                             justify="flex-end"
                         >
                             <Grid item xs={1}>
@@ -66,6 +68,18 @@ const NavBar = props => {
                                     to={'/'}
                                 >
                                     <DashboardIcon />
+                                </Link>
+                            </Grid>
+                            <Grid item xs={1}>
+                                <Link
+                                    style={{
+                                        textAlign: 'right',
+                                        textDecoration: 'none',
+                                        color: 'white',
+                                    }}
+                                    to={'/new'}
+                                >
+                                    <AddIcon />
                                 </Link>
                             </Grid>
                         </Grid>

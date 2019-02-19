@@ -1,7 +1,7 @@
 export default [
     { name: 'firstName' },
     { name: 'lastName' },
-    { name: 'manager' },
+    { name: '_manager' },
     { name: '_admin' },
     { name: 'buddy' },
 ];

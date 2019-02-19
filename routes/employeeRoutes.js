@@ -1,11 +1,17 @@
 const mongoose = require('mongoose');
 const Admin = mongoose.model('admins');
 const Employee = mongoose.model('employees');
+const Manager = mongoose.model('managers');
 
 module.exports = app => {
     app.get('/api/admins', async (req, res) => {
         const admins = await Admin.find();
         res.send(admins);
+    });
+
+    app.get('/api/managers', async (req, res) => {
+        const managers = await Manager.find();
+        res.send(managers);
     });
 
     app.get('/api/employees', async (req, res) => {
@@ -18,11 +24,18 @@ module.exports = app => {
                     as: 'admin',
                 },
             },
-            { $sort: { 'admin.name': -1 } },
+            {
+                $lookup: {
+                    localField: '_manager',
+                    from: 'managers',
+                    foreignField: '_id',
+                    as: 'manager',
+                },
+            },
+            //  { $sort: { 'admin.name': -1 } },
         ]).sort({
             dateStart: 'ascending',
             lastName: 'ascending',
-            manager: 'ascending',
         });
 
         res.send(employees);
@@ -45,6 +58,7 @@ module.exports = app => {
     });
 
     app.put('/api/:id', async (req, res) => {
+        console.log('made it to the put route');
         const employee = await Employee.findByIdAndUpdate(
             req.params.id,
             { $set: req.body },
@@ -63,11 +77,18 @@ module.exports = app => {
                     as: 'admin',
                 },
             },
-            { $sort: { 'admin.name': -1 } },
+            {
+                $lookup: {
+                    localField: '_manager',
+                    from: 'managers',
+                    foreignField: '_id',
+                    as: 'manager',
+                },
+            },
+            //  { $sort: { 'admin.name': -1 } },
         ]).sort({
             dateStart: 'ascending',
             lastName: 'ascending',
-            manager: 'ascending',
         });
 
         res.send(employees);
@@ -79,7 +100,7 @@ module.exports = app => {
             lastName,
             dateStart,
             _admin,
-            manager,
+            _manager,
             buddy,
         } = req.body;
 
@@ -88,7 +109,7 @@ module.exports = app => {
             lastName,
             dateStart,
             _admin,
-            manager,
+            _manager,
             buddy,
 
             dateCreated: Date.now(),

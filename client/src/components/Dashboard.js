@@ -37,7 +37,7 @@ const styles = theme => ({
     },
 });
 
-class DashboardGrid extends Component {
+class Dashboard extends Component {
     render() {
         const { classes } = this.props;
         return (
@@ -79,4 +79,4 @@ class DashboardGrid extends Component {
     }
 }
 
-export default withStyles(styles)(DashboardGrid);
+export default withStyles(styles)(Dashboard);

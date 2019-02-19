@@ -15,7 +15,14 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 
 class EmployeeForm extends Component {
-    state = { adminOptions: [], admin: '' };
+    state = {
+        adminOptions: [],
+        admin: '',
+        adminName: '',
+        managerName: '',
+        managerOptions: [],
+        employeeID: '',
+    };
 
     componentDidMount() {
         axios
@@ -26,6 +33,20 @@ class EmployeeForm extends Component {
                 });
             })
             .catch(error => console.log(error.response));
+
+        axios
+            .get('/api/managers')
+            .then(response => {
+                this.setState({
+                    managerOptions: response.data,
+                });
+            })
+            .catch(error => console.log(error.response));
+        console.log(this.props.location.state);
+        if (this.props.location.state !== undefined) {
+            this.setState({ employeeID: this.props.location.state.employee });
+        }
+
         if (this.props._reduxForm.history.location.state !== undefined) {
             this.setState({
                 editing: this.props._reduxForm.history.location.state.editing,
@@ -35,15 +56,29 @@ class EmployeeForm extends Component {
         }
     }
 
-    handleChange(event) {
+    handleAdminChange(event) {
         const adminName = this.state.adminOptions.find(o => o._id === event)
             .name;
+        this.setState({ adminName: adminName });
+    }
+
+    handleSubmit(event) {
         this.props.history.push({
             pathname: '/new',
             state: {
-                adminName: adminName,
+                adminName: this.state.adminName,
+                managerName: this.state.managerName,
+                editing: this.state.editing,
+                employeeID: this.state.employeeID,
             },
         });
+    }
+
+    handleManagerChange(event) {
+        const managerName = this.state.managerOptions.find(o => o._id === event)
+            .name;
+
+        this.setState({ managerName: managerName });
     }
 
     renderFields() {
@@ -118,7 +153,43 @@ class EmployeeForm extends Component {
                                                 };
                                             }
                                         )}
-                                        onChange={e => this.handleChange(e)}
+                                        onChange={e =>
+                                            this.handleAdminChange(e)
+                                        }
+                                        clearable={true}
+                                        placeholder="Select a person"
+                                    />
+                                </FormGroup>
+                            </Paper>
+                        </Grid>
+                        <Grid item xs={7}>
+                            <Paper
+                                style={{ margin: '0px 20px', padding: '10px' }}
+                            >
+                                <FormGroup
+                                    style={{ margin: '10px 10px 0 10px' }}
+                                >
+                                    <FormLabel>
+                                        <Typography variant="body1">
+                                            Manager
+                                        </Typography>
+                                    </FormLabel>
+
+                                    <Field
+                                        name="_manager"
+                                        simpleValue={false}
+                                        component={SearchSelect}
+                                        options={this.state.managerOptions.map(
+                                            ({ name, _id }) => {
+                                                return {
+                                                    label: name,
+                                                    value: _id,
+                                                };
+                                            }
+                                        )}
+                                        onChange={e =>
+                                            this.handleManagerChange(e)
+                                        }
                                         clearable={true}
                                         placeholder="Select a person"
                                     />
@@ -148,6 +219,7 @@ class EmployeeForm extends Component {
                         color="primary"
                         style={{ margin: '30px 0 0 10px', width: '100px' }}
                         type="submit"
+                        onClick={e => this.handleSubmit(e)}
                     >
                         Next
                     </Button>

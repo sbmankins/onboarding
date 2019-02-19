@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import { daysBetween } from './daysBetween';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
@@ -78,8 +78,14 @@ class EmployeeList extends Component {
     };
 
     handleEditClick = (event, id) => {
+        console.log(id);
         event.preventDefault();
-        this.setState({ employeeID: id, toDashboard: true, editing: true });
+        this.setState(
+            { employeeID: id, toDashboard: true, editing: true },
+            () => {
+                console.log(this.state.editing);
+            }
+        );
     };
 
     renderEmployees() {
@@ -133,7 +139,7 @@ class EmployeeList extends Component {
                                 <div style={{ textAlign: 'Left' }}>
                                     <Typography style={NewColor} component="p">
                                         <strong>Manager:</strong>{' '}
-                                        {employee.manager}
+                                        {employee.manager[0].name}
                                     </Typography>
                                     <Typography style={NewColor} component="p">
                                         <strong>Admin:</strong>{' '}
@@ -198,7 +204,7 @@ class EmployeeList extends Component {
                                         this.onEmployeeDelete(event, id)
                                     }
                                 >
-                                    <DeleteIcon
+                                    <DeleteForeverIcon
                                         style={{
                                             color: 'white',
                                             fontSize: '1.25rem',
