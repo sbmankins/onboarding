@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import Logo from '../images/bayer-logo.svg';
 
 const styles = theme => ({
     toolbar: theme.mixins.toolbar,
@@ -33,7 +34,7 @@ const NavBar = props => {
     const { classes } = props;
 
     return (
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginBottom: '20px', flexGrow: 1 }}>
             <Grid
                 container
                 direction="row"
@@ -43,37 +44,58 @@ const NavBar = props => {
                 style={{ margin: '10px' }}
             >
                 <AppBar>
-                    <Toolbar style={{ flexGrow: 1 }}>
-                        <Grid item xs={6}>
-                            <span>
+                    <Toolbar>
+                        <Grid container alignItems="center">
+                            <Grid item>
                                 <Link className={classes.linkStyle} to={'/'}>
-                                    {' '}
-                                    <Typography
-                                        variant="headline"
-                                        color="inherit"
-                                    >
-                                        Bayer Crop Science
-                                    </Typography>
+                                    <img
+                                        src={Logo}
+                                        alt="Bayer logo"
+                                        style={{
+                                            margin: '10px 5px 5px 5px',
+                                            width: '70px',
+                                        }}
+                                    />
                                 </Link>
-                            </span>
-                            <span>
-                                <Link className={classes.linkStyle} to={'/'}>
-                                    {' '}
-                                    <Typography
-                                        variant="body1"
-                                        color="inherit"
-                                        gutterBottom="true"
+                            </Grid>
+                            <Grid item xs={6}>
+                                <span>
+                                    <Link
+                                        className={classes.linkStyle}
+                                        to={'/'}
                                     >
-                                        IT Onboarding
-                                    </Typography>
-                                </Link>
-                            </span>
+                                        {' '}
+                                        <Typography
+                                            style={{ marginTop: '10px' }}
+                                            variant="headline"
+                                            color="inherit"
+                                        >
+                                            Bayer Crop Science
+                                        </Typography>
+                                    </Link>
+                                </span>
+                                <span>
+                                    <Link
+                                        className={classes.linkStyle}
+                                        to={'/'}
+                                    >
+                                        {' '}
+                                        <Typography
+                                            variant="body1"
+                                            color="inherit"
+                                            gutterBottom={true}
+                                        >
+                                            IT Onboarding
+                                        </Typography>
+                                    </Link>
+                                </span>
+                            </Grid>
                         </Grid>
 
                         <Grid
                             container
                             direction="row"
-                            spacing={4}
+                            spacing={8}
                             justify="flex-end"
                             alignItems="baseline"
                         >

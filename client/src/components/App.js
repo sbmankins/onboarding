@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import 'typeface-roboto';
 import NavBar from './NavBar';
 import Dashboard from './Dashboard';
@@ -12,21 +12,20 @@ const App = () => {
         <BrowserRouter>
             <div>
                 <NavBar />
-                <Switch>
-                    <Route
-                        exact
-                        path="/"
-                        render={props => <Dashboard {...props} />}
-                    />
-                    <Route
-                        path="/new"
-                        render={props => <EmployeeNew {...props} />}
-                    />
-                    <Route
-                        path="/listview"
-                        render={props => <DashboardTable {...props} />}
-                    />
-                </Switch>
+
+                <Route
+                    exact
+                    path="/"
+                    render={props => <Dashboard {...props} />}
+                />
+                <Route
+                    path="/new"
+                    render={props => <EmployeeNew {...props} />}
+                />
+                <Route
+                    path="/listview"
+                    render={props => <DashboardTable {...props} />}
+                />
             </div>
         </BrowserRouter>
     );

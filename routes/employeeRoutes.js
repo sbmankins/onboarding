@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Admin = mongoose.model('admins');
 const Employee = mongoose.model('employees');
 const Manager = mongoose.model('managers');
+//const Status = mongoose.model('statuses');
 
 module.exports = app => {
     app.get('/api/admins', async (req, res) => {

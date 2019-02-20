@@ -20,6 +20,7 @@ const styles = theme => ({
         padding: '10px',
         background: '#edeeef',
         textAlign: 'center',
+        flexGrow: 1,
     },
 
     headerContainer: {
@@ -31,6 +32,15 @@ const styles = theme => ({
     dashTitle: {
         textAlign: 'center',
         color: '#626f78',
+    },
+    btnFloat: {
+        float: 'right',
+        margin: 0,
+        top: 'auto',
+        right: 20,
+        bottom: 20,
+        left: 'auto',
+        position: 'fixed',
     },
 });
 
@@ -59,8 +69,6 @@ class DashboardTable extends Component {
     };
 
     onEmployeeDelete = (event, id) => {
-        console.log(id);
-        console.log(this.props);
         event.preventDefault();
         this.props.deleteEmployee(id);
         this.setState({ employees: this.props.fetchEmployees() });
@@ -83,7 +91,7 @@ class DashboardTable extends Component {
         }
         return (
             <Paper className={classes.outerContainer} elevation={1}>
-                <Paper className={classes.headerContainer}>
+                <Paper className={classes.headerContainer} elevation={1}>
                     <Typography className={classes.dashTitle} variant="title">
                         Dashboard
                     </Typography>
@@ -170,18 +178,9 @@ class DashboardTable extends Component {
 
                 <Tooltip title="Add" aria-label="Add">
                     <Fab
-                        style={{
-                            float: 'right',
-                            margin: 0,
-                            top: 'auto',
-                            right: 20,
-                            bottom: 20,
-                            left: 'auto',
-                            position: 'fixed',
-                        }}
+                        className={`${classes.fab} ${classes.btnFloat}`}
                         color="primary"
                         aria-label="Add"
-                        className={classes.fab}
                     >
                         {' '}
                         <Link

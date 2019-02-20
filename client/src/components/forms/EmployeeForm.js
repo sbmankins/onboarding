@@ -16,11 +16,12 @@ import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-    outterContainer: {
+    outerContainer: {
         width: '80%',
         margin: '0 auto',
         padding: '10px',
         background: '#edeeef',
+        flexGrow: 1,
     },
 
     headingContainer: {
@@ -155,8 +156,8 @@ class EmployeeForm extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <Paper className={classes.outterContainer} elevation={1}>
-                <Paper className={classes.headingContainer}>
+            <Paper className={classes.outerContainer} elevation={1}>
+                <Paper className={classes.headingContainer} elevation={1}>
                     <Typography className={classes.titleText} variant="title">
                         Employee Detail
                     </Typography>
@@ -165,11 +166,10 @@ class EmployeeForm extends Component {
                     onSubmit={this.props.handleSubmit(
                         this.props.handleSubmit(this.props.onEmployeeSubmit)
                     )}
-                    //onInitialValues={...props}
                 >
                     <Grid
                         container
-                        spacing={12}
+                        spacing={16}
                         direction="row"
                         justify="center"
                     >

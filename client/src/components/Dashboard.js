@@ -8,6 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { daysBetween } from './forms/daysBetween';
 
 const styles = theme => ({
     outerContainer: {
@@ -16,6 +18,7 @@ const styles = theme => ({
         padding: '10px',
         background: '#edeeef',
         textAlign: 'center',
+        flexGrow: 1,
     },
 
     headerContainer: {
@@ -36,18 +39,161 @@ const styles = theme => ({
     fab: {
         margin: theme.spacing.unit,
     },
+
+    btnFloat: {
+        float: 'right',
+        margin: 0,
+        top: 'auto',
+        right: 20,
+        bottom: 20,
+        left: 'auto',
+        position: 'fixed',
+    },
 });
 
 class Dashboard extends Component {
+    componentDidMount() {
+        console.log(this.props);
+    }
+
+    getNextSevenCount() {
+        let sevenCount = 0;
+        this.props.employees.forEach(function(employee) {
+            let start = new Date();
+            start = employee.dateStart;
+
+            const between = daysBetween(start);
+            if ((between > 0) & (between <= 7)) {
+                sevenCount++;
+            }
+        });
+
+        if (sevenCount === 1) {
+            return 'There is 1 employee onboarding in the next seven days.';
+        } else if (sevenCount > 1) {
+            return (
+                'There are ' +
+                sevenCount +
+                '  employees onboarding in the next seven days.'
+            );
+        } else if (sevenCount === 0) {
+            return 'There are no employees onboarding in the next seven days.';
+        }
+    }
+
+    getLateCount() {
+        let lateCount = 0;
+        this.props.employees.forEach(function(employee) {
+            let start = new Date();
+            start = employee.dateStart;
+
+            const between = daysBetween(start);
+            if (between < 0 || between === undefined) {
+                lateCount++;
+            }
+        });
+
+        if (lateCount === 1) {
+            return 'There is 1 employee overdue.';
+        } else if (lateCount > 1) {
+            return 'There are ' + lateCount + '  employees overdue.';
+        } else if (lateCount === 0) {
+            return 'There are no employees overdue.';
+        }
+    }
+
+    getTodayCount() {
+        let todayCount = 0;
+        this.props.employees.forEach(function(employee) {
+            let start = new Date();
+            start = employee.dateStart;
+
+            const between = daysBetween(start);
+            console.log(between);
+            if (between === 0) {
+                todayCount++;
+            }
+            console.log(todayCount);
+        });
+
+        if (todayCount === 1) {
+            return 'There is 1 employee onboarding today.';
+        } else if (todayCount > 1) {
+            return 'There are ' + todayCount + '  employees onboarding today.';
+        } else if (todayCount === 0) {
+            return 'There are no employees onboarding today.';
+        }
+    }
+
     render() {
         const { classes } = this.props;
         return (
             <Paper className={classes.outerContainer} elevation={1}>
-                <Paper className={classes.headerContainer}>
+                <Paper className={classes.headerContainer} elevation={1}>
                     <Typography className={classes.dashTitle} variant="title">
                         Dashboard
                     </Typography>
                 </Paper>
+                <div style={{ marginBottom: '15px' }}>
+                    <Paper
+                        className={classes.dashTitle}
+                        elevation={1}
+                        style={{
+                            width: '60%',
+                            minHeight: '50px',
+                            margin: '0 auto ',
+                            padding: '20px',
+                            backgroundColor: '#3f51b5',
+                        }}
+                    >
+                        <Typography
+                            variant="title"
+                            gutterBottom={true}
+                            style={{
+                                margin: '20px ',
+
+                                color: 'white',
+                            }}
+                        >
+                            {' '}
+                            &mdash; There are currently{' '}
+                            {this.props.employees.length} employees onboarding.
+                        </Typography>
+                        <Typography
+                            variant="title"
+                            gutterBottom={true}
+                            style={{
+                                margin: '20px ',
+
+                                color: 'white',
+                            }}
+                        >
+                            &mdash; {this.getTodayCount()}
+                        </Typography>
+                        <Typography
+                            variant="title"
+                            gutterBottom={true}
+                            style={{
+                                margin: '20px ',
+
+                                color: 'white',
+                            }}
+                        >
+                            &mdash; {this.getNextSevenCount()}
+                        </Typography>
+                        <Typography
+                            variant="title"
+                            gutterBottom={true}
+                            style={{
+                                margin: '20px ',
+
+                                color: 'white',
+                            }}
+                        >
+                            &mdash; {this.getLateCount()}
+                        </Typography>
+                    </Paper>
+                </div>
                 <div className={classes.cardContainer}>
                     <Grid container justify="space-evenly" spacing={24}>
                         <EmployeeList onDelete={this.onEmployeeDelete} />
@@ -55,18 +201,9 @@ class Dashboard extends Component {
                 </div>
                 <Tooltip title="Add" aria-label="Add">
                     <Fab
-                        style={{
-                            float: 'right',
-                            margin: 0,
-                            top: 'auto',
-                            right: 20,
-                            bottom: 20,
-                            left: 'auto',
-                            position: 'fixed',
-                        }}
                         color="primary"
                         aria-label="Add"
-                        className={classes.fab}
+                        className={`${classes.fab} ${classes.btnFloat}`}
                     >
                         {' '}
                         <Link
@@ -81,5 +218,13 @@ class Dashboard extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        employees: state.employees,
+    };
+}
+
+Dashboard = connect(mapStateToProps)(Dashboard);
 
 export default withStyles(styles)(Dashboard);

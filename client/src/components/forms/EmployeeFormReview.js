@@ -26,6 +26,8 @@ class EmployeeFormReview extends Component {
         } else {
             this.setState({ editing: false });
         }
+
+        console.log(this.props);
     }
     renderButton() {
         const {
@@ -75,22 +77,25 @@ class EmployeeFormReview extends Component {
     reviewFields() {
         const { formValues } = this.props;
         return _.map(employeeFormFields, ({ name, label }) => {
-            return (
-                <div key={name} style={{ marginBottom: '10px' }}>
-                    <Typography style={{ fontWeight: 'bold' }}>
-                        {label}
-                    </Typography>
-                    <div>
-                        <Typography variant="body1">
-                            {formValues[name]}
+            if (name !== 'dateStart') {
+                return (
+                    <div key={name} style={{ marginBottom: '10px' }}>
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            {label}
                         </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {formValues[name]}
+                            </Typography>
+                        </div>
                     </div>
-                </div>
-            );
+                );
+            }
         });
     }
 
     render() {
+        const { formValues } = this.props;
         const { onCancel, history } = this.props;
 
         return (
@@ -100,6 +105,7 @@ class EmployeeFormReview extends Component {
                     margin: '0 auto',
                     padding: '10px',
                     background: '#edeeef',
+                    flexGrow: 1,
                 }}
                 elevation={1}
             >
@@ -109,6 +115,7 @@ class EmployeeFormReview extends Component {
                         padding: '20px',
                         marginBottom: '20px',
                     }}
+                    elevation={1}
                 >
                     <Typography
                         style={{ textAlign: 'center', color: '#626f78' }}
@@ -117,8 +124,23 @@ class EmployeeFormReview extends Component {
                         Please confirm entries
                     </Typography>
                 </Paper>
+
                 <div style={{ margin: '20px 20px' }}>
                     {this.reviewFields()}
+                    <div style={{ marginBottom: '10px' }}>
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            Start Date
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {new Date(
+                                    formValues.dateStart
+                                ).toLocaleDateString('en-US', {
+                                    timeZone: 'UTC',
+                                })}
+                            </Typography>
+                        </div>
+                    </div>
                     <div style={{ marginBottom: '10px' }}>
                         <Typography style={{ fontWeight: 'bold' }}>
                             Admin
@@ -159,9 +181,17 @@ class EmployeeFormReview extends Component {
 }
 
 function mapStateToProps(state) {
-    return { formValues: state.form.employeeForm.values };
+    return {
+        formValues: state.form.employeeForm.values,
+    };
 }
 export default connect(
     mapStateToProps,
     actions
 )(withRouter(EmployeeFormReview));
+
+// {new Date(
+//     employee.dateStart
+// ).toLocaleDateString('en-US', {
+//     timeZone: 'UTC',
+// })}

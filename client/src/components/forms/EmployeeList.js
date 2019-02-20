@@ -67,7 +67,7 @@ class EmployeeList extends Component {
     };
 
     componentDidMount() {
-        this.props.fetchEmployees();
+        this.setState({ employees: this.props.fetchEmployees() });
 
         this.setState({ editing: false });
     }
@@ -104,7 +104,7 @@ class EmployeeList extends Component {
                     New = Good;
                     NewColor = Normaltext;
                     DividerColor = false;
-                } else if (between > 0 && between <= 7) {
+                } else if (between => 0 && between <= 7) {
                     New = Warning;
                     NewColor = Normaltext;
                     DividerColor = false;
@@ -123,7 +123,7 @@ class EmployeeList extends Component {
                         xs={12}
                         key={employee._id}
                     >
-                        <Card style={New}>
+                        <Card style={New} raised={true}>
                             <CardContent>
                                 <Typography
                                     style={NewColor}
@@ -178,7 +178,7 @@ class EmployeeList extends Component {
                                     </Grid>
                                 </div>
                             </CardContent>
-                            <CardActions>
+                            <CardActions disableActionSpacing={true}>
                                 <Tooltip title="Edit" aria-label="Edit">
                                     <Button
                                         variant="contained"
