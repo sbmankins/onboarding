@@ -12,65 +12,30 @@ import axios from 'axios';
 class EmployeeFormReview extends Component {
     state = {
         editing: false,
-        statusOptions: [],
-        statusName: '',
-        managerOptions: [],
-        managerName: '',
         adminOptions: [],
+        managerOptions: [],
+        // statusOptions:[],
+        managerName: '',
         adminName: '',
+        // statusName: '',
     };
 
     componentDidMount() {
-        axios
-            .get('/api/admins')
-            .then(response => {
-                this.setState(
-                    {
-                        adminOptions: response.data,
-                    },
-                    () => {
-                        const adminName = this.state.adminOptions.find(
-                            o => o._id === this.props.formValues._admin
-                        ).name;
-                        this.setState({ adminName: adminName });
-                    }
-                );
-            })
-            .catch(error => console.log(error.response));
 
-        axios
-            .get('/api/managers')
-            .then(response => {
-                this.setState(
-                    {
-                        managerOptions: response.data,
-                    },
-                    () => {
-                        const managerName = this.state.managerOptions.find(
-                            o => o._id === this.props.formValues._manager
-                        ).name;
-                        this.setState({ managerName: managerName });
-                    }
-                );
-            })
-            .catch(error => console.log(error.response));
 
-        axios
-            .get('/api/statuses')
-            .then(response => {
-                this.setState(
-                    {
-                        statusOptions: response.data,
-                    },
-                    () => {
-                        const statusName = this.state.statusOptions.find(
-                            o => o._id === this.props.formValues._status
-                        ).name;
-                        this.setState({ statusName: statusName });
-                    }
-                );
-            })
-            .catch(error => console.log(error.response));
+        axios.get('/api/managers').then(response => {
+            this.setState(
+                {
+                    managerOptions: response.data,
+                },
+                () => {
+                    const managerName = this.state.managerOptions.find(
+                        o => o._id === this.props.formValues._manager
+                    ).name;
+                    this.setState({ managerName: managerName });
+                }
+            ).catch(error => console.log(error.response));
+        });
 
         if (this.props.history.location.state.editing !== undefined) {
             this.setState({
@@ -87,6 +52,7 @@ class EmployeeFormReview extends Component {
             this.setState({ editing: false });
         }
     }
+
     renderButton() {
         const {
             formValues,
@@ -154,7 +120,7 @@ class EmployeeFormReview extends Component {
 
     render() {
         const { formValues } = this.props;
-        const { onCancel } = this.props;
+        const { onCancel, history } = this.props;
 
         return (
             <Paper
@@ -215,6 +181,7 @@ class EmployeeFormReview extends Component {
                         </Typography>
                         <div>
                             <Typography variant="body1">
+                                {' '}
                                 {this.state.managerName}
                             </Typography>
                         </div>
@@ -224,9 +191,15 @@ class EmployeeFormReview extends Component {
                             Status
                         </Typography>
                         <div>
-                            <Typography variant="body1">
-                                {this.state.statusName}
-                            </Typography>
+                            <Typography variant="body1" />
+                        </div>
+                    </div>
+                    <div style={{ marginBottom: '10px' }}>
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            Manager
+                        </Typography>
+                        <div>
+                            <Typography variant="body1" />
                         </div>
                     </div>
                     <Button

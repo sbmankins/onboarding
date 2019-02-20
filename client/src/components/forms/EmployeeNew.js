@@ -11,10 +11,6 @@ class EmployeeNew extends Component {
         employee: {},
         editing: false,
         initData: {},
-        adminOptions: [],
-        managerOptions: [],
-        adminName: '',
-        managerName: '',
     };
 
     componentDidMount() {
@@ -40,7 +36,7 @@ class EmployeeNew extends Component {
     handleInitialize() {
         if (this.state.employee) {
             this.setState({ editing: true });
-
+            console.log(this.state.employee);
             const initData = {
                 firstName: this.state.employee.firstName,
                 lastName: this.state.employee.lastName,
@@ -51,24 +47,7 @@ class EmployeeNew extends Component {
                 buddy: this.state.employee.buddy,
             };
 
-            this.setState(
-                {
-                    initData: initData,
-                    managerName: this.state.employee._manager.name,
-                    adminName: this.state.employee._admin.name,
-                    statusName: this.state.employee._status.name,
-                },
-                () => {
-                    this.props.history.push({
-                        pathname: '/new',
-                        state: {
-                            adminName: this.state.adminName,
-                            managerName: this.state.managerName,
-                            statusName: this.state.statusName,
-                        },
-                    });
-                }
-            );
+            this.setState({ initData: initData });
 
             this.props.initialize(initData);
         } else {
@@ -87,6 +66,8 @@ class EmployeeNew extends Component {
         }
         return (
             <EmployeeForm
+                // adminName={this.state.adminName}
+
                 onEmployeeSubmit={() => this.setState({ showFormReview: true })}
                 onInitialValues={() => this.handleInitialize()}
             />

@@ -107,40 +107,6 @@ class EmployeeForm extends Component {
         }
     }
 
-    componentDidUpdate() {
-        //This is rediculous
-        if (
-            this.props.location.state !== undefined &&
-            ((this.state.adminName === '' ||
-                this.state.adminName === undefined) &&
-                this.props.location.state.adminName !== undefined) &&
-            ((this.state.managerName === '' ||
-                this.state.managerName === undefined) &&
-                this.props.location.state.managerName !== undefined) &&
-            ((this.state.statusName === '' ||
-                this.state.statusName === undefined) &&
-                this.props.location.state.statusName !== undefined)
-        ) {
-            this.setState({
-                adminName: this.props.location.state.adminName,
-                managerName: this.props.location.state.managerName,
-                statusName: this.props.location.state.statusName,
-            });
-        }
-    }
-
-    handleAdminChange(event) {
-        const adminName = this.state.adminOptions.find(o => o._id === event)
-            .name;
-        this.setState({ adminName: adminName });
-    }
-
-    handleStatusChange(event) {
-        const statusName = this.state.statusOptions.find(o => o._id === event)
-            .name;
-        this.setState({ statusName: statusName });
-    }
-
     handleSubmit(event) {
         this.props.history.push({
             pathname: '/new',
@@ -152,13 +118,6 @@ class EmployeeForm extends Component {
                 statusName: this.state.statusName,
             },
         });
-    }
-
-    handleManagerChange(event) {
-        const managerName = this.state.managerOptions.find(o => o._id === event)
-            .name;
-
-        this.setState({ managerName: managerName });
     }
 
     renderFields() {
@@ -218,9 +177,6 @@ class EmployeeForm extends Component {
                                                     };
                                                 }
                                             )}
-                                            onChange={e =>
-                                                this.handleAdminChange(e)
-                                            }
                                             clearable={true}
                                             placeholder="Select a person"
                                         />
@@ -246,9 +202,6 @@ class EmployeeForm extends Component {
                                                     };
                                                 }
                                             )}
-                                            onChange={e =>
-                                                this.handleManagerChange(e)
-                                            }
                                             clearable={true}
                                             placeholder="Select a person"
                                         />
@@ -274,9 +227,6 @@ class EmployeeForm extends Component {
                                                     };
                                                 }
                                             )}
-                                            onChange={e =>
-                                                this.handleStatusChange(e)
-                                            }
                                             clearable={true}
                                             placeholder="Select a status"
                                         />
