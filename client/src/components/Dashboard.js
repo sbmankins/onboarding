@@ -10,6 +10,8 @@ import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { daysBetween } from './forms/daysBetween';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 const styles = theme => ({
     outerContainer: {
@@ -63,7 +65,7 @@ class Dashboard extends Component {
             start = employee.dateStart;
 
             const between = daysBetween(start);
-            if ((between > 0) & (between <= 7)) {
+            if ((between >= 0) & (between <= 7)) {
                 sevenCount++;
             }
         });
@@ -109,11 +111,10 @@ class Dashboard extends Component {
             start = employee.dateStart;
 
             const between = daysBetween(start);
-            console.log(between);
+
             if (between === 0) {
                 todayCount++;
             }
-            console.log(todayCount);
         });
 
         if (todayCount === 1) {
@@ -135,9 +136,9 @@ class Dashboard extends Component {
                     </Typography>
                 </Paper>
                 <div style={{ marginBottom: '15px' }}>
-                    <Paper
+                    <Card
+                        raised={true}
                         className={classes.dashTitle}
-                        elevation={1}
                         style={{
                             width: '60%',
                             minHeight: '50px',
@@ -146,53 +147,56 @@ class Dashboard extends Component {
                             backgroundColor: '#3f51b5',
                         }}
                     >
-                        <Typography
-                            variant="title"
-                            gutterBottom={true}
-                            style={{
-                                margin: '20px ',
+                        <CardContent>
+                            <Typography
+                                variant="title"
+                                gutterBottom={true}
+                                style={{
+                                    margin: '20px ',
 
-                                color: 'white',
-                            }}
-                        >
-                            {' '}
-                            &mdash; There are currently{' '}
-                            {this.props.employees.length} employees onboarding.
-                        </Typography>
-                        <Typography
-                            variant="title"
-                            gutterBottom={true}
-                            style={{
-                                margin: '20px ',
+                                    color: 'white',
+                                }}
+                            >
+                                {' '}
+                                &mdash; There are currently{' '}
+                                {this.props.employees.length} employees
+                                onboarding.
+                            </Typography>
+                            <Typography
+                                variant="title"
+                                gutterBottom={true}
+                                style={{
+                                    margin: '20px ',
 
-                                color: 'white',
-                            }}
-                        >
-                            &mdash; {this.getTodayCount()}
-                        </Typography>
-                        <Typography
-                            variant="title"
-                            gutterBottom={true}
-                            style={{
-                                margin: '20px ',
+                                    color: 'white',
+                                }}
+                            >
+                                &mdash; {this.getTodayCount()}
+                            </Typography>
+                            <Typography
+                                variant="title"
+                                gutterBottom={true}
+                                style={{
+                                    margin: '20px ',
 
-                                color: 'white',
-                            }}
-                        >
-                            &mdash; {this.getNextSevenCount()}
-                        </Typography>
-                        <Typography
-                            variant="title"
-                            gutterBottom={true}
-                            style={{
-                                margin: '20px ',
+                                    color: 'white',
+                                }}
+                            >
+                                &mdash; {this.getNextSevenCount()}
+                            </Typography>
+                            <Typography
+                                variant="title"
+                                gutterBottom={true}
+                                style={{
+                                    margin: '20px ',
 
-                                color: 'white',
-                            }}
-                        >
-                            &mdash; {this.getLateCount()}
-                        </Typography>
-                    </Paper>
+                                    color: 'white',
+                                }}
+                            >
+                                &mdash; {this.getLateCount()}
+                            </Typography>
+                        </CardContent>
+                    </Card>
                 </div>
                 <div className={classes.cardContainer}>
                     <Grid container justify="space-evenly" spacing={24}>

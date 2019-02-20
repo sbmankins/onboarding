@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Admin = mongoose.model('admins');
 const Employee = mongoose.model('employees');
 const Manager = mongoose.model('managers');
-//const Status = mongoose.model('statuses');
+const Status = mongoose.model('statuses');
 
 module.exports = app => {
     app.get('/api/admins', async (req, res) => {
@@ -15,29 +15,24 @@ module.exports = app => {
         res.send(managers);
     });
 
+    app.get('/api/statuses', async (req, res) => {
+        const statuses = await Status.find();
+        res.send(statuses);
+        console.log(statuses);
+    });
+
     app.get('/api/employees', async (req, res) => {
-        const employees = await Employee.aggregate([
-            {
-                $lookup: {
-                    localField: '_admin',
-                    from: 'admins',
-                    foreignField: '_id',
-                    as: 'admin',
-                },
-            },
-            {
-                $lookup: {
-                    localField: '_manager',
-                    from: 'managers',
-                    foreignField: '_id',
-                    as: 'manager',
-                },
-            },
-            //  { $sort: { 'admin.name': -1 } },
-        ]).sort({
-            dateStart: 'ascending',
-            lastName: 'ascending',
-        });
+        const employees = await Employee.find()
+            .populate('_admin')
+            .populate('_manager')
+            .populate('_status')
+            .sort({
+                dateStart: 'ascending',
+                _status: 'ascending',
+                lastName: 'ascending',
+                _manager: 'ascending',
+                _admin: 'ascending',
+            });
 
         res.send(employees);
     });
@@ -47,6 +42,7 @@ module.exports = app => {
             const employee = await Employee.findById(req.params.id)
                 .populate('_admin')
                 .populate('_manager')
+                .populate('_status')
                 .exec();
             res.send(employee);
             console.log(employee);
@@ -105,6 +101,7 @@ module.exports = app => {
             dateStart,
             _admin,
             _manager,
+            _status,
             buddy,
         } = req.body;
 
@@ -114,6 +111,7 @@ module.exports = app => {
             dateStart,
             _admin,
             _manager,
+            _status,
             buddy,
 
             dateCreated: Date.now(),

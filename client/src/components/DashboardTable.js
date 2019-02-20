@@ -162,9 +162,9 @@ class DashboardTable extends Component {
                             ).toLocaleDateString('en-US', {
                                 timeZone: 'UTC',
                             }),
-                            manager: employee.manager[0].name,
-                            admin: employee.admin[0].name,
-                            status: employee.status,
+                            manager: employee._manager.name,
+                            admin: employee._admin.name,
+                            status: employee._status.name,
                         };
                     })}
                     title="Onboarding"

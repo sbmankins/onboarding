@@ -22,10 +22,8 @@ const employeeSchema = new Schema({
     //seat: String,
     //campus: String,
     //supervisorStatus: String,
-    //_status: { type: mongoose.Schema.Types.ObjectId, ref: 'statuses'}
-    //manager: { type: String, required: true },
+    _status: { type: mongoose.Schema.Types.ObjectId, ref: 'statuses' },
     _manager: { type: mongoose.Schema.Types.ObjectId, ref: 'managers' },
-    // admin: { type: String, required: true },
     _admin: { type: mongoose.Schema.Types.ObjectId, ref: 'admins' },
     //_vendor: {type: Schema.Types.ObjectId, ref: 'Vendor'}
 });

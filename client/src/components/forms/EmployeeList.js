@@ -104,7 +104,7 @@ class EmployeeList extends Component {
                     New = Good;
                     NewColor = Normaltext;
                     DividerColor = false;
-                } else if (between => 0 && between <= 7) {
+                } else if (between >= 0 && between <= 7) {
                     New = Warning;
                     NewColor = Normaltext;
                     DividerColor = false;
@@ -140,11 +140,11 @@ class EmployeeList extends Component {
                                 <div style={{ textAlign: 'Left' }}>
                                     <Typography style={NewColor} component="p">
                                         <strong>Manager:</strong>{' '}
-                                        {employee.manager[0].name}
+                                        {employee._manager.name}
                                     </Typography>
                                     <Typography style={NewColor} component="p">
                                         <strong>Admin:</strong>{' '}
-                                        {employee.admin[0].name}
+                                        {employee._admin.name}
                                     </Typography>
                                     <Divider
                                         style={{
@@ -172,7 +172,8 @@ class EmployeeList extends Component {
                                                 style={NewColor}
                                                 component="p"
                                             >
-                                                <strong>Status:</strong> To DO
+                                                <strong>Status:</strong>{' '}
+                                                {employee._status.name}
                                             </Typography>
                                         </Grid>
                                     </Grid>

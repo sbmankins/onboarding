@@ -62,6 +62,8 @@ class EmployeeForm extends Component {
         managerName: '',
         managerOptions: [],
         employeeID: '',
+        statusOptions: [],
+        statusName: '',
     };
 
     componentDidMount() {
@@ -79,6 +81,15 @@ class EmployeeForm extends Component {
             .then(response => {
                 this.setState({
                     managerOptions: response.data,
+                });
+            })
+            .catch(error => console.log(error.response));
+
+        axios
+            .get('/api/statuses')
+            .then(response => {
+                this.setState({
+                    statusOptions: response.data,
                 });
             })
             .catch(error => console.log(error.response));
@@ -105,11 +116,15 @@ class EmployeeForm extends Component {
                 this.props.location.state.adminName !== undefined) &&
             ((this.state.managerName === '' ||
                 this.state.managerName === undefined) &&
-                this.props.location.state.managerName !== undefined)
+                this.props.location.state.managerName !== undefined) &&
+            ((this.state.statusName === '' ||
+                this.state.statusName === undefined) &&
+                this.props.location.state.statusName !== undefined)
         ) {
             this.setState({
                 adminName: this.props.location.state.adminName,
                 managerName: this.props.location.state.managerName,
+                statusName: this.props.location.state.statusName,
             });
         }
     }
@@ -120,6 +135,12 @@ class EmployeeForm extends Component {
         this.setState({ adminName: adminName });
     }
 
+    handleStatusChange(event) {
+        const statusName = this.state.statusOptions.find(o => o._id === event)
+            .name;
+        this.setState({ statusName: statusName });
+    }
+
     handleSubmit(event) {
         this.props.history.push({
             pathname: '/new',
@@ -128,6 +149,7 @@ class EmployeeForm extends Component {
                 employeeID: this.state.employeeID,
                 adminName: this.state.adminName,
                 managerName: this.state.managerName,
+                statusName: this.state.statusName,
             },
         });
     }
@@ -176,7 +198,7 @@ class EmployeeForm extends Component {
                         <Paper className={classes.formContainer}>
                             <Grid container>{this.renderFields()}</Grid>
                             <Grid container>
-                                <Grid item sx={6}>
+                                <Grid item sx={4}>
                                     <FormGroup style={{ margin: '10px' }}>
                                         <FormLabel>
                                             <Typography variant="body1">
@@ -204,7 +226,7 @@ class EmployeeForm extends Component {
                                         />
                                     </FormGroup>
                                 </Grid>
-                                <Grid item xs={6}>
+                                <Grid item xs={4}>
                                     <FormGroup style={{ margin: '10px ' }}>
                                         <FormLabel>
                                             <Typography variant="body1">
@@ -229,6 +251,34 @@ class EmployeeForm extends Component {
                                             }
                                             clearable={true}
                                             placeholder="Select a person"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Status
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_status"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.statusOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            onChange={e =>
+                                                this.handleStatusChange(e)
+                                            }
+                                            clearable={true}
+                                            placeholder="Select a status"
                                         />
                                     </FormGroup>
                                 </Grid>

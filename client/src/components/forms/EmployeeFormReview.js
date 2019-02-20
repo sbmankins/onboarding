@@ -9,9 +9,10 @@ import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 
 class EmployeeFormReview extends Component {
-    state = { editing: false, employeeID: '' };
+    state = { editing: false };
 
     componentDidMount() {
+        console.log('from review form ', this.props);
         if (this.props.history.location.state.editing !== undefined) {
             this.setState({
                 editing: this.props.location.state.editing,
@@ -161,6 +162,26 @@ class EmployeeFormReview extends Component {
                             </Typography>
                         </div>
                     </div>
+                    <div style={{ marginBottom: '10px' }}>
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            Status
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {history.location.state.statusName}
+                            </Typography>
+                        </div>
+                    </div>
+                    <div style={{ marginBottom: '10px' }}>
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            Manager
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {history.location.state.managerName}
+                            </Typography>
+                        </div>
+                    </div>
                     <Button
                         variant="contained"
                         color="secondary"
@@ -183,15 +204,10 @@ class EmployeeFormReview extends Component {
 function mapStateToProps(state) {
     return {
         formValues: state.form.employeeForm.values,
+        adminName: state.adminName,
     };
 }
 export default connect(
     mapStateToProps,
     actions
 )(withRouter(EmployeeFormReview));
-
-// {new Date(
-//     employee.dateStart
-// ).toLocaleDateString('en-US', {
-//     timeZone: 'UTC',
-// })}

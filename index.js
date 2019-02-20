@@ -5,6 +5,7 @@ const PORT = 5000;
 require('./models/Employee');
 require('./models/Admin');
 require('./models/Manager');
+require('./models/Status');
 
 mongoose.connect(
     'mongodb://localhost:27017/onboardingDB',

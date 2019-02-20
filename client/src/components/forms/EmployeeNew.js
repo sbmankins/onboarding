@@ -46,6 +46,7 @@ class EmployeeNew extends Component {
                 lastName: this.state.employee.lastName,
                 _manager: this.state.employee._manager._id,
                 _admin: this.state.employee._admin._id,
+                _status: this.state.employee._status._id,
                 dateStart: this.state.employee.dateStart,
                 buddy: this.state.employee.buddy,
             };
@@ -55,6 +56,7 @@ class EmployeeNew extends Component {
                     initData: initData,
                     managerName: this.state.employee._manager.name,
                     adminName: this.state.employee._admin.name,
+                    statusName: this.state.employee._status.name,
                 },
                 () => {
                     this.props.history.push({
@@ -62,6 +64,7 @@ class EmployeeNew extends Component {
                         state: {
                             adminName: this.state.adminName,
                             managerName: this.state.managerName,
+                            statusName: this.state.statusName,
                         },
                     });
                 }
