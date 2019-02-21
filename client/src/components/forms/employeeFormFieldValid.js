@@ -3,5 +3,6 @@ export default [
     { name: 'lastName' },
     { name: '_manager' },
     { name: '_admin' },
+    { name: '_status' },
     { name: 'buddy' },
 ];

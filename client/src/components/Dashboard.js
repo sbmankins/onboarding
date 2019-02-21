@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { daysBetween } from './forms/daysBetween';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
     outerContainer: {
@@ -58,6 +59,33 @@ class Dashboard extends Component {
         console.log(this.props);
     }
 
+    getStatuses() {
+        let inProgress = 0;
+        let roadblock = 0;
+        let onHold = 0;
+        let complete = 0;
+        let emplStatus = {};
+
+        this.props.employees.forEach(function(employee) {
+            if (employee._status.name === 'In progress') {
+                inProgress++;
+            } else if (employee._status.name === 'On hold') {
+                onHold++;
+            } else if (employee._status.name === 'Roadblock') {
+                roadblock++;
+            } else if (employee._status.name === 'Complete') {
+                complete++;
+            }
+        });
+        emplStatus = {
+            InProgress: inProgress,
+            Roadblock: roadblock,
+            OnHold: onHold,
+            Complete: complete,
+        };
+        return emplStatus;
+    }
+
     getNextSevenCount() {
         let sevenCount = 0;
         this.props.employees.forEach(function(employee) {
@@ -65,22 +93,16 @@ class Dashboard extends Component {
             start = employee.dateStart;
 
             const between = daysBetween(start);
-            if ((between >= 0) & (between <= 7)) {
+            if (
+                between >= 0 &&
+                between <= 7 &&
+                employee._status.name !== 'Complete'
+            ) {
                 sevenCount++;
             }
         });
 
-        if (sevenCount === 1) {
-            return 'There is 1 employee onboarding in the next seven days.';
-        } else if (sevenCount > 1) {
-            return (
-                'There are ' +
-                sevenCount +
-                '  employees onboarding in the next seven days.'
-            );
-        } else if (sevenCount === 0) {
-            return 'There are no employees onboarding in the next seven days.';
-        }
+        return sevenCount;
     }
 
     getLateCount() {
@@ -94,14 +116,7 @@ class Dashboard extends Component {
                 lateCount++;
             }
         });
-
-        if (lateCount === 1) {
-            return 'There is 1 employee overdue.';
-        } else if (lateCount > 1) {
-            return 'There are ' + lateCount + '  employees overdue.';
-        } else if (lateCount === 0) {
-            return 'There are no employees overdue.';
-        }
+        return lateCount;
     }
 
     getTodayCount() {
@@ -112,18 +127,12 @@ class Dashboard extends Component {
 
             const between = daysBetween(start);
 
-            if (between === 0) {
+            if (between >= 0 && between < 1) {
                 todayCount++;
             }
         });
 
-        if (todayCount === 1) {
-            return 'There is 1 employee onboarding today.';
-        } else if (todayCount > 1) {
-            return 'There are ' + todayCount + '  employees onboarding today.';
-        } else if (todayCount === 0) {
-            return 'There are no employees onboarding today.';
-        }
+        return todayCount;
     }
 
     render() {
@@ -140,61 +149,128 @@ class Dashboard extends Component {
                         raised={true}
                         className={classes.dashTitle}
                         style={{
-                            width: '60%',
-                            minHeight: '50px',
+                            width: '50%',
+
                             margin: '0 auto ',
-                            padding: '20px',
+
                             backgroundColor: '#3f51b5',
+                            borderRadius: '100px',
                         }}
                     >
                         <CardContent>
-                            <Typography
-                                variant="title"
-                                gutterBottom={true}
-                                style={{
-                                    margin: '20px ',
+                            <Grid container justify="center" spacing={8}>
+                                <Grid item>
+                                    <Typography
+                                        variant="title"
+                                        style={{
+                                            margin: '10px ',
 
-                                    color: 'white',
-                                }}
-                            >
-                                {' '}
-                                &mdash; There are currently{' '}
-                                {this.props.employees.length} employees
-                                onboarding.
-                            </Typography>
-                            <Typography
-                                variant="title"
-                                gutterBottom={true}
-                                style={{
-                                    margin: '20px ',
+                                            color: 'white',
+                                        }}
+                                    >
+                                        <strong>Total:</strong>{' '}
+                                        {this.props.employees.length}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography
+                                        variant="title"
+                                        style={{
+                                            margin: '10px ',
 
-                                    color: 'white',
-                                }}
-                            >
-                                &mdash; {this.getTodayCount()}
-                            </Typography>
-                            <Typography
-                                variant="title"
-                                gutterBottom={true}
-                                style={{
-                                    margin: '20px ',
+                                            color: 'white',
+                                        }}
+                                    >
+                                        <strong>Today:</strong>{' '}
+                                        {this.getTodayCount()}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography
+                                        variant="title"
+                                        style={{
+                                            margin: '10px ',
 
-                                    color: 'white',
-                                }}
-                            >
-                                &mdash; {this.getNextSevenCount()}
-                            </Typography>
-                            <Typography
-                                variant="title"
-                                gutterBottom={true}
-                                style={{
-                                    margin: '20px ',
+                                            color: 'white',
+                                        }}
+                                    >
+                                        <strong>Next 7 days:</strong>{' '}
+                                        {this.getNextSevenCount()}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography
+                                        variant="title"
+                                        style={{
+                                            margin: '10px ',
 
-                                    color: 'white',
-                                }}
-                            >
-                                &mdash; {this.getLateCount()}
-                            </Typography>
+                                            color: 'white',
+                                        }}
+                                    >
+                                        <strong>Overdue:</strong>{' '}
+                                        {this.getLateCount()}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
+                            <Divider
+                                variant="middle"
+                                style={{ backgroundColor: 'white' }}
+                            />
+                            <Grid container justify="center" spacing={8}>
+                                <Grid item>
+                                    <Typography
+                                        variant="body1"
+                                        style={{
+                                            margin: '10px ',
+
+                                            color: 'white',
+                                        }}
+                                    >
+                                        <strong>In Progress:</strong>{' '}
+                                        {this.getStatuses().InProgress}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography
+                                        variant="body1"
+                                        style={{
+                                            margin: '10px ',
+
+                                            color: 'white',
+                                        }}
+                                    >
+                                        <strong>On hold:</strong>{' '}
+                                        {this.getStatuses().OnHold}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography
+                                        variant="body1"
+                                        style={{
+                                            margin: '10px ',
+
+                                            color: 'white',
+                                        }}
+                                    >
+                                        {' '}
+                                        <strong>Roadblock:</strong>{' '}
+                                        {this.getStatuses().Roadblock}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography
+                                        variant="body1"
+                                        style={{
+                                            margin: '10px ',
+
+                                            color: 'white',
+                                        }}
+                                    >
+                                        <strong>Complete:</strong>{' '}
+                                        {this.getStatuses().Complete}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
                         </CardContent>
                     </Card>
                 </div>

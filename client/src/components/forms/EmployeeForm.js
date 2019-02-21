@@ -276,6 +276,7 @@ EmployeeForm = reduxForm({
     form: 'employeeForm',
     destroyOnUnmount: false,
     enableReinitialize: true,
+    forceUnregisterOnUnmount: true,
     //keepDirtyOnReinitialize: true,
 })(EmployeeForm);
 

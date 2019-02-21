@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import employeeFormFields from './employeeFormFields';
+import employeeFormFields2 from './employeeFormFields2';
 import _ from 'lodash';
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
@@ -151,7 +152,25 @@ class EmployeeFormReview extends Component {
             }
         });
     }
-
+    reviewFields2() {
+        const { formValues } = this.props;
+        return _.map(employeeFormFields2, ({ name, label }) => {
+            if (name !== 'dateStart') {
+                return (
+                    <div key={name} style={{ marginBottom: '10px' }}>
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            {label}
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {formValues[name]}
+                            </Typography>
+                        </div>
+                    </div>
+                );
+            }
+        });
+    }
     render() {
         const { formValues } = this.props;
         const { onCancel } = this.props;
@@ -185,6 +204,7 @@ class EmployeeFormReview extends Component {
 
                 <div style={{ margin: '20px 20px' }}>
                     {this.reviewFields()}
+                    {this.reviewFields2()}
                     <div style={{ marginBottom: '10px' }}>
                         <Typography style={{ fontWeight: 'bold' }}>
                             Start Date

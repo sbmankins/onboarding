@@ -52,8 +52,6 @@ const Good = {
     margin: '20px',
 };
 
-let DividerColor = false;
-
 let New = {};
 let NewColor = {};
 
@@ -103,15 +101,12 @@ class EmployeeList extends Component {
                 if (between >= 7) {
                     New = Good;
                     NewColor = Normaltext;
-                    DividerColor = false;
                 } else if (between >= 0 && between <= 7) {
                     New = Warning;
                     NewColor = Normaltext;
-                    DividerColor = false;
                 } else {
                     New = Danger;
                     NewColor = Dangertext;
-                    DividerColor = true;
                 }
 
                 return (
@@ -135,7 +130,6 @@ class EmployeeList extends Component {
                                 <Divider
                                     style={{ margin: '5px 0 5px 0' }}
                                     variant="middle"
-                                    light={DividerColor}
                                 />
                                 <div style={{ textAlign: 'Left' }}>
                                     <Typography style={NewColor} component="p">
@@ -151,7 +145,6 @@ class EmployeeList extends Component {
                                             margin: '5px 0 5px 0',
                                         }}
                                         variant="middle"
-                                        light={DividerColor}
                                     />
                                     <Grid container spacing={24}>
                                         <Grid item xs={6}>
@@ -172,7 +165,8 @@ class EmployeeList extends Component {
                                                 style={NewColor}
                                                 component="p"
                                             >
-                                                <strong>Status:</strong>{' '}
+                                                <strong>Status:</strong>
+                                                <br />
                                                 {employee._status.name}
                                             </Typography>
                                         </Grid>
@@ -188,7 +182,7 @@ class EmployeeList extends Component {
                                         className={classes.button}
                                         style={{
                                             padding: '3px',
-                                            borderRadius: '5px',
+                                            borderRadius: '10px',
                                         }}
                                         onClick={(e, key) =>
                                             this.handleEditClick(e, id)
@@ -205,7 +199,7 @@ class EmployeeList extends Component {
                                 </Tooltip>
                                 <Tooltip title="Delete" aria-label="Delete">
                                     <Button
-                                        style={{ borderRadius: '5px' }}
+                                        style={{ borderRadius: '10px' }}
                                         variant="contained"
                                         color="secondary"
                                         className={classes.button}

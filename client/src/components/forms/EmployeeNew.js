@@ -4,6 +4,7 @@ import EmployeeForm from './EmployeeForm';
 import EmployeeFormReview from './EmployeeFormReview';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import EmployeeForm2 from './EmployeeForm2';
 
 class EmployeeNew extends Component {
     state = {
@@ -11,7 +12,15 @@ class EmployeeNew extends Component {
         employee: {},
         editing: false,
         initData: {},
+        page: 1,
     };
+    // nextPage() {
+    //     this.setState({ page: this.state.page + 1 });
+    // }
+    //
+    // previousPage() {
+    //     this.setState({ page: this.state.page - 1 });
+    // }
 
     componentDidMount() {
         if (this.props.history.location.state !== undefined) {
@@ -31,6 +40,7 @@ class EmployeeNew extends Component {
                 })
                 .catch(error => console.log(error.response));
         }
+        console.log(this.state);
     }
 
     handleInitialize() {
@@ -55,23 +65,51 @@ class EmployeeNew extends Component {
         }
     }
 
-    state = { showFormReview: false };
+    //state = { showFormReview: false};
     renderContent() {
-        if (this.state.showFormReview) {
+        if (this.state.showFormReview && this.state.page === 3) {
             return (
                 <EmployeeFormReview
-                    onCancel={() => this.setState({ showFormReview: false })}
+                    onCancel={() =>
+                        this.setState({
+                            showFormReview: false,
+                            page: this.state.page - 1,
+                        })
+                    }
+                />
+            );
+        } else if (this.state.page === 2) {
+            return (
+                <EmployeeForm2
+                    onEmployeeSubmit={() =>
+                        this.setState({
+                            showFormReview: true,
+                            page: this.state.page + 1,
+                        })
+                    }
+                    onCancel={() =>
+                        this.setState({
+                            showFormReview: false,
+                            page: this.state.page - 1,
+                        })
+                    }
+                />
+            );
+        } else if (this.state.page === 1) {
+            return (
+                <EmployeeForm
+                    // adminName={this.state.adminName}
+
+                    onEmployeeSubmit={() =>
+                        this.setState({
+                            showFormReview: false,
+                            page: this.state.page + 1,
+                        })
+                    }
+                    onInitialValues={() => this.handleInitialize()}
                 />
             );
         }
-        return (
-            <EmployeeForm
-                // adminName={this.state.adminName}
-
-                onEmployeeSubmit={() => this.setState({ showFormReview: true })}
-                onInitialValues={() => this.handleInitialize()}
-            />
-        );
     }
 
     render() {

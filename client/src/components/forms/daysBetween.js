@@ -1,9 +1,15 @@
+import moment from 'moment';
+
 export function daysBetween(start) {
-    var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-    var firstDate = new Date(Date.now());
-    var secondDate = new Date(start);
-    return Math.round(
-        (secondDate.getTime() - firstDate.getTime() + 6 * 60 * 60 * 1000) /
-            oneDay
-    );
+    var now = Date.now();
+    var today = new Date(now).toLocaleDateString('en-US', {
+        timeZone: 'UTC',
+    });
+    start = new Date(start).toLocaleDateString('en-US', {
+        timeZone: 'UTC',
+    });
+    var date1 = moment(today);
+    var date2 = moment(start);
+    console.log(date2.diff(date1, 'days') + 1);
+    return date2.diff(date1, 'days') + 1;
 }
