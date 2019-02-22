@@ -44,6 +44,7 @@ class EmployeeNew extends Component {
                 _manager: this.state.employee._manager._id,
                 _admin: this.state.employee._admin._id,
                 _status: this.state.employee._status._id,
+                _team: this.state.employee._team._id,
                 dateStart: this.state.employee.dateStart,
                 buddy: this.state.employee.buddy,
             };

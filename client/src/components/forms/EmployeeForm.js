@@ -11,9 +11,11 @@ import SearchSelect from './SearchSelect';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import employeeFormFieldValid from './employeeFormFieldValid';
+import { fetchAdmins } from '../../actions';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
     outerContainer: {
@@ -61,13 +63,15 @@ const styles = theme => ({
 class EmployeeForm extends Component {
     state = {
         adminOptions: [],
+        teamOptions: [],
+        // teamName:[],
         admin: '',
-        adminName: '',
-        managerName: '',
+        // adminName: '',
+        // managerName: '',
         managerOptions: [],
         employeeID: '',
         statusOptions: [],
-        statusName: '',
+        // statusName: '',
         editing: '',
     };
 
@@ -77,6 +81,15 @@ class EmployeeForm extends Component {
             .then(response => {
                 this.setState({
                     adminOptions: response.data,
+                });
+            })
+            .catch(error => console.log(error.response));
+
+        axios
+            .get('/api/teams')
+            .then(response => {
+                this.setState({
+                    teamOptions: response.data,
                 });
             })
             .catch(error => console.log(error.response));
@@ -99,11 +112,19 @@ class EmployeeForm extends Component {
             })
             .catch(error => console.log(error.response));
 
-        if (this.props.location.state !== undefined) {
-            this.setState({ employeeID: this.props.location.state.employee });
+        if (
+            this.props.location.state !== undefined &&
+            this.props.location.state.employee !== undefined
+        ) {
+            this.setState({
+                employeeID: this.props.location.state.employee,
+            });
         }
 
-        if (this.props._reduxForm.history.location.state !== undefined) {
+        if (
+            this.props._reduxForm.history.location.state !== undefined &&
+            this.props._reduxForm.history.location.state.editing !== undefined
+        ) {
             this.setState({
                 editing: this.props._reduxForm.history.location.state.editing,
             });
@@ -116,9 +137,10 @@ class EmployeeForm extends Component {
             state: {
                 editing: this.state.editing,
                 employeeID: this.state.employeeID,
-                adminName: this.state.adminName,
-                managerName: this.state.managerName,
-                statusName: this.state.statusName,
+                // adminName: this.state.adminName,
+                // managerName: this.state.managerName,
+                // teamName: this.state.teamName,
+                // statusName: this.state.statusName,
             },
         });
     }
@@ -160,7 +182,7 @@ class EmployeeForm extends Component {
                         <Paper className={classes.formContainer}>
                             <Grid container>{this.renderFields()}</Grid>
                             <Grid container>
-                                <Grid item sx={4}>
+                                <Grid item sx={3}>
                                     <FormGroup style={{ margin: '10px' }}>
                                         <FormLabel>
                                             <Typography variant="body1">
@@ -185,7 +207,7 @@ class EmployeeForm extends Component {
                                         />
                                     </FormGroup>
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={3}>
                                     <FormGroup style={{ margin: '10px ' }}>
                                         <FormLabel>
                                             <Typography variant="body1">
@@ -210,7 +232,7 @@ class EmployeeForm extends Component {
                                         />
                                     </FormGroup>
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={3}>
                                     <FormGroup style={{ margin: '10px ' }}>
                                         <FormLabel>
                                             <Typography variant="body1">
@@ -235,6 +257,31 @@ class EmployeeForm extends Component {
                                         />
                                     </FormGroup>
                                 </Grid>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <FormGroup style={{ margin: '10px ' }}>
+                                    <FormLabel>
+                                        <Typography variant="body1">
+                                            Team
+                                        </Typography>
+                                    </FormLabel>
+
+                                    <Field
+                                        name="_team"
+                                        simpleValue={false}
+                                        component={SearchSelect}
+                                        options={this.state.teamOptions.map(
+                                            ({ name, _id }) => {
+                                                return {
+                                                    label: name,
+                                                    value: _id,
+                                                };
+                                            }
+                                        )}
+                                        clearable={true}
+                                        placeholder="Select a team"
+                                    />
+                                </FormGroup>
                             </Grid>
                         </Paper>
                     </Grid>
@@ -282,6 +329,11 @@ EmployeeForm = reduxForm({
     forceUnregisterOnUnmount: true,
     //keepDirtyOnReinitialize: true,
 })(EmployeeForm);
+
+EmployeeForm = connect(
+    null,
+    { fetchAdmins }
+)(EmployeeForm);
 
 EmployeeForm = withRouter(EmployeeForm);
 

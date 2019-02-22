@@ -3,11 +3,17 @@ const Admin = mongoose.model('admins');
 const Employee = mongoose.model('employees');
 const Manager = mongoose.model('managers');
 const Status = mongoose.model('statuses');
+const Team = mongoose.model('teams');
 
 module.exports = app => {
     app.get('/api/admins', async (req, res) => {
         const admins = await Admin.find();
         res.send(admins);
+    });
+
+    app.get('/api/teams', async (req, res) => {
+        const teams = await Team.find();
+        res.send(teams);
     });
 
     app.get('/api/managers', async (req, res) => {
@@ -18,7 +24,6 @@ module.exports = app => {
     app.get('/api/statuses', async (req, res) => {
         const statuses = await Status.find();
         res.send(statuses);
-        console.log(statuses);
     });
 
     app.get('/api/employees', async (req, res) => {
@@ -43,6 +48,7 @@ module.exports = app => {
                 .populate('_admin')
                 .populate('_manager')
                 .populate('_status')
+                .populate('_team')
                 .exec();
             res.send(employee);
             console.log(employee);
@@ -68,28 +74,16 @@ module.exports = app => {
                 }
             }
         );
-        const employees = await Employee.aggregate([
-            {
-                $lookup: {
-                    localField: '_admin',
-                    from: 'admins',
-                    foreignField: '_id',
-                    as: 'admin',
-                },
-            },
-            {
-                $lookup: {
-                    localField: '_manager',
-                    from: 'managers',
-                    foreignField: '_id',
-                    as: 'manager',
-                },
-            },
-            //  { $sort: { 'admin.name': -1 } },
-        ]).sort({
-            dateStart: 'ascending',
-            lastName: 'ascending',
-        });
+        const employees = await Employee.find()
+            .populate('_admin')
+            .populate('_manager')
+            .populate('_status')
+            .populate('_team')
+            .sort({
+                dateStart: 'ascending',
+                lastName: 'ascending',
+            })
+            .exec();
 
         res.send(employees);
     });
@@ -102,6 +96,7 @@ module.exports = app => {
             _admin,
             _manager,
             _status,
+            _team,
             buddy,
         } = req.body;
 
@@ -112,6 +107,7 @@ module.exports = app => {
             _admin,
             _manager,
             _status,
+            _team,
             buddy,
 
             dateCreated: Date.now(),

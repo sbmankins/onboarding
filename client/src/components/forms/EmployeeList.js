@@ -35,7 +35,7 @@ const styles = theme => ({
     },
     editIcon: {
         color: 'white',
-        fontSize: '1.6rem',
+        fontSize: '1.3rem',
     },
 });
 
@@ -188,7 +188,7 @@ class EmployeeList extends Component {
                                         className={classes.button}
                                         style={{
                                             padding: '3px',
-                                            borderRadius: '10px',
+                                            borderRadius: '20px',
                                         }}
                                         onClick={(e, key) =>
                                             this.handleEditClick(e, id)
@@ -203,7 +203,10 @@ class EmployeeList extends Component {
                                 </Tooltip>
                                 <Tooltip title="Delete" aria-label="Delete">
                                     <Button
-                                        style={{ borderRadius: '10px' }}
+                                        style={{
+                                            padding: '3px',
+                                            borderRadius: '20px',
+                                        }}
                                         variant="contained"
                                         color="secondary"
                                         className={classes.button}

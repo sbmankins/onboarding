@@ -20,7 +20,7 @@ export const fetchEmployees = () => async dispatch => {
 };
 
 export const fetchAdmins = () => async dispatch => {
-    const res = await axios.get('api/admins');
+    const res = await axios.get('/api/admins');
     dispatch({ type: FETCH_ADMINS, payload: res.data });
 };
 

@@ -14,7 +14,7 @@ const employeeSchema = new Schema({
     //role: {type: String, required: true},
     dateStart: { type: Date, required: true },
     dateCreated: Date,
-    //teamName: {type: String, required: true},
+    _team: { type: mongoose.Schema.Types.ObjectId, ref: 'teams' },
     //platform: {type: String, required: true},
     //hireStatus: String,
     buddy: String,

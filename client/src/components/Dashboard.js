@@ -59,7 +59,7 @@ const styles = theme => ({
         width: '90%',
         margin: '0 auto ',
         backgroundColor: '#3f51b5',
-        borderRadius: '30px',
+        borderRadius: '50px',
     },
 
     topStats: {

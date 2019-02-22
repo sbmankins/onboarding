@@ -20,6 +20,8 @@ class EmployeeFormReview extends Component {
         managerName: '',
         adminOptions: [],
         adminName: '',
+        teamOptions: [],
+        teamName: '',
     };
 
     componentDidMount() {
@@ -35,6 +37,23 @@ class EmployeeFormReview extends Component {
                             o => o._id === this.props.formValues._admin
                         ).name;
                         this.setState({ adminName: adminName });
+                    }
+                );
+            })
+            .catch(error => console.log(error.response));
+
+        axios
+            .get('/api/teams')
+            .then(response => {
+                this.setState(
+                    {
+                        teamOptions: response.data,
+                    },
+                    () => {
+                        const teamName = this.state.teamOptions.find(
+                            o => o._id === this.props.formValues._team
+                        ).name;
+                        this.setState({ teamName: teamName });
                     }
                 );
             })
@@ -226,6 +245,18 @@ class EmployeeFormReview extends Component {
                                 <div>
                                     <Typography variant="body1">
                                         {this.state.adminName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Team
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.teamName}
                                     </Typography>
                                 </div>
                             </div>
