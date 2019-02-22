@@ -22,18 +22,21 @@ const styles = theme => ({
         padding: '10px',
         background: '#edeeef',
         flexGrow: 1,
+        borderRadius: '20px',
     },
 
     headingContainer: {
         background: '#dbe2ef',
         padding: '20px',
         marginBottom: '20px',
+        borderRadius: '20px',
     },
 
     formContainer: {
         width: '90%',
         margin: '0px 20px',
         padding: '10px',
+        borderRadius: '20px',
     },
 
     titleText: {
@@ -51,6 +54,7 @@ const styles = theme => ({
     formButton: {
         margin: '30px 30px 0 10px',
         width: '100px',
+        borderRadius: '20px',
     },
 });
 

@@ -22,12 +22,14 @@ const styles = theme => ({
         background: '#edeeef',
         textAlign: 'center',
         flexGrow: 1,
+        borderRadius: '20px',
     },
 
     headerContainer: {
         background: '#dbe2ef',
         padding: '20px',
         marginBottom: '20px',
+        borderRadius: '20px',
     },
 
     dashTitle: {
@@ -51,6 +53,28 @@ const styles = theme => ({
         bottom: 20,
         left: 'auto',
         position: 'fixed',
+    },
+
+    statsBar: {
+        width: '90%',
+        margin: '0 auto ',
+        backgroundColor: '#3f51b5',
+        borderRadius: '30px',
+    },
+
+    topStats: {
+        margin: '0 10px 10px 0',
+        color: 'white',
+    },
+
+    bottomStats: {
+        margin: '10px 10px 0 0 ',
+        color: 'white',
+    },
+
+    floatLink: {
+        textDecoration: 'none',
+        color: 'white',
     },
 });
 
@@ -143,23 +167,14 @@ class Dashboard extends Component {
                 <div style={{ marginBottom: '15px' }}>
                     <Card
                         raised={true}
-                        className={classes.dashTitle}
-                        style={{
-                            width: '50%',
-                            margin: '0 auto ',
-                            backgroundColor: '#3f51b5',
-                            borderRadius: '100px',
-                        }}
+                        className={`${classes.dashTitle} ${classes.statsBar}`}
                     >
                         <CardContent>
                             <Grid container justify="center" spacing={8}>
                                 <Grid item>
                                     <Typography
                                         variant="title"
-                                        style={{
-                                            margin: '10px ',
-                                            color: 'white',
-                                        }}
+                                        className={classes.topStats}
                                     >
                                         <strong>Total:</strong>{' '}
                                         {this.props.employees.length}
@@ -168,10 +183,7 @@ class Dashboard extends Component {
                                 <Grid item>
                                     <Typography
                                         variant="title"
-                                        style={{
-                                            margin: '10px ',
-                                            color: 'white',
-                                        }}
+                                        className={classes.topStats}
                                     >
                                         <strong>Today:</strong>{' '}
                                         {this.getTodayCount()}
@@ -180,10 +192,7 @@ class Dashboard extends Component {
                                 <Grid item>
                                     <Typography
                                         variant="title"
-                                        style={{
-                                            margin: '10px ',
-                                            color: 'white',
-                                        }}
+                                        className={classes.topStats}
                                     >
                                         <strong>Next 7 days:</strong>{' '}
                                         {this.getNextSevenCount()}
@@ -192,11 +201,7 @@ class Dashboard extends Component {
                                 <Grid item>
                                     <Typography
                                         variant="title"
-                                        style={{
-                                            margin: '10px ',
-
-                                            color: 'white',
-                                        }}
+                                        className={classes.topStats}
                                     >
                                         <strong>Overdue:</strong>{' '}
                                         {this.getLateCount()}
@@ -211,10 +216,7 @@ class Dashboard extends Component {
                                 <Grid item>
                                     <Typography
                                         variant="body1"
-                                        style={{
-                                            margin: '10px 10px 0 10px ',
-                                            color: 'white',
-                                        }}
+                                        className={classes.bottomStats}
                                     >
                                         <strong>In Progress:</strong>{' '}
                                         {this.getStatuses().InProgress}
@@ -223,10 +225,7 @@ class Dashboard extends Component {
                                 <Grid item>
                                     <Typography
                                         variant="body1"
-                                        style={{
-                                            margin: '10px 10px 0 10px ',
-                                            color: 'white',
-                                        }}
+                                        className={classes.bottomStats}
                                     >
                                         <strong>On hold:</strong>{' '}
                                         {this.getStatuses().OnHold}
@@ -235,12 +234,8 @@ class Dashboard extends Component {
                                 <Grid item>
                                     <Typography
                                         variant="body1"
-                                        style={{
-                                            margin: '10px 10px 0 10px ',
-                                            color: 'white',
-                                        }}
+                                        className={classes.bottomStats}
                                     >
-                                        {' '}
                                         <strong>Roadblock:</strong>{' '}
                                         {this.getStatuses().Roadblock}
                                     </Typography>
@@ -248,10 +243,7 @@ class Dashboard extends Component {
                                 <Grid item>
                                     <Typography
                                         variant="body1"
-                                        style={{
-                                            margin: '10px 10px 0 10px ',
-                                            color: 'white',
-                                        }}
+                                        className={classes.bottomStats}
                                     >
                                         <strong>Complete:</strong>{' '}
                                         {this.getStatuses().Complete}
@@ -272,11 +264,7 @@ class Dashboard extends Component {
                         aria-label="Add"
                         className={`${classes.fab} ${classes.btnFloat}`}
                     >
-                        {' '}
-                        <Link
-                            style={{ textDecoration: 'none', color: 'white' }}
-                            to={'/new'}
-                        >
+                        <Link className={classes.floatLink} to={'/new'}>
                             <AddIcon />
                         </Link>
                     </Fab>

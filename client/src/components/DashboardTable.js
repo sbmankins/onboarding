@@ -21,12 +21,14 @@ const styles = theme => ({
         background: '#edeeef',
         textAlign: 'center',
         flexGrow: 1,
+        borderRadius: '20px',
     },
 
     headerContainer: {
         background: '#dbe2ef',
         padding: '20px',
         marginBottom: '20px',
+        borderRadius: '20px',
     },
 
     dashTitle: {

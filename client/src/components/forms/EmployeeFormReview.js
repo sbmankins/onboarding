@@ -93,6 +93,7 @@ class EmployeeFormReview extends Component {
                     style={{
                         margin: '30px 20px 10px 10px',
                         width: '100px',
+                        borderRadius: '20px',
                     }}
                     onClick={() => {
                         editEmployee(
@@ -113,6 +114,7 @@ class EmployeeFormReview extends Component {
                     style={{
                         margin: '30px 20px 10px 10px',
                         width: '100px',
+                        borderRadius: '20px',
                     }}
                     onClick={() => submitEmployee(formValues, history)}
                 >
@@ -176,6 +178,7 @@ class EmployeeFormReview extends Component {
                     padding: '10px',
                     background: '#edeeef',
                     flexGrow: 1,
+                    borderRadius: '20px',
                 }}
                 elevation={1}
             >
@@ -184,6 +187,7 @@ class EmployeeFormReview extends Component {
                         background: '#dbe2ef',
                         padding: '20px',
                         marginBottom: '20px',
+                        borderRadius: '20px',
                     }}
                     elevation={1}
                 >
@@ -256,6 +260,7 @@ class EmployeeFormReview extends Component {
                             style={{
                                 margin: '30px 20px 10px 10px',
                                 width: '100px',
+                                borderRadius: '20px',
                             }}
                             onClick={onCancel}
                         >

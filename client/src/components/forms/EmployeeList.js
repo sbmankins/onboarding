@@ -28,6 +28,15 @@ const styles = theme => ({
     iconSmall: {
         fontSize: 12,
     },
+
+    deleteIcon: {
+        color: 'white',
+        fontSize: '1.3rem',
+    },
+    editIcon: {
+        color: 'white',
+        fontSize: '1.6rem',
+    },
 });
 
 const Normaltext = {
@@ -36,6 +45,7 @@ const Normaltext = {
 const Warning = {
     backgroundColor: '#faf096',
     margin: '20px',
+    borderRadius: '30px',
 };
 
 const Dangertext = {
@@ -45,11 +55,13 @@ const Dangertext = {
 const Danger = {
     backgroundColor: '#c82121',
     margin: '20px',
+    borderRadius: '30px',
 };
 
 const Good = {
     backgroundColor: '#acdeaa',
     margin: '20px',
+    borderRadius: '30px',
 };
 
 let New = {};
@@ -183,11 +195,9 @@ class EmployeeList extends Component {
                                         }
                                     >
                                         <EditIcon
-                                            style={{
-                                                color: 'white',
-                                                fontSize: '1.6rem',
-                                            }}
-                                            className={classes.iconRight}
+                                            className={`${classes.iconRight} ${
+                                                classes.editIcon
+                                            }`}
                                         />
                                     </Button>
                                 </Tooltip>
@@ -211,11 +221,9 @@ class EmployeeList extends Component {
                                         }}
                                     >
                                         <DeleteForeverIcon
-                                            style={{
-                                                color: 'white',
-                                                fontSize: '1.3rem',
-                                            }}
-                                            className={classes.iconRight}
+                                            className={`${classes.iconRight} ${
+                                                classes.deleteIcon
+                                            }`}
                                         />
                                     </Button>
                                 </Tooltip>
