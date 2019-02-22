@@ -64,6 +64,7 @@ class EmployeeForm extends Component {
         employeeID: '',
         statusOptions: [],
         statusName: '',
+        editing: '',
     };
 
     componentDidMount() {
@@ -102,8 +103,6 @@ class EmployeeForm extends Component {
             this.setState({
                 editing: this.props._reduxForm.history.location.state.editing,
             });
-        } else {
-            this.setState({ editing: false });
         }
     }
 

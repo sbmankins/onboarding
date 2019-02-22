@@ -55,10 +55,6 @@ const styles = theme => ({
 });
 
 class Dashboard extends Component {
-    componentDidMount() {
-        console.log(this.props);
-    }
-
     getStatuses() {
         let inProgress = 0;
         let roadblock = 0;
@@ -150,9 +146,7 @@ class Dashboard extends Component {
                         className={classes.dashTitle}
                         style={{
                             width: '50%',
-
                             margin: '0 auto ',
-
                             backgroundColor: '#3f51b5',
                             borderRadius: '100px',
                         }}
@@ -164,7 +158,6 @@ class Dashboard extends Component {
                                         variant="title"
                                         style={{
                                             margin: '10px ',
-
                                             color: 'white',
                                         }}
                                     >
@@ -177,7 +170,6 @@ class Dashboard extends Component {
                                         variant="title"
                                         style={{
                                             margin: '10px ',
-
                                             color: 'white',
                                         }}
                                     >
@@ -190,7 +182,6 @@ class Dashboard extends Component {
                                         variant="title"
                                         style={{
                                             margin: '10px ',
-
                                             color: 'white',
                                         }}
                                     >
@@ -221,8 +212,7 @@ class Dashboard extends Component {
                                     <Typography
                                         variant="body1"
                                         style={{
-                                            margin: '10px ',
-
+                                            margin: '10px 10px 0 10px ',
                                             color: 'white',
                                         }}
                                     >
@@ -234,8 +224,7 @@ class Dashboard extends Component {
                                     <Typography
                                         variant="body1"
                                         style={{
-                                            margin: '10px ',
-
+                                            margin: '10px 10px 0 10px ',
                                             color: 'white',
                                         }}
                                     >
@@ -247,8 +236,7 @@ class Dashboard extends Component {
                                     <Typography
                                         variant="body1"
                                         style={{
-                                            margin: '10px ',
-
+                                            margin: '10px 10px 0 10px ',
                                             color: 'white',
                                         }}
                                     >
@@ -261,8 +249,7 @@ class Dashboard extends Component {
                                     <Typography
                                         variant="body1"
                                         style={{
-                                            margin: '10px ',
-
+                                            margin: '10px 10px 0 10px ',
                                             color: 'white',
                                         }}
                                     >

@@ -55,9 +55,6 @@ const styles = theme => ({
 });
 
 class EmployeeForm2 extends Component {
-    componentDidMount() {
-        console.log(this.props);
-    }
     state = {
         // adminOptions: [],
         // admin: '',
@@ -67,7 +64,19 @@ class EmployeeForm2 extends Component {
         employeeID: '',
         // statusOptions: [],
         // statusName: '',
+        editing: '',
     };
+    componentDidMount() {
+        if (this.props.location.state !== undefined) {
+            this.setState({ employeeID: this.props.location.state.employeeID });
+        }
+
+        if (this.props._reduxForm.history.location.state !== undefined) {
+            this.setState({
+                editing: this.props._reduxForm.history.location.state.editing,
+            });
+        }
+    }
 
     handleSubmit(event) {
         this.props.history.push({

@@ -8,11 +8,12 @@ import employeeFormFields2 from './employeeFormFields2';
 import _ from 'lodash';
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 
 class EmployeeFormReview extends Component {
     state = {
-        editing: false,
+        // editing: false,
         statusOptions: [],
         statusName: '',
         managerOptions: [],
@@ -72,21 +73,6 @@ class EmployeeFormReview extends Component {
                 );
             })
             .catch(error => console.log(error.response));
-
-        if (this.props.history.location.state.editing !== undefined) {
-            this.setState({
-                editing: this.props.location.state.editing,
-            });
-        } else {
-            this.setState({ editing: false });
-        }
-        if (this.props.history.location.state.employeeID !== undefined) {
-            this.setState({
-                employeeID: this.props.location.state.employeeID,
-            });
-        } else {
-            this.setState({ editing: false });
-        }
     }
     renderButton() {
         const {
@@ -96,7 +82,10 @@ class EmployeeFormReview extends Component {
             editEmployee,
             location,
         } = this.props;
-        if (this.state.editing === true) {
+        if (
+            this.props.history.location.state.editing !== undefined &&
+            this.props.history.location.state.editing === true
+        ) {
             return (
                 <Button
                     variant="contained"
@@ -138,16 +127,18 @@ class EmployeeFormReview extends Component {
         return _.map(employeeFormFields, ({ name, label }) => {
             if (name !== 'dateStart') {
                 return (
-                    <div key={name} style={{ marginBottom: '10px' }}>
-                        <Typography style={{ fontWeight: 'bold' }}>
-                            {label}
-                        </Typography>
-                        <div>
-                            <Typography variant="body1">
-                                {formValues[name]}
+                    <Grid item key={name}>
+                        <div style={{ marginBottom: '10px' }}>
+                            <Typography style={{ fontWeight: 'bold' }}>
+                                {label}
                             </Typography>
+                            <div>
+                                <Typography variant="body1">
+                                    {formValues[name]}
+                                </Typography>
+                            </div>
                         </div>
-                    </div>
+                    </Grid>
                 );
             }
         });
@@ -157,16 +148,18 @@ class EmployeeFormReview extends Component {
         return _.map(employeeFormFields2, ({ name, label }) => {
             if (name !== 'dateStart') {
                 return (
-                    <div key={name} style={{ marginBottom: '10px' }}>
-                        <Typography style={{ fontWeight: 'bold' }}>
-                            {label}
-                        </Typography>
-                        <div>
-                            <Typography variant="body1">
-                                {formValues[name]}
+                    <Grid item key={name}>
+                        <div style={{ marginBottom: '10px' }}>
+                            <Typography style={{ fontWeight: 'bold' }}>
+                                {label}
                             </Typography>
+                            <div>
+                                <Typography variant="body1">
+                                    {formValues[name]}
+                                </Typography>
+                            </div>
                         </div>
-                    </div>
+                    </Grid>
                 );
             }
         });
@@ -201,68 +194,77 @@ class EmployeeFormReview extends Component {
                         Please confirm entries
                     </Typography>
                 </Paper>
+                <Grid container direction="row" justify="space-between">
+                    <div style={{ margin: '20px 20px' }}>
+                        {this.reviewFields()}
+                        {this.reviewFields2()}
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Start Date
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {new Date(
+                                            formValues.dateStart
+                                        ).toLocaleDateString('en-US', {
+                                            timeZone: 'UTC',
+                                        })}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Admin
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.adminName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Manager
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.managerName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Status
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.statusName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            style={{
+                                margin: '30px 20px 10px 10px',
+                                width: '100px',
+                            }}
+                            onClick={onCancel}
+                        >
+                            Back
+                        </Button>
 
-                <div style={{ margin: '20px 20px' }}>
-                    {this.reviewFields()}
-                    {this.reviewFields2()}
-                    <div style={{ marginBottom: '10px' }}>
-                        <Typography style={{ fontWeight: 'bold' }}>
-                            Start Date
-                        </Typography>
-                        <div>
-                            <Typography variant="body1">
-                                {new Date(
-                                    formValues.dateStart
-                                ).toLocaleDateString('en-US', {
-                                    timeZone: 'UTC',
-                                })}
-                            </Typography>
-                        </div>
+                        {this.renderButton()}
                     </div>
-                    <div style={{ marginBottom: '10px' }}>
-                        <Typography style={{ fontWeight: 'bold' }}>
-                            Admin
-                        </Typography>
-                        <div>
-                            <Typography variant="body1">
-                                {this.state.adminName}
-                            </Typography>
-                        </div>
-                    </div>
-                    <div style={{ marginBottom: '10px' }}>
-                        <Typography style={{ fontWeight: 'bold' }}>
-                            Manager
-                        </Typography>
-                        <div>
-                            <Typography variant="body1">
-                                {this.state.managerName}
-                            </Typography>
-                        </div>
-                    </div>
-                    <div style={{ marginBottom: '10px' }}>
-                        <Typography style={{ fontWeight: 'bold' }}>
-                            Status
-                        </Typography>
-                        <div>
-                            <Typography variant="body1">
-                                {this.state.statusName}
-                            </Typography>
-                        </div>
-                    </div>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        style={{
-                            margin: '30px 20px 10px 10px',
-                            width: '100px',
-                        }}
-                        onClick={onCancel}
-                    >
-                        Back
-                    </Button>
-
-                    {this.renderButton()}
-                </div>
+                </Grid>
             </Paper>
         );
     }
@@ -272,6 +274,8 @@ function mapStateToProps(state) {
     return {
         formValues: state.form.employeeForm.values,
         adminName: state.adminName,
+        employeeID: state.employeeID,
+        editing: state.editing,
     };
 }
 export default connect(

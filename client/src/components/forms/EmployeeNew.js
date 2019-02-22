@@ -14,13 +14,6 @@ class EmployeeNew extends Component {
         initData: {},
         page: 1,
     };
-    // nextPage() {
-    //     this.setState({ page: this.state.page + 1 });
-    // }
-    //
-    // previousPage() {
-    //     this.setState({ page: this.state.page - 1 });
-    // }
 
     componentDidMount() {
         if (this.props.history.location.state !== undefined) {
@@ -33,20 +26,18 @@ class EmployeeNew extends Component {
                             employee: response.data,
                         },
                         () => {
-                            console.log(response.data);
                             this.handleInitialize();
                         }
                     );
                 })
                 .catch(error => console.log(error.response));
         }
-        console.log(this.state);
     }
 
     handleInitialize() {
         if (this.state.employee) {
             this.setState({ editing: true });
-            console.log(this.state.employee);
+
             const initData = {
                 firstName: this.state.employee.firstName,
                 lastName: this.state.employee.lastName,

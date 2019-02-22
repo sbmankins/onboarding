@@ -77,14 +77,8 @@ class EmployeeList extends Component {
     };
 
     handleEditClick = (event, id) => {
-        console.log(id);
         event.preventDefault();
-        this.setState(
-            { employeeID: id, toDashboard: true, editing: true },
-            () => {
-                console.log(this.state.editing);
-            }
-        );
+        this.setState({ employeeID: id, toDashboard: true, editing: true });
     };
 
     renderEmployees() {

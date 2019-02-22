@@ -10,6 +10,6 @@ export function daysBetween(start) {
     });
     var date1 = moment(today);
     var date2 = moment(start);
-    console.log(date2.diff(date1, 'days') + 1);
+
     return date2.diff(date1, 'days') + 1;
 }
