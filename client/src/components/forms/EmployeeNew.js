@@ -13,10 +13,17 @@ class EmployeeNew extends Component {
         editing: false,
         initData: {},
         page: 1,
+        dropDowns: {},
+        managerOptions: [],
+        adminOptions: [],
+        statusOptions: [],
     };
 
     componentDidMount() {
-        if (this.props.history.location.state !== undefined) {
+        if (
+            this.props.history.location.state !== undefined &&
+            this.props.history.location.state.employee !== undefined
+        ) {
             const id = this.props.history.location.state.employee;
             axios
                 .get(`/api/${id}`)
@@ -98,7 +105,9 @@ class EmployeeNew extends Component {
                             page: this.state.page + 1,
                         })
                     }
-                    onInitialValues={() => this.handleInitialize()}
+                    onInitialValues={() => {
+                        this.handleInitialize();
+                    }}
                 />
             );
         }

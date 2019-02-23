@@ -9,6 +9,10 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { daysBetween } from './forms/daysBetween';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
     outerContainer: {
@@ -49,6 +53,23 @@ const styles = theme => ({
         bottom: 20,
         left: 'auto',
         position: 'fixed',
+    },
+
+    statsBar: {
+        width: '90%',
+        margin: '0 auto ',
+        backgroundColor: '#3f51b5',
+        borderRadius: '50px',
+    },
+
+    topStats: {
+        margin: '0 10px 10px 0',
+        color: 'white',
+    },
+
+    bottomStats: {
+        margin: '10px 10px 0 0 ',
+        color: 'white',
     },
 
     floatLink: {

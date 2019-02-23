@@ -12,10 +12,10 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import employeeFormFieldValid from './employeeFormFieldValid';
 import { fetchAdmins } from '../../actions';
-import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 const styles = theme => ({
     outerContainer: {
@@ -76,41 +76,7 @@ class EmployeeForm extends Component {
     };
 
     componentDidMount() {
-        axios
-            .get('/api/admins')
-            .then(response => {
-                this.setState({
-                    adminOptions: response.data,
-                });
-            })
-            .catch(error => console.log(error.response));
-
-        axios
-            .get('/api/teams')
-            .then(response => {
-                this.setState({
-                    teamOptions: response.data,
-                });
-            })
-            .catch(error => console.log(error.response));
-
-        axios
-            .get('/api/managers')
-            .then(response => {
-                this.setState({
-                    managerOptions: response.data,
-                });
-            })
-            .catch(error => console.log(error.response));
-
-        axios
-            .get('/api/statuses')
-            .then(response => {
-                this.setState({
-                    statusOptions: response.data,
-                });
-            })
-            .catch(error => console.log(error.response));
+        this.populateDropdown();
 
         if (
             this.props.location.state !== undefined &&
@@ -129,6 +95,38 @@ class EmployeeForm extends Component {
                 editing: this.props._reduxForm.history.location.state.editing,
             });
         }
+    }
+
+    populateDropdown() {
+        axios
+            .all([
+                axios.get('/api/admins'),
+                axios.get('/api/managers'),
+                axios.get('/api/statuses'),
+                axios.get('/api/teams'),
+            ])
+            .then(
+                axios.spread(
+                    (
+                        adminOptions,
+                        managerOptions,
+                        statusOptions,
+                        teamOptions
+                    ) => {
+                        this.setState(
+                            {
+                                adminOptions: adminOptions.data,
+                                managerOptions: managerOptions.data,
+                                statusOptions: statusOptions.data,
+                                teamOptions: teamOptions.data,
+                            },
+                            () => {
+                                console.log(this.state);
+                            }
+                        );
+                    }
+                )
+            );
     }
 
     handleSubmit(event) {
