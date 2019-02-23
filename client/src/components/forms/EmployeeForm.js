@@ -97,36 +97,16 @@ class EmployeeForm extends Component {
         }
     }
 
-    populateDropdown() {
-        axios
-            .all([
-                axios.get('/api/admins'),
-                axios.get('/api/managers'),
-                axios.get('/api/statuses'),
-                axios.get('/api/teams'),
-            ])
-            .then(
-                axios.spread(
-                    (
-                        adminOptions,
-                        managerOptions,
-                        statusOptions,
-                        teamOptions
-                    ) => {
-                        this.setState(
-                            {
-                                adminOptions: adminOptions.data,
-                                managerOptions: managerOptions.data,
-                                statusOptions: statusOptions.data,
-                                teamOptions: teamOptions.data,
-                            },
-                            () => {
-                                console.log(this.state);
-                            }
-                        );
-                    }
-                )
-            );
+    async populateDropdown() {
+        const result = await axios.get('/api/form1selects');
+        await console.log(result);
+
+        await this.setState({
+            adminOptions: result.data.admins,
+            managerOptions: result.data.managers,
+            statusOptions: result.data.statuses,
+            teamOptions: result.data.teams,
+        });
     }
 
     handleSubmit(event) {

@@ -26,6 +26,22 @@ module.exports = app => {
         res.send(statuses);
     });
 
+    app.get('/api/form1selects', async (req, res) => {
+        var json = {};
+        const admins = await Admin.find();
+        json.admins = admins;
+
+        const managers = await Manager.find();
+        json.managers = managers;
+
+        const statuses = await Status.find();
+        json.statuses = statuses;
+
+        const teams = await Team.find();
+        json.teams = teams;
+        res.json(json);
+    });
+
     app.get('/api/employees', async (req, res) => {
         const employees = await Employee.find()
             .populate('_admin')
