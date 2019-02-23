@@ -7,6 +7,7 @@ require('./models/Admin');
 require('./models/Manager');
 require('./models/Status');
 require('./models/Team');
+require('./models/Role');
 
 mongoose.connect(
     'mongodb://localhost:27017/onboardingDB',

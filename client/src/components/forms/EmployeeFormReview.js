@@ -22,77 +22,54 @@ class EmployeeFormReview extends Component {
         adminName: '',
         teamOptions: [],
         teamName: '',
+        roleName: '',
     };
 
     componentDidMount() {
-        axios
-            .get('/api/admins')
-            .then(response => {
-                this.setState(
-                    {
-                        adminOptions: response.data,
-                    },
-                    () => {
-                        const adminName = this.state.adminOptions.find(
-                            o => o._id === this.props.formValues._admin
-                        ).name;
-                        this.setState({ adminName: adminName });
-                    }
-                );
-            })
-            .catch(error => console.log(error.response));
-
-        axios
-            .get('/api/teams')
-            .then(response => {
-                this.setState(
-                    {
-                        teamOptions: response.data,
-                    },
-                    () => {
-                        const teamName = this.state.teamOptions.find(
-                            o => o._id === this.props.formValues._team
-                        ).name;
-                        this.setState({ teamName: teamName });
-                    }
-                );
-            })
-            .catch(error => console.log(error.response));
-
-        axios
-            .get('/api/managers')
-            .then(response => {
-                this.setState(
-                    {
-                        managerOptions: response.data,
-                    },
-                    () => {
-                        const managerName = this.state.managerOptions.find(
-                            o => o._id === this.props.formValues._manager
-                        ).name;
-                        this.setState({ managerName: managerName });
-                    }
-                );
-            })
-            .catch(error => console.log(error.response));
-
-        axios
-            .get('/api/statuses')
-            .then(response => {
-                this.setState(
-                    {
-                        statusOptions: response.data,
-                    },
-                    () => {
-                        const statusName = this.state.statusOptions.find(
-                            o => o._id === this.props.formValues._status
-                        ).name;
-                        this.setState({ statusName: statusName });
-                    }
-                );
-            })
-            .catch(error => console.log(error.response));
+        this.populateOptions();
     }
+
+    async populateOptions() {
+        const result = await axios.get('/api/form1selects');
+        await console.log(result);
+
+        await this.setState(
+            {
+                adminOptions: result.data.admins,
+                managerOptions: result.data.managers,
+                statusOptions: result.data.statuses,
+                teamOptions: result.data.teams,
+                roleOptions: result.data.roles,
+            },
+            () => {
+                const adminName = this.state.adminOptions.find(
+                    o => o._id === this.props.formValues._admin
+                ).name;
+                this.setState({ adminName: adminName });
+
+                const teamName = this.state.teamOptions.find(
+                    o => o._id === this.props.formValues._team
+                ).name;
+                this.setState({ teamName: teamName });
+
+                const managerName = this.state.managerOptions.find(
+                    o => o._id === this.props.formValues._manager
+                ).name;
+                this.setState({ managerName: managerName });
+
+                const statusName = this.state.statusOptions.find(
+                    o => o._id === this.props.formValues._status
+                ).name;
+                this.setState({ statusName: statusName });
+
+                const roleName = this.state.roleOptions.find(
+                    o => o._id === this.props.formValues._role
+                ).name;
+                this.setState({ roleName: roleName });
+            }
+        );
+    }
+
     renderButton() {
         const {
             formValues,
@@ -237,6 +214,19 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Role
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.roleName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+
                         <Grid item>
                             <div style={{ marginBottom: '10px' }}>
                                 <Typography style={{ fontWeight: 'bold' }}>

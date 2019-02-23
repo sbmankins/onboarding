@@ -14,17 +14,25 @@ export default [
         component: FormField,
         type: 'text',
     },
-    {
-        label: 'Start Date',
-        name: 'dateStart',
-        component: DateField,
-        type: 'date',
-    },
 
     {
         label: 'Onboarding Buddy',
         name: 'buddy',
         component: FormField,
         type: 'text',
+    },
+
+    {
+        label: 'Seat',
+        name: 'seat',
+        component: FormField,
+        type: 'text',
+    },
+
+    {
+        label: 'Start Date',
+        name: 'dateStart',
+        component: DateField,
+        type: 'date',
     },
 ];

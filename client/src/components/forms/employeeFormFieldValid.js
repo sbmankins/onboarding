@@ -5,5 +5,6 @@ export default [
     { name: '_admin' },
     { name: '_status' },
     { name: '_team' },
+    { name: '_role' },
     { name: 'buddy' },
 ];

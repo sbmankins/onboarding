@@ -13,10 +13,6 @@ class EmployeeNew extends Component {
         editing: false,
         initData: {},
         page: 1,
-        dropDowns: {},
-        managerOptions: [],
-        adminOptions: [],
-        statusOptions: [],
     };
 
     componentDidMount() {
@@ -52,8 +48,10 @@ class EmployeeNew extends Component {
                 _admin: this.state.employee._admin._id,
                 _status: this.state.employee._status._id,
                 _team: this.state.employee._team._id,
+                _role: this.state.employee._role._id,
                 dateStart: this.state.employee.dateStart,
                 buddy: this.state.employee.buddy,
+                seat: this.state.employee.seat,
             };
 
             this.setState({ initData: initData });

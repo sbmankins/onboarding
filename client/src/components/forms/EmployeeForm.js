@@ -30,11 +30,12 @@ const styles = theme => ({
         padding: '20px',
         marginBottom: '20px',
         borderRadius: '20px',
+        margin: '0 auto',
     },
 
     formContainer: {
         width: '90%',
-        margin: '0px 20px',
+        margin: '0 auto',
         padding: '10px',
         borderRadius: '20px',
     },
@@ -62,6 +63,7 @@ class EmployeeForm extends Component {
     state = {
         adminOptions: [],
         teamOptions: [],
+        roleOptions: [],
         // teamName:[],
         admin: '',
         // adminName: '',
@@ -104,6 +106,7 @@ class EmployeeForm extends Component {
             managerOptions: result.data.managers,
             statusOptions: result.data.statuses,
             teamOptions: result.data.teams,
+            roleOptions: result.data.roles,
         });
     }
 
@@ -144,21 +147,41 @@ class EmployeeForm extends Component {
                         Employee Detail
                     </Typography>
                 </Paper>
-                <form
-                    onSubmit={this.props.handleSubmit(
-                        this.props.handleSubmit(this.props.onEmployeeSubmit)
-                    )}
-                >
-                    <Grid
-                        container
-                        spacing={16}
-                        direction="row"
-                        justify="center"
+                <Grid container justify="center">
+                    <form
+                        onSubmit={this.props.handleSubmit(
+                            this.props.handleSubmit(this.props.onEmployeeSubmit)
+                        )}
                     >
                         <Paper className={classes.formContainer}>
-                            <Grid container>{this.renderFields()}</Grid>
-                            <Grid container>
-                                <Grid item sx={3}>
+                            <Grid container spacing={8}>
+                                {this.renderFields()}
+                                <Grid item xs={6}>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Role
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_role"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.roleOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a role"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item>
                                     <FormGroup style={{ margin: '10px' }}>
                                         <FormLabel>
                                             <Typography variant="body1">
@@ -183,7 +206,7 @@ class EmployeeForm extends Component {
                                         />
                                     </FormGroup>
                                 </Grid>
-                                <Grid item xs={3}>
+                                <Grid item>
                                     <FormGroup style={{ margin: '10px ' }}>
                                         <FormLabel>
                                             <Typography variant="body1">
@@ -208,7 +231,32 @@ class EmployeeForm extends Component {
                                         />
                                     </FormGroup>
                                 </Grid>
-                                <Grid item xs={3}>
+                                <Grid item>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Team
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_team"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.teamOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a team"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item>
                                     <FormGroup style={{ margin: '10px ' }}>
                                         <FormLabel>
                                             <Typography variant="body1">
@@ -234,52 +282,28 @@ class EmployeeForm extends Component {
                                     </FormGroup>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={3}>
-                                <FormGroup style={{ margin: '10px ' }}>
-                                    <FormLabel>
-                                        <Typography variant="body1">
-                                            Team
-                                        </Typography>
-                                    </FormLabel>
-
-                                    <Field
-                                        name="_team"
-                                        simpleValue={false}
-                                        component={SearchSelect}
-                                        options={this.state.teamOptions.map(
-                                            ({ name, _id }) => {
-                                                return {
-                                                    label: name,
-                                                    value: _id,
-                                                };
-                                            }
-                                        )}
-                                        clearable={true}
-                                        placeholder="Select a team"
-                                    />
-                                </FormGroup>
-                            </Grid>
                         </Paper>
-                    </Grid>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        className={classes.formButton}
-                    >
-                        <Link to="/" className={classes.buttonLink}>
-                            Cancel
-                        </Link>
-                    </Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.formButton}
-                        type="submit"
-                        onClick={e => this.handleSubmit(e)}
-                    >
-                        Next
-                    </Button>
-                </form>
+
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            className={classes.formButton}
+                        >
+                            <Link to="/" className={classes.buttonLink}>
+                                Cancel
+                            </Link>
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.formButton}
+                            type="submit"
+                            onClick={e => this.handleSubmit(e)}
+                        >
+                            Next
+                        </Button>
+                    </form>
+                </Grid>
             </Paper>
         );
     }

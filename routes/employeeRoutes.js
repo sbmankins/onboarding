@@ -4,8 +4,15 @@ const Employee = mongoose.model('employees');
 const Manager = mongoose.model('managers');
 const Status = mongoose.model('statuses');
 const Team = mongoose.model('teams');
+const Role = mongoose.model('roles');
 
 module.exports = app => {
+    app.get('/api/roles', async (req, res) => {
+        const roles = await Roles.find();
+        console.log(roles);
+        res.send(roles);
+    });
+
     app.get('/api/admins', async (req, res) => {
         const admins = await Admin.find();
         res.send(admins);
@@ -28,17 +35,21 @@ module.exports = app => {
 
     app.get('/api/form1selects', async (req, res) => {
         var json = {};
-        const admins = await Admin.find();
+        const admins = await Admin.find().sort({ name: 1 });
         json.admins = admins;
 
-        const managers = await Manager.find();
+        const managers = await Manager.find().sort({ name: 1 });
         json.managers = managers;
 
-        const statuses = await Status.find();
+        const statuses = await Status.find().sort({ name: 1 });
         json.statuses = statuses;
 
-        const teams = await Team.find();
+        const teams = await Team.find().sort({ name: 1 });
         json.teams = teams;
+
+        const roles = await Role.find().sort({ name: 1 });
+        json.roles = roles;
+
         res.json(json);
     });
 
@@ -47,6 +58,7 @@ module.exports = app => {
             .populate('_admin')
             .populate('_manager')
             .populate('_status')
+            .populate('_role')
             .sort({
                 dateStart: 'ascending',
                 _status: 'ascending',
@@ -65,6 +77,7 @@ module.exports = app => {
                 .populate('_manager')
                 .populate('_status')
                 .populate('_team')
+                .populate('_role')
                 .exec();
             res.send(employee);
             console.log(employee);
@@ -95,6 +108,7 @@ module.exports = app => {
             .populate('_manager')
             .populate('_status')
             .populate('_team')
+            .populate('_role')
             .sort({
                 dateStart: 'ascending',
                 lastName: 'ascending',
@@ -113,7 +127,9 @@ module.exports = app => {
             _manager,
             _status,
             _team,
+            _role,
             buddy,
+            seat,
         } = req.body;
 
         const employee = new Employee({
@@ -124,7 +140,9 @@ module.exports = app => {
             _manager,
             _status,
             _team,
+            _role,
             buddy,
+            seat,
 
             dateCreated: Date.now(),
         });
