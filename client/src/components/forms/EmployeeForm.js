@@ -11,10 +11,8 @@ import SearchSelect from './SearchSelect';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import employeeFormFieldValid from './employeeFormFieldValid';
-import { fetchAdmins } from '../../actions';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
 import axios from 'axios';
 
 const styles = theme => ({
@@ -307,11 +305,6 @@ EmployeeForm = reduxForm({
     forceUnregisterOnUnmount: true,
     //keepDirtyOnReinitialize: true,
 })(EmployeeForm);
-
-EmployeeForm = connect(
-    null,
-    { fetchAdmins }
-)(EmployeeForm);
 
 EmployeeForm = withRouter(EmployeeForm);
 

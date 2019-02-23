@@ -4,7 +4,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import ListIcon from '@material-ui/icons/List';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
@@ -110,18 +109,6 @@ const NavBar = props => {
                                             to={'/'}
                                         >
                                             <DashboardIcon />
-                                        </Link>
-                                    </IconButton>
-                                </Tooltip>
-                            </Grid>
-                            <Grid item>
-                                <Tooltip title="Table" aria-label="Table">
-                                    <IconButton>
-                                        <Link
-                                            className={classes.linkStyleRight}
-                                            to={'/listview'}
-                                        >
-                                            <ListIcon />
                                         </Link>
                                     </IconButton>
                                 </Tooltip>

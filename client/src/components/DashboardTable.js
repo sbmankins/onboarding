@@ -2,49 +2,7 @@ import MaterialTable from 'material-table';
 import React, { Component } from 'react';
 import { fetchEmployees, deleteEmployee } from '../actions';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import Paper from '@material-ui/core/Paper';
-import AddIcon from '@material-ui/icons/Add';
-import Typography from '@material-ui/core/Typography';
-import { Link, Redirect } from 'react-router-dom';
-import Tooltip from '@material-ui/core/Tooltip';
-
-const styles = theme => ({
-    fab: {
-        margin: theme.spacing.unit,
-    },
-    outerContainer: {
-        width: '90%',
-        margin: '0 auto',
-        padding: '10px',
-        background: '#edeeef',
-        textAlign: 'center',
-        flexGrow: 1,
-        borderRadius: '20px',
-    },
-
-    headerContainer: {
-        background: '#dbe2ef',
-        padding: '20px',
-        marginBottom: '20px',
-        borderRadius: '20px',
-    },
-
-    dashTitle: {
-        textAlign: 'center',
-        color: '#626f78',
-    },
-    btnFloat: {
-        float: 'right',
-        margin: 0,
-        top: 'auto',
-        right: 20,
-        bottom: 20,
-        left: 'auto',
-        position: 'fixed',
-    },
-});
+import { Redirect } from 'react-router-dom';
 
 class DashboardTable extends Component {
     state = {
@@ -77,7 +35,6 @@ class DashboardTable extends Component {
     };
 
     render() {
-        const { classes } = this.props;
         if (this.state.toDashboard === true && this.state.employeeID) {
             return (
                 <Redirect
@@ -92,108 +49,84 @@ class DashboardTable extends Component {
             );
         }
         return (
-            <Paper className={classes.outerContainer} elevation={1}>
-                <Paper className={classes.headerContainer} elevation={1}>
-                    <Typography className={classes.dashTitle} variant="title">
-                        Dashboard
-                    </Typography>
-                </Paper>
+            <MaterialTable
+                columns={[
+                    {
+                        title: 'First Name',
+                        field: 'firstName',
+                    },
+                    {
+                        title: 'LastName',
+                        field: 'lastName',
+                        sorting: true,
+                        defaultSort: 'asc',
+                    },
+                    {
+                        title: 'Manager',
+                        field: 'manager',
+                        sorting: true,
+                    },
+                    {
+                        title: 'Admin',
+                        field: 'admin',
+                        sorting: true,
+                    },
+                    {
+                        title: 'StartDate',
+                        field: 'dateStart',
+                        type: 'date',
+                        sorting: true,
+                    },
 
-                <MaterialTable
-                    columns={[
-                        {
-                            title: 'First Name',
-                            field: 'firstName',
-                        },
-                        {
-                            title: 'LastName',
-                            field: 'lastName',
-                            sorting: true,
-                            defaultSort: 'asc',
-                        },
-                        {
-                            title: 'Manager',
-                            field: 'manager',
-                            sorting: true,
-                        },
-                        {
-                            title: 'Admin',
-                            field: 'admin',
-                            sorting: true,
-                        },
-                        {
-                            title: 'StartDate',
-                            field: 'dateStart',
-                            type: 'date',
-                            sorting: true,
-                        },
+                    {
+                        title: 'Status',
+                        field: 'status',
 
-                        {
-                            title: 'Status',
-                            field: 'status',
-
-                            sorting: true,
+                        sorting: true,
+                    },
+                ]}
+                actions={[
+                    {
+                        icon: 'create',
+                        tooltip: 'Edit',
+                        onClick: (event, rowData) => {
+                            this.handleEditClick(event, rowData.id);
                         },
-                    ]}
-                    actions={[
-                        {
-                            icon: 'create',
-                            tooltip: 'Edit',
-                            onClick: (event, rowData) => {
-                                this.handleEditClick(event, rowData.id);
-                            },
+                    },
+                    {
+                        icon: 'delete_forever',
+                        tooltip: 'Delete',
+                        onClick: (event, rowData) => {
+                            if (window.confirm('Delete the item?')) {
+                                this.onEmployeeDelete(event, rowData.id);
+                            }
                         },
-                        {
-                            icon: 'delete_forever',
-                            tooltip: 'Delete',
-                            onClick: (event, rowData) => {
-                                if (window.confirm('Delete the item?')) {
-                                    this.onEmployeeDelete(event, rowData.id);
-                                }
-                            },
-                        },
-                        //},
-                    ]}
-                    data={this.props.employees.map(employee => {
-                        return {
-                            id: employee._id,
-                            lastName: employee.lastName,
-                            firstName: employee.firstName,
-                            dateStart: new Date(
-                                employee.dateStart
-                            ).toLocaleDateString('en-US', {
-                                timeZone: 'UTC',
-                            }),
-                            manager: employee._manager.name,
-                            admin: employee._admin.name,
-                            status: employee._status.name,
-                        };
-                    })}
-                    title="Onboarding"
-                    options={{
-                        paging: true,
-                        toolbar: true,
-                        columnsButton: true,
-                        exportButton: true,
-                    }}
-                />
-
-                <Tooltip title="Add" aria-label="Add">
-                    <Fab
-                        className={`${classes.fab} ${classes.btnFloat}`}
-                        color="primary"
-                        aria-label="Add"
-                    >
-                        {' '}
-                        <Link
-                            style={{ textDecoration: 'none', color: 'white' }}
-                            to={'/new'}
-                        >
-                            <AddIcon />
-                        </Link>
-                    </Fab>
-                </Tooltip>
-            </Paper>
+                    },
+                    //},
+                ]}
+                data={this.props.employees.map(employee => {
+                    return {
+                        id: employee._id,
+                        lastName: employee.lastName,
+                        firstName: employee.firstName,
+                        dateStart: new Date(
+                            employee.dateStart
+                        ).toLocaleDateString('en-US', {
+                            timeZone: 'UTC',
+                        }),
+                        manager: employee._manager.name,
+                        admin: employee._admin.name,
+                        status: employee._status.name,
+                    };
+                })}
+                title="Onboarding"
+                options={{
+                    paging: true,
+                    toolbar: true,
+                    columnsButton: true,
+                    exportButton: true,
+                }}
+            />
         );
     }
 }
@@ -211,4 +144,4 @@ DashboardTable = connect(
     mapStateToProps,
     { fetchEmployees, deleteEmployee }
 )(DashboardTable);
-export default withStyles(styles)(DashboardTable);
+export default DashboardTable;
