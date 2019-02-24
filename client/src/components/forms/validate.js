@@ -17,9 +17,9 @@ const validate = values => {
     if (!values._hirestatus) {
         errors._hirestatus = 'Required';
     }
-    if (!values.buddy) {
-        errors.buddy = 'Required';
-    }
+    // if (!values.buddy) {
+    //     errors.buddy = 'Required';
+    // }
     if (!values._manager) {
         errors._manager = 'Required';
     }
@@ -40,6 +40,9 @@ const validate = values => {
     }
     if (!values._campus) {
         errors._campus = 'Required';
+    }
+    if (!values._platform) {
+        errors._platform = 'Required';
     }
 
     return errors;

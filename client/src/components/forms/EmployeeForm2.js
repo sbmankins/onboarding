@@ -13,6 +13,7 @@ import validate from './validate';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import MultiLineFormField from './MultiLineFormField';
 
 const styles = theme => ({
     outerContainer: {
@@ -44,6 +45,11 @@ const styles = theme => ({
         color: '#626f78',
     },
 
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+    },
+
     buttonLink: {
         textDecoration: 'none',
         color: 'white',
@@ -68,6 +74,7 @@ class EmployeeForm2 extends Component {
         regionOptions: [],
         campusOptions: [],
         leaderOptions: [],
+        platformOptions: [],
         employeeID: '',
         editing: '',
     };
@@ -99,6 +106,7 @@ class EmployeeForm2 extends Component {
             regionOptions: result.data.regions,
             campusOptions: result.data.campuses,
             leaderOptions: result.data.leaders,
+            platformOptions: result.data.platforms,
         });
     }
 
@@ -178,6 +186,31 @@ class EmployeeForm2 extends Component {
                                             )}
                                             clearable={true}
                                             placeholder="Select a role"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Platform
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_platform"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.platformOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a platform"
                                         />
                                     </FormGroup>
                                 </Grid>
@@ -330,6 +363,14 @@ class EmployeeForm2 extends Component {
                                             placeholder="Select a status"
                                         />
                                     </FormGroup>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Field
+                                        component={MultiLineFormField}
+                                        type="text"
+                                        label="Comments"
+                                        name="comments"
+                                    />
                                 </Grid>
                             </Grid>
                         </Paper>

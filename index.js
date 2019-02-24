@@ -15,6 +15,7 @@ require('./models/Hirestatus');
 require('./models/Region');
 require('./models/Campus');
 require('./models/Leader');
+require('./models/Platform');
 
 mongoose.connect(
     'mongodb://localhost:27017/onboardingDB',

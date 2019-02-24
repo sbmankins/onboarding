@@ -11,6 +11,7 @@ const Hirestatus = mongoose.model('hirestatuses');
 const Region = mongoose.model('regions');
 const Campus = mongoose.model('campuses');
 const Leader = mongoose.model('leaders');
+const Platform = mongoose.model('platforms');
 
 module.exports = app => {
     app.get('/api/form1selects', async (req, res) => {
@@ -48,6 +49,9 @@ module.exports = app => {
         const leaders = await Leader.find().sort({ name: 1 });
         json.leaders = leaders;
 
+        const platforms = await Platform.find().sort({ name: 1 });
+        json.platforms = platforms;
+
         res.json(json);
     });
 
@@ -59,10 +63,11 @@ module.exports = app => {
             .populate('_role')
             .populate('_vendor')
             .populate('_type')
-            .populate('_hirestatus')
             .populate('_region')
+            .populate('_hirestatus')
             .populate('_campus')
             .populate('_leader')
+            .populate('_platform')
             .sort({
                 dateStart: 'ascending',
                 _status: 'ascending',
@@ -89,6 +94,7 @@ module.exports = app => {
                 .populate('_region')
                 .populate('_campus')
                 .populate('_leader')
+                .populate('_platform')
                 .exec();
             res.send(employee);
             console.log(employee);
@@ -126,6 +132,7 @@ module.exports = app => {
             .populate('_region')
             .populate('_campus')
             .populate('_leader')
+            .populate('_platform')
             .sort({
                 dateStart: 'ascending',
                 lastName: 'ascending',
@@ -151,9 +158,11 @@ module.exports = app => {
             _region,
             _campus,
             _leader,
+            _platform,
             buddy,
             seat,
             cwID,
+            comments,
         } = req.body;
 
         const employee = new Employee({
@@ -171,9 +180,11 @@ module.exports = app => {
             _region,
             _campus,
             _leader,
+            _platform,
             buddy,
             seat,
             cwID,
+            comments,
 
             dateCreated: Date.now(),
         });

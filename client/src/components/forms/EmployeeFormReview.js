@@ -35,6 +35,8 @@ class EmployeeFormReview extends Component {
         campusName: '',
         leaderOptions: [],
         leaderName: '',
+        platformOptions: [],
+        platformName: [],
     };
 
     componentDidMount() {
@@ -59,6 +61,7 @@ class EmployeeFormReview extends Component {
                 regionOptions: result.data.regions,
                 campusOptions: result.data.campuses,
                 leaderOptions: result.data.leaders,
+                platformOptions: result.data.platforms,
             },
             () => {
                 const adminName = this.state.adminOptions.find(
@@ -105,6 +108,11 @@ class EmployeeFormReview extends Component {
                     o => o._id === this.props.formValues._campus
                 ).name;
                 this.setState({ campusName: campusName });
+
+                const platformName = this.state.platformOptions.find(
+                    o => o._id === this.props.formValues._platform
+                ).name;
+                this.setState({ platformName: platformName });
 
                 if (this.props.formValues._vendor !== undefined) {
                     const vendorName = this.state.vendorOptions.find(
@@ -312,6 +320,18 @@ class EmployeeFormReview extends Component {
                         <Grid item>
                             <div style={{ marginBottom: '10px' }}>
                                 <Typography style={{ fontWeight: 'bold' }}>
+                                    Platform
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.platformName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
                                     Region
                                 </Typography>
                                 <div>
@@ -378,6 +398,18 @@ class EmployeeFormReview extends Component {
                                 <div>
                                     <Typography variant="body1">
                                         {this.state.statusName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Comments
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {formValues.comments}
                                     </Typography>
                                 </div>
                             </div>

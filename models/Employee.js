@@ -12,8 +12,12 @@ const employeeSchema = new Schema({
         ref: 'teams',
         required: true,
     },
-    //platform: {type: String, required: true},
-    //hireStatus: String,
+    _platform: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'platforms',
+        required: true,
+    },
+    comments: String,
     buddy: String,
     //computer: String,
     seat: String,
@@ -58,7 +62,7 @@ const employeeSchema = new Schema({
         ref: 'regions',
         required: true,
     },
-    _region: {
+    _leader: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'leaders',
     },

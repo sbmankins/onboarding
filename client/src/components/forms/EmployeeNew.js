@@ -39,6 +39,7 @@ class EmployeeNew extends Component {
 
     handleInitialize() {
         if (this.state.employee) {
+            console.log(this.state.employee);
             this.setState({ editing: true });
 
             const initData = {
@@ -81,6 +82,9 @@ class EmployeeNew extends Component {
                 _leader: this.state.employee._leader
                     ? this.state.employee._leader._id
                     : undefined,
+                _platform: this.state.employee._platform
+                    ? this.state.employee._platform._id
+                    : undefined,
                 dateStart: this.state.employee
                     ? this.state.employee.dateStart
                     : undefined,
@@ -92,6 +96,9 @@ class EmployeeNew extends Component {
                     : undefined,
                 cwID: this.state.employee
                     ? this.state.employee.cwID
+                    : undefined,
+                comments: this.state.employee
+                    ? this.state.employee.comments
                     : undefined,
             };
 
