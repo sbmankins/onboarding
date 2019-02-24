@@ -5,7 +5,6 @@ const employeeSchema = new Schema({
     cwID: String,
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    //gender: String,
     dateStart: { type: Date, required: true },
     dateCreated: Date,
     _team: {
@@ -18,7 +17,11 @@ const employeeSchema = new Schema({
     buddy: String,
     //computer: String,
     seat: String,
-    //campus: String,
+    _campus: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'campuses',
+        required: true,
+    },
     _hirestatus: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'hirestatuses',
@@ -54,6 +57,10 @@ const employeeSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'regions',
         required: true,
+    },
+    _region: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'leaders',
     },
 });
 

@@ -66,6 +66,8 @@ class EmployeeForm2 extends Component {
         statusOptions: [],
         managerOptions: [],
         regionOptions: [],
+        campusOptions: [],
+        leaderOptions: [],
         employeeID: '',
         editing: '',
     };
@@ -95,6 +97,8 @@ class EmployeeForm2 extends Component {
             teamOptions: result.data.teams,
             roleOptions: result.data.roles,
             regionOptions: result.data.regions,
+            campusOptions: result.data.campuses,
+            leaderOptions: result.data.leaders,
         });
     }
 
@@ -156,6 +160,31 @@ class EmployeeForm2 extends Component {
                                     <FormGroup style={{ margin: '10px ' }}>
                                         <FormLabel>
                                             <Typography variant="body1">
+                                                Leader/Contributor
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_leader"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.leaderOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a role"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
                                                 Region
                                             </Typography>
                                         </FormLabel>
@@ -174,6 +203,31 @@ class EmployeeForm2 extends Component {
                                             )}
                                             clearable={true}
                                             placeholder="Select a region"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Campus
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_campus"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.campusOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a campus"
                                         />
                                     </FormGroup>
                                 </Grid>
@@ -328,18 +382,6 @@ class EmployeeForm2 extends Component {
         );
     }
 }
-//
-// function validate(values) {
-//     const errors = {};
-//
-//     _.each(employeeFormFieldValid2, ({ name }) => {
-//         if (!values[name]) {
-//             errors[name] = 'You must provide a value';
-//         }
-//     });
-//
-//     return errors;
-// }
 
 EmployeeForm2 = reduxForm({
     validate,

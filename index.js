@@ -13,6 +13,8 @@ require('./models/Vendor');
 require('./models/Type');
 require('./models/Hirestatus');
 require('./models/Region');
+require('./models/Campus');
+require('./models/Leader');
 
 mongoose.connect(
     'mongodb://localhost:27017/onboardingDB',

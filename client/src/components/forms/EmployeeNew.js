@@ -75,6 +75,12 @@ class EmployeeNew extends Component {
                 _region: this.state.employee._region
                     ? this.state.employee._region._id
                     : undefined,
+                _campus: this.state.employee._campus
+                    ? this.state.employee._campus._id
+                    : undefined,
+                _leader: this.state.employee._leader
+                    ? this.state.employee._leader._id
+                    : undefined,
                 dateStart: this.state.employee
                     ? this.state.employee.dateStart
                     : undefined,

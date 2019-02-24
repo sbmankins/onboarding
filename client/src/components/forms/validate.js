@@ -38,6 +38,9 @@ const validate = values => {
     if (!values._region) {
         errors._region = 'Required';
     }
+    if (!values._campus) {
+        errors._campus = 'Required';
+    }
 
     return errors;
 };

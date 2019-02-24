@@ -9,6 +9,8 @@ const Vendor = mongoose.model('vendors');
 const Type = mongoose.model('types');
 const Hirestatus = mongoose.model('hirestatuses');
 const Region = mongoose.model('regions');
+const Campus = mongoose.model('campuses');
+const Leader = mongoose.model('leaders');
 
 module.exports = app => {
     app.get('/api/form1selects', async (req, res) => {
@@ -40,6 +42,12 @@ module.exports = app => {
         const regions = await Region.find().sort({ name: 1 });
         json.regions = regions;
 
+        const campuses = await Campus.find();
+        json.campuses = campuses;
+
+        const leaders = await Leader.find().sort({ name: 1 });
+        json.leaders = leaders;
+
         res.json(json);
     });
 
@@ -53,6 +61,8 @@ module.exports = app => {
             .populate('_type')
             .populate('_hirestatus')
             .populate('_region')
+            .populate('_campus')
+            .populate('_leader')
             .sort({
                 dateStart: 'ascending',
                 _status: 'ascending',
@@ -77,6 +87,8 @@ module.exports = app => {
                 .populate('_type')
                 .populate('_hirestatus')
                 .populate('_region')
+                .populate('_campus')
+                .populate('_leader')
                 .exec();
             res.send(employee);
             console.log(employee);
@@ -112,6 +124,8 @@ module.exports = app => {
             .populate('_type')
             .populate('_hirestatus')
             .populate('_region')
+            .populate('_campus')
+            .populate('_leader')
             .sort({
                 dateStart: 'ascending',
                 lastName: 'ascending',
@@ -135,6 +149,8 @@ module.exports = app => {
             _type,
             _hirestatus,
             _region,
+            _campus,
+            _leader,
             buddy,
             seat,
             cwID,
@@ -153,6 +169,8 @@ module.exports = app => {
             _type,
             _hirestatus,
             _region,
+            _campus,
+            _leader,
             buddy,
             seat,
             cwID,

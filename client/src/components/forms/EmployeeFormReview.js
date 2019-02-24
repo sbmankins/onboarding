@@ -31,6 +31,10 @@ class EmployeeFormReview extends Component {
         roleName: '',
         regionOptions: [],
         regionName: '',
+        campusOptions: [],
+        campusName: '',
+        leaderOptions: [],
+        leaderName: '',
     };
 
     componentDidMount() {
@@ -53,6 +57,8 @@ class EmployeeFormReview extends Component {
                 typeOptions: result.data.types,
                 hireStatusOptions: result.data.hirestatuses,
                 regionOptions: result.data.regions,
+                campusOptions: result.data.campuses,
+                leaderOptions: result.data.leaders,
             },
             () => {
                 const adminName = this.state.adminOptions.find(
@@ -95,6 +101,11 @@ class EmployeeFormReview extends Component {
                 ).name;
                 this.setState({ regionName: regionName });
 
+                const campusName = this.state.campusOptions.find(
+                    o => o._id === this.props.formValues._campus
+                ).name;
+                this.setState({ campusName: campusName });
+
                 if (this.props.formValues._vendor !== undefined) {
                     const vendorName = this.state.vendorOptions.find(
                         o => o._id === this.props.formValues._vendor
@@ -102,6 +113,14 @@ class EmployeeFormReview extends Component {
                     this.setState({ vendorName: vendorName });
                 } else {
                     this.setState({ vendorName: 'N/A' });
+                }
+                if (this.props.formValues._leader !== undefined) {
+                    const leaderName = this.state.leaderOptions.find(
+                        o => o._id === this.props.formValues._leader
+                    ).name;
+                    this.setState({ leaderName: leaderName });
+                } else {
+                    this.setState({ leaderName: 'N/A' });
                 }
             }
         );
@@ -281,11 +300,35 @@ class EmployeeFormReview extends Component {
                         <Grid item>
                             <div style={{ marginBottom: '10px' }}>
                                 <Typography style={{ fontWeight: 'bold' }}>
+                                    Leader/Contributor
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.leaderName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
                                     Region
                                 </Typography>
                                 <div>
                                     <Typography variant="body1">
                                         {this.state.regionName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Campus
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.campusName}
                                     </Typography>
                                 </div>
                             </div>
