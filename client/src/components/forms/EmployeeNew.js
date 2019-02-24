@@ -42,16 +42,48 @@ class EmployeeNew extends Component {
             this.setState({ editing: true });
 
             const initData = {
-                firstName: this.state.employee.firstName,
-                lastName: this.state.employee.lastName,
-                _manager: this.state.employee._manager._id,
-                _admin: this.state.employee._admin._id,
-                _status: this.state.employee._status._id,
-                _team: this.state.employee._team._id,
-                _role: this.state.employee._role._id,
-                dateStart: this.state.employee.dateStart,
-                buddy: this.state.employee.buddy,
-                seat: this.state.employee.seat,
+                firstName: this.state.employee
+                    ? this.state.employee.firstName
+                    : undefined,
+                lastName: this.state.employee
+                    ? this.state.employee.lastName
+                    : undefined,
+                _manager: this.state.employee._manager
+                    ? this.state.employee._manager._id
+                    : undefined,
+                _admin: this.state.employee._admin
+                    ? this.state.employee._admin._id
+                    : undefined,
+                _status: this.state.employee._status
+                    ? this.state.employee._status._id
+                    : undefined,
+                _team: this.state.employee._team
+                    ? this.state.employee._team._id
+                    : undefined,
+                _role: this.state.employee._role
+                    ? this.state.employee._role._id
+                    : undefined,
+                _vendor: this.state.employee._vendor
+                    ? this.state.employee._vendor._id
+                    : undefined,
+                _type: this.state.employee._type
+                    ? this.state.employee._type._id
+                    : undefined,
+                _hirestatus: this.state.employee._hirestatus
+                    ? this.state.employee._hirestatus._id
+                    : undefined,
+                dateStart: this.state.employee
+                    ? this.state.employee.dateStart
+                    : undefined,
+                buddy: this.state.employee
+                    ? this.state.employee.buddy
+                    : undefined,
+                seat: this.state.employee
+                    ? this.state.employee.seat
+                    : undefined,
+                cwID: this.state.employee
+                    ? this.state.employee.cwID
+                    : undefined,
             };
 
             this.setState({ initData: initData });

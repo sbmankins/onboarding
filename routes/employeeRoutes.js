@@ -5,34 +5,11 @@ const Manager = mongoose.model('managers');
 const Status = mongoose.model('statuses');
 const Team = mongoose.model('teams');
 const Role = mongoose.model('roles');
+const Vendor = mongoose.model('vendors');
+const Type = mongoose.model('types');
+const Hirestatus = mongoose.model('hirestatuses');
 
 module.exports = app => {
-    app.get('/api/roles', async (req, res) => {
-        const roles = await Roles.find();
-        console.log(roles);
-        res.send(roles);
-    });
-
-    app.get('/api/admins', async (req, res) => {
-        const admins = await Admin.find();
-        res.send(admins);
-    });
-
-    app.get('/api/teams', async (req, res) => {
-        const teams = await Team.find();
-        res.send(teams);
-    });
-
-    app.get('/api/managers', async (req, res) => {
-        const managers = await Manager.find();
-        res.send(managers);
-    });
-
-    app.get('/api/statuses', async (req, res) => {
-        const statuses = await Status.find();
-        res.send(statuses);
-    });
-
     app.get('/api/form1selects', async (req, res) => {
         var json = {};
         const admins = await Admin.find().sort({ name: 1 });
@@ -50,6 +27,15 @@ module.exports = app => {
         const roles = await Role.find().sort({ name: 1 });
         json.roles = roles;
 
+        const vendors = await Vendor.find().sort({ name: 1 });
+        json.vendors = vendors;
+
+        const types = await Type.find().sort({ name: 1 });
+        json.types = types;
+
+        const hirestatuses = await Hirestatus.find().sort({ name: 1 });
+        json.hirestatuses = hirestatuses;
+
         res.json(json);
     });
 
@@ -59,13 +45,17 @@ module.exports = app => {
             .populate('_manager')
             .populate('_status')
             .populate('_role')
+            .populate('_vendor')
+            .populate('_type')
+            .populate('_hirestatus')
             .sort({
                 dateStart: 'ascending',
                 _status: 'ascending',
                 lastName: 'ascending',
                 _manager: 'ascending',
                 _admin: 'ascending',
-            });
+            })
+            .exec();
 
         res.send(employees);
     });
@@ -78,6 +68,9 @@ module.exports = app => {
                 .populate('_status')
                 .populate('_team')
                 .populate('_role')
+                .populate('_vendor')
+                .populate('_type')
+                .populate('_hirestatus')
                 .exec();
             res.send(employee);
             console.log(employee);
@@ -109,6 +102,9 @@ module.exports = app => {
             .populate('_status')
             .populate('_team')
             .populate('_role')
+            .populate('_vendor')
+            .populate('_type')
+            .populate('_hirestatus')
             .sort({
                 dateStart: 'ascending',
                 lastName: 'ascending',
@@ -128,8 +124,12 @@ module.exports = app => {
             _status,
             _team,
             _role,
+            _vendor,
+            _type,
+            _hirestatus,
             buddy,
             seat,
+            cwID,
         } = req.body;
 
         const employee = new Employee({
@@ -141,8 +141,12 @@ module.exports = app => {
             _status,
             _team,
             _role,
+            _vendor,
+            _type,
+            _hirestatus,
             buddy,
             seat,
+            cwID,
 
             dateCreated: Date.now(),
         });

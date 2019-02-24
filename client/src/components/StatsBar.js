@@ -114,7 +114,7 @@ class Dashboard extends Component {
 
             const between = daysBetween(start);
 
-            if (between >= 0 && between < 1) {
+            if (between === 0) {
                 todayCount++;
             }
         });

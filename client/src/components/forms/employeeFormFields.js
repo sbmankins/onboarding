@@ -16,6 +16,13 @@ export default [
     },
 
     {
+        label: 'CWID',
+        name: 'cwID',
+        component: FormField,
+        type: 'text',
+    },
+
+    {
         label: 'Onboarding Buddy',
         name: 'buddy',
         component: FormField,

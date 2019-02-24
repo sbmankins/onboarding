@@ -4,7 +4,6 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import employeeFormFields from './employeeFormFields';
-import employeeFormFields2 from './employeeFormFields2';
 import _ from 'lodash';
 import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
@@ -16,8 +15,14 @@ class EmployeeFormReview extends Component {
         // editing: false,
         statusOptions: [],
         statusName: '',
+        hireStatusOptions: [],
+        hireStatusName: '',
+        typeOptions: [],
+        typeName: '',
         managerOptions: [],
         managerName: '',
+        vendorOptions: [],
+        vendorName: '',
         adminOptions: [],
         adminName: '',
         teamOptions: [],
@@ -27,6 +32,7 @@ class EmployeeFormReview extends Component {
 
     componentDidMount() {
         this.populateOptions();
+        console.log(this.props);
     }
 
     async populateOptions() {
@@ -40,6 +46,9 @@ class EmployeeFormReview extends Component {
                 statusOptions: result.data.statuses,
                 teamOptions: result.data.teams,
                 roleOptions: result.data.roles,
+                vendorOptions: result.data.vendors,
+                typeOptions: result.data.types,
+                hireStatusOptions: result.data.hirestatuses,
             },
             () => {
                 const adminName = this.state.adminOptions.find(
@@ -66,6 +75,25 @@ class EmployeeFormReview extends Component {
                     o => o._id === this.props.formValues._role
                 ).name;
                 this.setState({ roleName: roleName });
+
+                const typeName = this.state.typeOptions.find(
+                    o => o._id === this.props.formValues._type
+                ).name;
+                this.setState({ typeName: typeName });
+
+                const hireStatusName = this.state.hireStatusOptions.find(
+                    o => o._id === this.props.formValues._hirestatus
+                ).name;
+                this.setState({ hireStatusName: hireStatusName });
+
+                if (this.props.formValues._vendor !== undefined) {
+                    const vendorName = this.state.vendorOptions.find(
+                        o => o._id === this.props.formValues._vendor
+                    ).name;
+                    this.setState({ vendorName: vendorName });
+                } else {
+                    this.setState({ vendorName: 'N/A' });
+                }
             }
         );
     }
@@ -141,27 +169,7 @@ class EmployeeFormReview extends Component {
             }
         });
     }
-    reviewFields2() {
-        const { formValues } = this.props;
-        return _.map(employeeFormFields2, ({ name, label }) => {
-            if (name !== 'dateStart') {
-                return (
-                    <Grid item key={name}>
-                        <div style={{ marginBottom: '10px' }}>
-                            <Typography style={{ fontWeight: 'bold' }}>
-                                {label}
-                            </Typography>
-                            <div>
-                                <Typography variant="body1">
-                                    {formValues[name]}
-                                </Typography>
-                            </div>
-                        </div>
-                    </Grid>
-                );
-            }
-        });
-    }
+
     render() {
         const { formValues } = this.props;
         const { onCancel } = this.props;
@@ -197,7 +205,6 @@ class EmployeeFormReview extends Component {
                 <Grid container direction="row" justify="space-between">
                     <div style={{ margin: '20px 20px' }}>
                         {this.reviewFields()}
-                        {this.reviewFields2()}
                         <Grid item>
                             <div style={{ marginBottom: '10px' }}>
                                 <Typography style={{ fontWeight: 'bold' }}>
@@ -210,6 +217,42 @@ class EmployeeFormReview extends Component {
                                         ).toLocaleDateString('en-US', {
                                             timeZone: 'UTC',
                                         })}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Vendor
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.vendorName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Hire Type
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.typeName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Hire Status
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.hireStatusName}
                                     </Typography>
                                 </div>
                             </div>
