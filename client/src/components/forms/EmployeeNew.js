@@ -49,6 +49,21 @@ class EmployeeNew extends Component {
                 lastName: this.state.employee
                     ? this.state.employee.lastName
                     : undefined,
+                dateStart: this.state.employee
+                    ? this.state.employee.dateStart
+                    : undefined,
+                buddy: this.state.employee
+                    ? this.state.employee.buddy
+                    : undefined,
+                seat: this.state.employee
+                    ? this.state.employee.seat
+                    : undefined,
+                cwID: this.state.employee
+                    ? this.state.employee.cwID
+                    : undefined,
+                comments: this.state.employee
+                    ? this.state.employee.comments
+                    : undefined,
                 _manager: this.state.employee._manager
                     ? this.state.employee._manager._id
                     : undefined,
@@ -85,20 +100,8 @@ class EmployeeNew extends Component {
                 _platform: this.state.employee._platform
                     ? this.state.employee._platform._id
                     : undefined,
-                dateStart: this.state.employee
-                    ? this.state.employee.dateStart
-                    : undefined,
-                buddy: this.state.employee
-                    ? this.state.employee.buddy
-                    : undefined,
-                seat: this.state.employee
-                    ? this.state.employee.seat
-                    : undefined,
-                cwID: this.state.employee
-                    ? this.state.employee.cwID
-                    : undefined,
-                comments: this.state.employee
-                    ? this.state.employee.comments
+                _computer: this.state.employee._computer
+                    ? this.state.employee._computer._id
                     : undefined,
             };
 

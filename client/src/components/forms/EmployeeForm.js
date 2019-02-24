@@ -142,7 +142,7 @@ class EmployeeForm extends Component {
                         )}
                     >
                         <Paper className={classes.formContainer}>
-                            <Grid container spacing={24} justify="space-around">
+                            <Grid container spacing={24} justify="flex-start">
                                 {this.renderFields()}
                                 <Grid item>
                                     <FormGroup style={{ margin: '10px ' }}>

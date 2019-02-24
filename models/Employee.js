@@ -7,6 +7,9 @@ const employeeSchema = new Schema({
     lastName: { type: String, required: true },
     dateStart: { type: Date, required: true },
     dateCreated: Date,
+    seat: String,
+    comments: String,
+    buddy: String,
     _team: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'teams',
@@ -17,13 +20,15 @@ const employeeSchema = new Schema({
         ref: 'platforms',
         required: true,
     },
-    comments: String,
-    buddy: String,
-    //computer: String,
-    seat: String,
+
     _campus: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'campuses',
+        required: true,
+    },
+    _computer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'computers',
         required: true,
     },
     _hirestatus: {

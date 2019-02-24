@@ -75,6 +75,7 @@ class EmployeeForm2 extends Component {
         campusOptions: [],
         leaderOptions: [],
         platformOptions: [],
+        computerOptions: [],
         employeeID: '',
         editing: '',
     };
@@ -107,6 +108,7 @@ class EmployeeForm2 extends Component {
             campusOptions: result.data.campuses,
             leaderOptions: result.data.leaders,
             platformOptions: result.data.platforms,
+            computerOptions: result.data.computers,
         });
     }
 
@@ -138,6 +140,31 @@ class EmployeeForm2 extends Component {
                         <Paper className={classes.formContainer}>
                             <Grid container>
                                 <div />
+                                <Grid item>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Computer
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_computer"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.computerOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a computer"
+                                        />
+                                    </FormGroup>
+                                </Grid>
 
                                 <Grid item>
                                     <FormGroup style={{ margin: '10px ' }}>

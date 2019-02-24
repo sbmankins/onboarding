@@ -9,6 +9,45 @@ import * as actions from '../../actions';
 import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    outerContainer: {
+        width: '80%',
+        margin: '0 auto',
+        padding: '10px',
+        background: '#edeeef',
+        flexGrow: 1,
+        borderRadius: '20px',
+    },
+
+    headingContainer: {
+        background: '#dbe2ef',
+        padding: '20px',
+
+        borderRadius: '20px',
+        margin: '0 auto',
+        marginBottom: '40px',
+    },
+
+    formContainer: {
+        width: '90%',
+        margin: '0 auto',
+        padding: '10px',
+        borderRadius: '20px',
+    },
+
+    titleText: {
+        textAlign: 'center',
+        color: '#626f78',
+    },
+
+    formButton: {
+        margin: '30px 30px 0 10px',
+        width: '100px',
+        borderRadius: '20px',
+    },
+});
 
 class EmployeeFormReview extends Component {
     state = {
@@ -37,6 +76,8 @@ class EmployeeFormReview extends Component {
         leaderName: '',
         platformOptions: [],
         platformName: [],
+        computerOptions: [],
+        computerName: '',
     };
 
     componentDidMount() {
@@ -62,6 +103,7 @@ class EmployeeFormReview extends Component {
                 campusOptions: result.data.campuses,
                 leaderOptions: result.data.leaders,
                 platformOptions: result.data.platforms,
+                computerOptions: result.data.computers,
             },
             () => {
                 const adminName = this.state.adminOptions.find(
@@ -114,6 +156,11 @@ class EmployeeFormReview extends Component {
                 ).name;
                 this.setState({ platformName: platformName });
 
+                const computerName = this.state.computerOptions.find(
+                    o => o._id === this.props.formValues._computer
+                ).name;
+                this.setState({ computerName: computerName });
+
                 if (this.props.formValues._vendor !== undefined) {
                     const vendorName = this.state.vendorOptions.find(
                         o => o._id === this.props.formValues._vendor
@@ -137,6 +184,7 @@ class EmployeeFormReview extends Component {
     renderButton() {
         const {
             formValues,
+            classes,
             history,
             submitEmployee,
             editEmployee,
@@ -150,11 +198,7 @@ class EmployeeFormReview extends Component {
                 <Button
                     variant="contained"
                     color="primary"
-                    style={{
-                        margin: '30px 20px 10px 10px',
-                        width: '100px',
-                        borderRadius: '20px',
-                    }}
+                    className={classes.formButton}
                     onClick={() => {
                         editEmployee(
                             location.state.employeeID,
@@ -171,11 +215,7 @@ class EmployeeFormReview extends Component {
                 <Button
                     variant="contained"
                     color="primary"
-                    style={{
-                        margin: '30px 20px 10px 10px',
-                        width: '100px',
-                        borderRadius: '20px',
-                    }}
+                    className={classes.formButton}
                     onClick={() => submitEmployee(formValues, history)}
                 >
                     Submit
@@ -189,9 +229,18 @@ class EmployeeFormReview extends Component {
         return _.map(employeeFormFields, ({ name, label }) => {
             if (name !== 'dateStart') {
                 return (
-                    <Grid item key={name}>
-                        <div style={{ marginBottom: '10px' }}>
-                            <Typography style={{ fontWeight: 'bold' }}>
+                    <Grid item xs={4} key={name}>
+                        <div
+                            style={{
+                                display: 'inline-block',
+                                marginBottom: '20px',
+                            }}
+                        >
+                            <Typography
+                                style={{
+                                    fontWeight: 'bold',
+                                }}
+                            >
                                 {label}
                             </Typography>
                             <div>
@@ -207,42 +256,29 @@ class EmployeeFormReview extends Component {
     }
 
     render() {
+        const { classes } = this.props;
         const { formValues } = this.props;
         const { onCancel } = this.props;
 
         return (
-            <Paper
-                style={{
-                    width: '50%',
-                    margin: '0 auto',
-                    padding: '10px',
-                    background: '#edeeef',
-                    flexGrow: 1,
-                    borderRadius: '20px',
-                }}
-                elevation={1}
-            >
-                <Paper
-                    style={{
-                        background: '#dbe2ef',
-                        padding: '20px',
-                        marginBottom: '20px',
-                        borderRadius: '20px',
-                    }}
-                    elevation={1}
-                >
-                    <Typography
-                        style={{ textAlign: 'center', color: '#626f78' }}
-                        variant="title"
-                    >
+            <Paper className={classes.outerContainer} elevation={1}>
+                <Paper className={classes.headingContainer} elevation={1}>
+                    <Typography className={classes.titleText} variant="title">
                         Please confirm entries
                     </Typography>
                 </Paper>
-                <Grid container direction="row" justify="space-between">
-                    <div style={{ margin: '20px 20px' }}>
+
+                <Paper className={classes.formContainer}>
+                    <Grid container justify="flex-start" spacing={24}>
                         {this.reviewFields()}
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Start Date
                                 </Typography>
@@ -257,8 +293,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Vendor
                                 </Typography>
@@ -269,8 +310,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Hire Type
                                 </Typography>
@@ -281,8 +327,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Hire Status
                                 </Typography>
@@ -293,8 +344,30 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Computer Name
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.computerName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Role
                                 </Typography>
@@ -305,8 +378,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Leader/Contributor
                                 </Typography>
@@ -317,8 +395,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Platform
                                 </Typography>
@@ -329,8 +412,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Region
                                 </Typography>
@@ -341,8 +429,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Campus
                                 </Typography>
@@ -353,9 +446,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Admin
                                 </Typography>
@@ -366,8 +463,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Team
                                 </Typography>
@@ -378,8 +480,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Manager
                                 </Typography>
@@ -390,8 +497,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Status
                                 </Typography>
@@ -402,8 +514,13 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item>
-                            <div style={{ marginBottom: '10px' }}>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Comments
                                 </Typography>
@@ -414,23 +531,18 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
+                    </Grid>
+                </Paper>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.formButton}
+                    onClick={onCancel}
+                >
+                    Back
+                </Button>
 
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            style={{
-                                margin: '30px 20px 10px 10px',
-                                width: '100px',
-                                borderRadius: '20px',
-                            }}
-                            onClick={onCancel}
-                        >
-                            Back
-                        </Button>
-
-                        {this.renderButton()}
-                    </div>
-                </Grid>
+                {this.renderButton()}
             </Paper>
         );
     }
@@ -444,7 +556,10 @@ function mapStateToProps(state) {
         editing: state.editing,
     };
 }
-export default connect(
+
+EmployeeFormReview = connect(
     mapStateToProps,
     actions
 )(withRouter(EmployeeFormReview));
+
+export default withStyles(styles)(EmployeeFormReview);

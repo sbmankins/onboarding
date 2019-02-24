@@ -12,6 +12,7 @@ const Region = mongoose.model('regions');
 const Campus = mongoose.model('campuses');
 const Leader = mongoose.model('leaders');
 const Platform = mongoose.model('platforms');
+const Computer = mongoose.model('computers');
 
 module.exports = app => {
     app.get('/api/form1selects', async (req, res) => {
@@ -52,6 +53,9 @@ module.exports = app => {
         const platforms = await Platform.find().sort({ name: 1 });
         json.platforms = platforms;
 
+        const computers = await Computer.find().sort({ name: 1 });
+        json.computers = computers;
+
         res.json(json);
     });
 
@@ -68,6 +72,7 @@ module.exports = app => {
             .populate('_campus')
             .populate('_leader')
             .populate('_platform')
+            .populate('_computer')
             .sort({
                 dateStart: 'ascending',
                 _status: 'ascending',
@@ -95,6 +100,7 @@ module.exports = app => {
                 .populate('_campus')
                 .populate('_leader')
                 .populate('_platform')
+                .populate('_computer')
                 .exec();
             res.send(employee);
             console.log(employee);
@@ -111,8 +117,8 @@ module.exports = app => {
     });
 
     app.put('/api/:id', async (req, res) => {
-        const employee = await Employee.findByIdAndUpdate(
-            req.params.id,
+        const employee = await Employee.findOneAndUpdate(
+            { _id: req.params.id },
             { $set: req.body },
             function(err, response) {
                 if (err) {
@@ -133,6 +139,7 @@ module.exports = app => {
             .populate('_campus')
             .populate('_leader')
             .populate('_platform')
+            .populate('_computer')
             .sort({
                 dateStart: 'ascending',
                 lastName: 'ascending',
@@ -147,6 +154,10 @@ module.exports = app => {
             firstName,
             lastName,
             dateStart,
+            buddy,
+            seat,
+            cwID,
+            comments,
             _admin,
             _manager,
             _status,
@@ -159,16 +170,17 @@ module.exports = app => {
             _campus,
             _leader,
             _platform,
-            buddy,
-            seat,
-            cwID,
-            comments,
+            _computer,
         } = req.body;
 
         const employee = new Employee({
             firstName,
             lastName,
             dateStart,
+            buddy,
+            seat,
+            cwID,
+            comments,
             _admin,
             _manager,
             _status,
@@ -181,10 +193,7 @@ module.exports = app => {
             _campus,
             _leader,
             _platform,
-            buddy,
-            seat,
-            cwID,
-            comments,
+            _computer,
 
             dateCreated: Date.now(),
         });
