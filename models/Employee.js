@@ -50,6 +50,11 @@ const employeeSchema = new Schema({
         ref: 'types',
         required: true,
     },
+    _region: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'regions',
+        required: true,
+    },
 });
 
 mongoose.model('employees', employeeSchema);

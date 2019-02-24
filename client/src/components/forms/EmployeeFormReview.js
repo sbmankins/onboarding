@@ -27,7 +27,10 @@ class EmployeeFormReview extends Component {
         adminName: '',
         teamOptions: [],
         teamName: '',
+        roleOptions: [],
         roleName: '',
+        regionOptions: [],
+        regionName: '',
     };
 
     componentDidMount() {
@@ -49,6 +52,7 @@ class EmployeeFormReview extends Component {
                 vendorOptions: result.data.vendors,
                 typeOptions: result.data.types,
                 hireStatusOptions: result.data.hirestatuses,
+                regionOptions: result.data.regions,
             },
             () => {
                 const adminName = this.state.adminOptions.find(
@@ -85,6 +89,11 @@ class EmployeeFormReview extends Component {
                     o => o._id === this.props.formValues._hirestatus
                 ).name;
                 this.setState({ hireStatusName: hireStatusName });
+
+                const regionName = this.state.regionOptions.find(
+                    o => o._id === this.props.formValues._region
+                ).name;
+                this.setState({ regionName: regionName });
 
                 if (this.props.formValues._vendor !== undefined) {
                     const vendorName = this.state.vendorOptions.find(
@@ -269,6 +278,18 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
+                        <Grid item>
+                            <div style={{ marginBottom: '10px' }}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Region
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.regionName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
 
                         <Grid item>
                             <div style={{ marginBottom: '10px' }}>
@@ -318,6 +339,7 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
+
                         <Button
                             variant="contained"
                             color="secondary"

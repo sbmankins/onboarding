@@ -8,6 +8,7 @@ const Role = mongoose.model('roles');
 const Vendor = mongoose.model('vendors');
 const Type = mongoose.model('types');
 const Hirestatus = mongoose.model('hirestatuses');
+const Region = mongoose.model('regions');
 
 module.exports = app => {
     app.get('/api/form1selects', async (req, res) => {
@@ -36,6 +37,9 @@ module.exports = app => {
         const hirestatuses = await Hirestatus.find().sort({ name: 1 });
         json.hirestatuses = hirestatuses;
 
+        const regions = await Region.find().sort({ name: 1 });
+        json.regions = regions;
+
         res.json(json);
     });
 
@@ -48,6 +52,7 @@ module.exports = app => {
             .populate('_vendor')
             .populate('_type')
             .populate('_hirestatus')
+            .populate('_region')
             .sort({
                 dateStart: 'ascending',
                 _status: 'ascending',
@@ -71,6 +76,7 @@ module.exports = app => {
                 .populate('_vendor')
                 .populate('_type')
                 .populate('_hirestatus')
+                .populate('_region')
                 .exec();
             res.send(employee);
             console.log(employee);
@@ -105,6 +111,7 @@ module.exports = app => {
             .populate('_vendor')
             .populate('_type')
             .populate('_hirestatus')
+            .populate('_region')
             .sort({
                 dateStart: 'ascending',
                 lastName: 'ascending',
@@ -127,6 +134,7 @@ module.exports = app => {
             _vendor,
             _type,
             _hirestatus,
+            _region,
             buddy,
             seat,
             cwID,
@@ -144,6 +152,7 @@ module.exports = app => {
             _vendor,
             _type,
             _hirestatus,
+            _region,
             buddy,
             seat,
             cwID,

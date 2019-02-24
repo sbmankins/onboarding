@@ -10,10 +10,10 @@ import employeeFormFields from './employeeFormFields';
 import SearchSelect from './SearchSelect';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
-import employeeFormFieldValid from './employeeFormFieldValid';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import validate from './validate';
 
 const styles = theme => ({
     outerContainer: {
@@ -28,9 +28,10 @@ const styles = theme => ({
     headingContainer: {
         background: '#dbe2ef',
         padding: '20px',
-        marginBottom: '20px',
+
         borderRadius: '20px',
         margin: '0 auto',
+        marginBottom: '40px',
     },
 
     formContainer: {
@@ -62,17 +63,9 @@ const styles = theme => ({
 class EmployeeForm extends Component {
     state = {
         vendorOptions: [],
-
         typeOptions: [],
         hireStatusOptions: [],
-        // teamName:[],
-        //admin: '',
-        // adminName: '',
-        // managerName: '',
-
         employeeID: '',
-
-        // statusName: '',
         editing: '',
     };
 
@@ -142,14 +135,14 @@ class EmployeeForm extends Component {
                         Employee Detail
                     </Typography>
                 </Paper>
-                <Grid container justify="center">
+                <Grid container justify="space-around" spacing={24}>
                     <form
                         onSubmit={this.props.handleSubmit(
                             this.props.handleSubmit(this.props.onEmployeeSubmit)
                         )}
                     >
                         <Paper className={classes.formContainer}>
-                            <Grid container spacing={8}>
+                            <Grid container spacing={24} justify="space-around">
                                 {this.renderFields()}
                                 <Grid item>
                                     <FormGroup style={{ margin: '10px ' }}>
@@ -228,43 +221,54 @@ class EmployeeForm extends Component {
                                 </Grid>
                             </Grid>
                         </Paper>
-
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            className={classes.formButton}
+                        <Grid
+                            container
+                            direction="row"
+                            spacing={8}
+                            justify="flex-start"
+                            style={{ margin: '0 0 20px 20px' }}
                         >
-                            <Link to="/" className={classes.buttonLink}>
-                                Cancel
-                            </Link>
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.formButton}
-                            type="submit"
-                            onClick={e => this.handleSubmit(e)}
-                        >
-                            Next
-                        </Button>
+                            <Grid item>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    className={classes.formButton}
+                                >
+                                    <Link to="/" className={classes.buttonLink}>
+                                        Cancel
+                                    </Link>
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.formButton}
+                                    type="submit"
+                                    onClick={e => this.handleSubmit(e)}
+                                >
+                                    Next
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </form>
                 </Grid>
             </Paper>
         );
     }
 }
-
-function validate(values) {
-    const errors = {};
-
-    _.each(employeeFormFieldValid, ({ name }) => {
-        if (!values[name]) {
-            errors[name] = 'You must provide a value';
-        }
-    });
-
-    return errors;
-}
+//
+// function validate(values) {
+//     const errors = {};
+//
+//     _.each(employeeFormFieldValid, ({ name }) => {
+//         if (!values[name]) {
+//             errors[name] = 'You must provide a value';
+//         }
+//     });
+//
+//     return errors;
+// }
 
 EmployeeForm = reduxForm({
     validate,

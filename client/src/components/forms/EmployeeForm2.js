@@ -1,4 +1,4 @@
-import _ from 'lodash';
+//import _ from 'lodash';
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import Button from '@material-ui/core/Button';
@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import SearchSelect from './SearchSelect';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
-import employeeFormFieldValid2 from './employeeFormFieldValid';
+import validate from './validate';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
@@ -27,9 +27,9 @@ const styles = theme => ({
     headingContainer: {
         background: '#dbe2ef',
         padding: '20px',
-        marginBottom: '20px',
         borderRadius: '20px',
         margin: '0 auto',
+        marginBottom: '40px',
     },
 
     formContainer: {
@@ -65,8 +65,8 @@ class EmployeeForm2 extends Component {
         roleOptions: [],
         statusOptions: [],
         managerOptions: [],
+        regionOptions: [],
         employeeID: '',
-
         editing: '',
     };
 
@@ -94,6 +94,7 @@ class EmployeeForm2 extends Component {
             statusOptions: result.data.statuses,
             teamOptions: result.data.teams,
             roleOptions: result.data.roles,
+            regionOptions: result.data.regions,
         });
     }
 
@@ -116,14 +117,14 @@ class EmployeeForm2 extends Component {
                         Employee Detail
                     </Typography>
                 </Paper>
-                <Grid container justify="center">
+                <Grid container justify="space-around" spacing={24}>
                     <form
                         onSubmit={this.props.handleSubmit(
                             this.props.handleSubmit(this.props.onEmployeeSubmit)
                         )}
                     >
                         <Paper className={classes.formContainer}>
-                            <Grid container spacing={8}>
+                            <Grid container>
                                 <div />
 
                                 <Grid item>
@@ -148,6 +149,31 @@ class EmployeeForm2 extends Component {
                                             )}
                                             clearable={true}
                                             placeholder="Select a role"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Region
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_region"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.regionOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a region"
                                         />
                                     </FormGroup>
                                 </Grid>
@@ -253,35 +279,49 @@ class EmployeeForm2 extends Component {
                                 </Grid>
                             </Grid>
                         </Paper>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            className={classes.formButton}
+                        <Grid
+                            container
+                            direction="row"
+                            spacing={8}
+                            justify="flex-start"
+                            style={{ margin: '0 0 20px 20px' }}
                         >
-                            <Link to="/" className={classes.buttonLink}>
-                                Cancel
-                            </Link>
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.formButton}
-                            type="submit"
-                            onClick={e => this.handleSubmit(e)}
-                        >
-                            Next
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            style={{
-                                margin: '30px 20px 10px 10px',
-                                width: '100px',
-                            }}
-                            onClick={onCancel}
-                        >
-                            Back
-                        </Button>
+                            <Grid item>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    className={classes.formButton}
+                                >
+                                    <Link to="/" className={classes.buttonLink}>
+                                        Cancel
+                                    </Link>
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    variant="contained"
+                                    style={{
+                                        backgroundColor: '#ff9a00',
+                                        color: 'white',
+                                    }}
+                                    className={classes.formButton}
+                                    onClick={onCancel}
+                                >
+                                    Back
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.formButton}
+                                    type="submit"
+                                    onClick={e => this.handleSubmit(e)}
+                                >
+                                    Next
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </form>
                 </Grid>
             </Paper>
@@ -289,17 +329,17 @@ class EmployeeForm2 extends Component {
     }
 }
 //
-function validate(values) {
-    const errors = {};
-
-    _.each(employeeFormFieldValid2, ({ name }) => {
-        if (!values[name]) {
-            errors[name] = 'You must provide a value';
-        }
-    });
-
-    return errors;
-}
+// function validate(values) {
+//     const errors = {};
+//
+//     _.each(employeeFormFieldValid2, ({ name }) => {
+//         if (!values[name]) {
+//             errors[name] = 'You must provide a value';
+//         }
+//     });
+//
+//     return errors;
+// }
 
 EmployeeForm2 = reduxForm({
     validate,

@@ -9,7 +9,7 @@ const styles = theme => ({
     selectWrapper: {
         display: 'inline-block',
         verticalAlign: 'top',
-        maxWidth: 200,
+        maxWidth: 250,
         marginTop: 16,
         marginBottom: 8,
         marginLeft: 8,
@@ -18,7 +18,7 @@ const styles = theme => ({
     input: {
         display: 'flex',
         padding: 8,
-        width: 190,
+        width: 200,
         height: 32,
     },
     valueContainer: {

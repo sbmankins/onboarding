@@ -12,6 +12,7 @@ require('./models/Role');
 require('./models/Vendor');
 require('./models/Type');
 require('./models/Hirestatus');
+require('./models/Region');
 
 mongoose.connect(
     'mongodb://localhost:27017/onboardingDB',
