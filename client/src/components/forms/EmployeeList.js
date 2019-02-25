@@ -100,7 +100,7 @@ class EmployeeList extends Component {
         });
     };
 
-    handleTicketClick = (event, id, ticket) => {
+    handleTicketClick = (event, id) => {
         event.preventDefault();
         this.setState({
             employeeID: id,
@@ -144,6 +144,7 @@ class EmployeeList extends Component {
             this.props.employees &&
             this.props.employees.map(employee => {
                 const id = employee._id;
+                const name = employee.firstName + ' ' + employee.lastName;
 
                 let start = new Date();
                 start = employee.dateStart;
@@ -247,7 +248,7 @@ class EmployeeList extends Component {
                                         />
                                     </Button>
                                 </Tooltip>
-                                {this.renderButton(employee.cwID, id)}
+                                {this.renderButton(employee.cwID, id, name)}
                                 <Tooltip title="Delete" aria-label="Delete">
                                     <Button
                                         style={{
