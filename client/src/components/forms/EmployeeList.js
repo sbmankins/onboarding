@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import { daysBetween } from './daysBetween';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
+import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 
@@ -74,6 +75,7 @@ class EmployeeList extends Component {
         employeeID: '',
         toDashboard: false,
         editing: false,
+        ticket: false,
     };
 
     componentDidMount() {
@@ -90,8 +92,51 @@ class EmployeeList extends Component {
 
     handleEditClick = (event, id) => {
         event.preventDefault();
-        this.setState({ employeeID: id, toDashboard: true, editing: true });
+        this.setState({
+            employeeID: id,
+            toDashboard: true,
+            editing: true,
+            ticket: false,
+        });
     };
+
+    handleTicketClick = (event, id, ticket) => {
+        event.preventDefault();
+        this.setState({
+            employeeID: id,
+            toDashboard: true,
+            editing: true,
+            ticket: true,
+        });
+    };
+
+    renderButton(cwID, id) {
+        const { classes } = this.props;
+
+        if (cwID && (cwID !== undefined || cwID !== '')) {
+            return (
+                <Tooltip title="Tickets" aria-label="Tickets">
+                    <Button
+                        variant="contained"
+                        editing="true"
+                        className={classes.button}
+                        style={{
+                            padding: '3px',
+                            borderRadius: '20px',
+                            backgroundColor: '#bd512f',
+                        }}
+                        onClick={(e, key) => this.handleTicketClick(e, id)}
+                    >
+                        <LocalActivityIcon
+                            className={`${classes.iconRight} ${
+                                classes.editIcon
+                            }`}
+                        />
+                    </Button>
+                </Tooltip>
+            );
+        } else return <div />;
+    }
 
     renderEmployees() {
         const { classes } = this.props;
@@ -99,6 +144,7 @@ class EmployeeList extends Component {
             this.props.employees &&
             this.props.employees.map(employee => {
                 const id = employee._id;
+
                 let start = new Date();
                 start = employee.dateStart;
 
@@ -201,6 +247,7 @@ class EmployeeList extends Component {
                                         />
                                     </Button>
                                 </Tooltip>
+                                {this.renderButton(employee.cwID, id)}
                                 <Tooltip title="Delete" aria-label="Delete">
                                     <Button
                                         style={{
@@ -247,6 +294,7 @@ class EmployeeList extends Component {
                         state: {
                             employee: this.state.employeeID,
                             editing: this.state.editing,
+                            ticket: this.state.ticket,
                         },
                     }}
                 />
@@ -260,6 +308,7 @@ const mapStateToProps = state => {
     return {
         employees: state.employees,
         employee: state.employee,
+        employeeID: state.employeeID,
     };
 };
 

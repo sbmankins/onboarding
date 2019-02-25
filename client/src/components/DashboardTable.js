@@ -9,22 +9,29 @@ class DashboardTable extends Component {
         employees: {},
         employeeID: '',
         editing: false,
+        ticket: false,
         toDashboard: false,
     };
     componentDidMount() {
         this.props.fetchEmployees();
-        console.log(this.props);
-
-        //console.log(this.props);
     }
 
     handleEditClick = (event, rowData) => {
-        console.log(rowData);
         event.preventDefault();
         this.setState({
             employeeID: rowData,
             toDashboard: true,
             editing: true,
+        });
+    };
+
+    handleTicketClick = (event, rowData) => {
+        event.preventDefault();
+        this.setState({
+            employeeID: rowData,
+            toDashboard: true,
+            editing: true,
+            ticket: true,
         });
     };
 
@@ -43,6 +50,7 @@ class DashboardTable extends Component {
                         state: {
                             employee: this.state.employeeID,
                             editing: this.state.editing,
+                            ticket: this.state.ticket,
                         },
                     }}
                 />
@@ -94,6 +102,13 @@ class DashboardTable extends Component {
                         },
                     },
                     {
+                        icon: 'local_activity',
+                        tooltip: 'Ticket',
+                        onClick: (event, rowData) => {
+                            this.handleTicketClick(event, rowData.id);
+                        },
+                    },
+                    {
                         icon: 'delete_forever',
                         tooltip: 'Delete',
                         onClick: (event, rowData) => {
@@ -102,6 +117,7 @@ class DashboardTable extends Component {
                             }
                         },
                     },
+
                     //},
                 ]}
                 data={this.props.employees.map(employee => {
@@ -136,6 +152,7 @@ function mapStateToProps(state) {
         employees: state.employees,
         employee: state.employeeID,
         editing: state.editing,
+        ticket: state.ticket,
         toDashboard: state.toDashboard,
     };
 }

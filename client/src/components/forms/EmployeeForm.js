@@ -70,7 +70,11 @@ class EmployeeForm extends Component {
     };
 
     componentDidMount() {
-        this.populateDropdown();
+        if (
+            this.props.history.location.state.ticket === undefined ||
+            this.props.history.location.state.ticket !== true
+        )
+            this.populateDropdown();
 
         if (
             this.props.location.state !== undefined &&
@@ -93,7 +97,6 @@ class EmployeeForm extends Component {
 
     async populateDropdown() {
         const result = await axios.get('/api/form1selects');
-        await console.log(result);
 
         await this.setState({
             vendorOptions: result.data.vendors,
@@ -257,18 +260,6 @@ class EmployeeForm extends Component {
         );
     }
 }
-//
-// function validate(values) {
-//     const errors = {};
-//
-//     _.each(employeeFormFieldValid, ({ name }) => {
-//         if (!values[name]) {
-//             errors[name] = 'You must provide a value';
-//         }
-//     });
-//
-//     return errors;
-// }
 
 EmployeeForm = reduxForm({
     validate,

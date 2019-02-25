@@ -15,6 +15,37 @@ const Platform = mongoose.model('platforms');
 const Computer = mongoose.model('computers');
 
 module.exports = app => {
+    // app.post('/api/tickets/', async (req, res) => {
+    //     console.log(req.body);
+    //     const { neID } = req.body.values;
+    //
+    //     const ticket = new Ticket({
+    //         neID,
+    //         _employee: req.body.id,
+    //     });
+    //
+    //     try {
+    //         await ticket.save();
+    //         const id = mongoose.Types.ObjectId(req.body.id);
+    //         const thisID = await ticket
+    //             .find({ _employee: id })
+    //             .select('_id')
+    //             .exec();
+    //         console.log(thisID);
+    //
+    //         res.status(201).send({ response: 'Employee created' });
+    //     } catch (err) {
+    //         if (err.name === 'MongoError' && err.code === 11000) {
+    //             res.status(409).send(
+    //                 new MyError('Duplicate key', [err.message])
+    //             );
+    //             console.log(err.name);
+    //         }
+    //         res.status(500).send(err);
+    //         console.log(err.name);
+    //     }
+    // });
+
     app.get('/api/form1selects', async (req, res) => {
         var json = {};
         const admins = await Admin.find().sort({ name: 1 });
@@ -73,6 +104,7 @@ module.exports = app => {
             .populate('_leader')
             .populate('_platform')
             .populate('_computer')
+            .populate('_ticket')
             .sort({
                 dateStart: 'ascending',
                 _status: 'ascending',
@@ -101,9 +133,9 @@ module.exports = app => {
                 .populate('_leader')
                 .populate('_platform')
                 .populate('_computer')
+                .populate('ticket')
                 .exec();
             res.send(employee);
-            console.log(employee);
         } catch (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
                 res.status(409).send(
@@ -140,6 +172,7 @@ module.exports = app => {
             .populate('_leader')
             .populate('_platform')
             .populate('_computer')
+            .populate('ticket')
             .sort({
                 dateStart: 'ascending',
                 lastName: 'ascending',
@@ -150,6 +183,7 @@ module.exports = app => {
     });
 
     app.post('/api/employees', async (req, res) => {
+        console.log(req.body);
         const {
             firstName,
             lastName,
@@ -171,6 +205,7 @@ module.exports = app => {
             _leader,
             _platform,
             _computer,
+            neID,
         } = req.body;
 
         const employee = new Employee({
@@ -195,6 +230,8 @@ module.exports = app => {
             _platform,
             _computer,
 
+            neID,
+
             dateCreated: Date.now(),
         });
 
@@ -202,6 +239,22 @@ module.exports = app => {
             await employee.save();
 
             res.status(201).send({ response: 'Employee created' });
+        } catch (err) {
+            if (err.name === 'MongoError' && err.code === 11000) {
+                res.status(409).send(
+                    new MyError('Duplicate key', [err.message])
+                );
+                console.log(err.name);
+            }
+            res.status(500).send(err);
+            console.log(err.name);
+        }
+    });
+
+    app.delete('/api/:id', async (req, res) => {
+        try {
+            await Employee.deleteOne({ _id: req.params.id });
+            res.status(200).send({ response: 'Employee Deleted' });
         } catch (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
                 res.status(409).send(

@@ -96,8 +96,6 @@ class EmployeeForm2 extends Component {
 
     async populateDropdown() {
         const result = await axios.get('/api/form1selects');
-        await console.log(result);
-
         await this.setState({
             adminOptions: result.data.admins,
             managerOptions: result.data.managers,

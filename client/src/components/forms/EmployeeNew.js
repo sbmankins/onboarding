@@ -5,21 +5,27 @@ import EmployeeFormReview from './EmployeeFormReview';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import EmployeeForm2 from './EmployeeForm2';
+import TicketForm from './TicketForm';
 
 class EmployeeNew extends Component {
     state = {
         showFormReview: false,
         employee: {},
         editing: false,
+        ticket: false,
         initData: {},
+        dropDowns: [],
         page: 1,
     };
 
     componentDidMount() {
+        console.log(this.props);
+
         if (
             this.props.history.location.state !== undefined &&
             this.props.history.location.state.employee !== undefined
         ) {
+            this.setState({ ticket: this.props.history.location.state.ticket });
             const id = this.props.history.location.state.employee;
             axios
                 .get(`/api/${id}`)
@@ -39,7 +45,6 @@ class EmployeeNew extends Component {
 
     handleInitialize() {
         if (this.state.employee) {
-            console.log(this.state.employee);
             this.setState({ editing: true });
 
             const initData = {
@@ -63,6 +68,9 @@ class EmployeeNew extends Component {
                     : undefined,
                 comments: this.state.employee
                     ? this.state.employee.comments
+                    : undefined,
+                neID: this.state.employee
+                    ? this.state.employee.neID
                     : undefined,
                 _manager: this.state.employee._manager
                     ? this.state.employee._manager._id
@@ -126,7 +134,7 @@ class EmployeeNew extends Component {
                     }
                 />
             );
-        } else if (this.state.page === 2) {
+        } else if (this.state.page === 2 && this.state.ticket === false) {
             return (
                 <EmployeeForm2
                     onEmployeeSubmit={() =>
@@ -143,11 +151,9 @@ class EmployeeNew extends Component {
                     }
                 />
             );
-        } else if (this.state.page === 1) {
+        } else if (this.state.page === 1 && this.state.ticket === false) {
             return (
                 <EmployeeForm
-                    // adminName={this.state.adminName}
-
                     onEmployeeSubmit={() =>
                         this.setState({
                             showFormReview: false,
@@ -157,6 +163,25 @@ class EmployeeNew extends Component {
                     onInitialValues={() => {
                         this.handleInitialize();
                     }}
+                />
+            );
+        } else if (this.state.ticket === true) {
+            return (
+                <TicketForm
+                    onTicketSubmit={() =>
+                        this.setState({
+                            showFormReview: true,
+                            page: 3,
+                        })
+                    }
+                    onInitialValues={() => {
+                        this.handleInitialize();
+                    }}
+                    onCancel={() =>
+                        this.setState({
+                            showFormReview: false,
+                        })
+                    }
                 />
             );
         }

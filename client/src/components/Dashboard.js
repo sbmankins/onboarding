@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InsertChartIcon from '@material-ui/icons/InsertChart';
 import ClearIcon from '@material-ui/icons/Clear';
 import DashboardTable from './DashboardTable';
-import ListIcon from '@material-ui/icons/List';
+import TableChartIcon from '@material-ui/icons/TableChart';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 
 const styles = theme => ({
@@ -72,11 +72,11 @@ class Dashboard extends Component {
     state = { showStatsBar: false, showTable: false };
 
     handleStatsClick(event, status) {
-        this.setState({ showStatsBar: status }, console.log(this.state));
+        this.setState({ showStatsBar: status });
     }
 
     handleTableClick(event, status) {
-        this.setState({ showTable: status }, console.log(this.state));
+        this.setState({ showTable: status });
     }
 
     renderTableButton() {
@@ -100,7 +100,7 @@ class Dashboard extends Component {
                             this.handleTableClick(event, true);
                         }}
                     >
-                        <ListIcon />
+                        <TableChartIcon />
                     </IconButton>
                 </Tooltip>
             );
