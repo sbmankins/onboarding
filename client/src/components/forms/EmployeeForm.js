@@ -63,8 +63,6 @@ const styles = theme => ({
 class EmployeeForm extends Component {
     state = {
         vendorOptions: [],
-        typeOptions: [],
-        hireStatusOptions: [],
         employeeID: '',
         editing: '',
     };
@@ -101,8 +99,6 @@ class EmployeeForm extends Component {
 
         await this.setState({
             vendorOptions: result.data.vendors,
-            typeOptions: result.data.types,
-            hireStatusOptions: result.data.hirestatuses,
         });
     }
 
@@ -170,56 +166,6 @@ class EmployeeForm extends Component {
                                             )}
                                             clearable={true}
                                             placeholder="Select a vendor"
-                                        />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Hire Type
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_type"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.typeOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a hire type"
-                                        />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Hire Status
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_hirestatus"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.hireStatusOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a hire type"
                                         />
                                     </FormGroup>
                                 </Grid>

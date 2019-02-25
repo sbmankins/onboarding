@@ -76,6 +76,8 @@ class EmployeeForm2 extends Component {
         leaderOptions: [],
         platformOptions: [],
         computerOptions: [],
+        typeOptions: [],
+        hireStatusOptions: [],
         employeeID: '',
         editing: '',
     };
@@ -107,6 +109,8 @@ class EmployeeForm2 extends Component {
             leaderOptions: result.data.leaders,
             platformOptions: result.data.platforms,
             computerOptions: result.data.computers,
+            typeOptions: result.data.types,
+            hireStatusOptions: result.data.hirestatuses,
         });
     }
 
@@ -138,6 +142,56 @@ class EmployeeForm2 extends Component {
                         <Paper className={classes.formContainer}>
                             <Grid container>
                                 <div />
+                                <Grid item>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Hire Type
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_type"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.typeOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a hire type"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item>
+                                    <FormGroup style={{ margin: '10px ' }}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Hire Status
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_hirestatus"
+                                            simpleValue={false}
+                                            component={SearchSelect}
+                                            options={this.state.hireStatusOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a hire type"
+                                        />
+                                    </FormGroup>
+                                </Grid>
                                 <Grid item>
                                     <FormGroup style={{ margin: '10px ' }}>
                                         <FormLabel>

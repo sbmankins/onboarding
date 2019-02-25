@@ -18,7 +18,6 @@ export default ({ input, label, meta: { touched, error } }) => {
                     multiline
                     rowsMax="4"
                     margin="normal"
-                    helperText="comments"
                     variant="outlined"
                 />
                 <div style={{ color: 'red' }}>{touched && error}</div>

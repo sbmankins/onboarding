@@ -110,10 +110,14 @@ class EmployeeList extends Component {
         });
     };
 
-    renderButton(cwID, id) {
+    renderButton(cwID, neID, id) {
         const { classes } = this.props;
 
-        if (cwID && (cwID !== undefined || cwID !== '')) {
+        if (
+            cwID &&
+            (cwID !== undefined || cwID !== '') &&
+            (neID && (neID !== undefined || neID !== ''))
+        ) {
             return (
                 <Tooltip title="Tickets" aria-label="Tickets">
                     <Button
@@ -144,7 +148,7 @@ class EmployeeList extends Component {
             this.props.employees &&
             this.props.employees.map(employee => {
                 const id = employee._id;
-                const name = employee.firstName + ' ' + employee.lastName;
+                //const name = employee.firstName + ' ' + employee.lastName;
 
                 let start = new Date();
                 start = employee.dateStart;
@@ -248,7 +252,11 @@ class EmployeeList extends Component {
                                         />
                                     </Button>
                                 </Tooltip>
-                                {this.renderButton(employee.cwID, id, name)}
+                                {this.renderButton(
+                                    employee.cwID,
+                                    employee.neID,
+                                    id
+                                )}
                                 <Tooltip title="Delete" aria-label="Delete">
                                     <Button
                                         style={{

@@ -139,7 +139,7 @@ class TicketForm extends Component {
             <Paper className={classes.outerContainer} elevation={1}>
                 <Paper className={classes.headingContainer} elevation={1}>
                     <Typography className={classes.titleText} variant="title">
-                        Ticket Detail For
+                        Ticket Detail
                     </Typography>
                 </Paper>
                 <Grid container justify="space-around" spacing={24}>

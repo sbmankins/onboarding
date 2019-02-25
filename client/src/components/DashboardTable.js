@@ -26,16 +26,22 @@ class DashboardTable extends Component {
         });
     };
 
-    handleTicketClick = (event, id, cwID) => {
+    handleTicketClick = (event, id, cwID, neID) => {
         event.preventDefault();
-        if (cwID) {
+        if (cwID && neID) {
             this.setState({
                 employeeID: id,
                 toDashboard: true,
                 editing: true,
                 ticket: true,
             });
-        } else window.alert('Employee does not have a CWID');
+        } else if (!cwID && neID) {
+            window.alert('Employee does not have a CWID');
+        } else if (!neID && cwID) {
+            window.alert('Employee does not have an NEID');
+        } else if (!neID && !cwID) {
+            window.alert('Employee does not have an NEID or CWID');
+        }
     };
 
     onEmployeeDelete = (event, id) => {
@@ -111,7 +117,8 @@ class DashboardTable extends Component {
                             this.handleTicketClick(
                                 event,
                                 rowData.id,
-                                rowData.cwID
+                                rowData.cwID,
+                                rowData.neID
                             );
                         },
                     },
@@ -140,6 +147,7 @@ class DashboardTable extends Component {
                         manager: employee._manager.name,
                         admin: employee._admin.name,
                         cwID: employee.cwID,
+                        neID: employee.neID,
                         status: employee._status.name,
                     };
                 })}

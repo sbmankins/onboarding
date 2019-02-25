@@ -21,6 +21,12 @@ export default [
         component: FormField,
         type: 'text',
     },
+    {
+        label: 'EID/NEID',
+        name: 'neID',
+        component: FormField,
+        type: 'text',
+    },
 
     {
         label: 'Onboarding Buddy',
