@@ -23,9 +23,14 @@ class EmployeeNew extends Component {
 
         if (
             this.props.history.location.state !== undefined &&
-            this.props.history.location.state.employee !== undefined
+            this.props.history.location.state.ticket !== undefined
         ) {
             this.setState({ ticket: this.props.history.location.state.ticket });
+        }
+        if (
+            this.props.history.location.state !== undefined &&
+            this.props.history.location.state.employee !== undefined
+        ) {
             const id = this.props.history.location.state.employee;
             axios
                 .get(`/api/${id}`)

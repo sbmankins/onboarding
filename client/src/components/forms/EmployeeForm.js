@@ -70,20 +70,20 @@ class EmployeeForm extends Component {
     };
 
     componentDidMount() {
+        this.populateDropdown();
         if (
-            this.props.history.location.state.ticket === undefined ||
-            this.props.history.location.state.ticket !== true
+            this.props.history.location.state !== undefined &&
+            (this.props.history.location.state.ticket === undefined ||
+                this.props.history.location.state.ticket !== true)
         )
-            this.populateDropdown();
-
-        if (
-            this.props.location.state !== undefined &&
-            this.props.location.state.employee !== undefined
-        ) {
-            this.setState({
-                employeeID: this.props.location.state.employee,
-            });
-        }
+            if (
+                this.props.location.state !== undefined &&
+                this.props.location.state.employee !== undefined
+            ) {
+                this.setState({
+                    employeeID: this.props.location.state.employee,
+                });
+            }
 
         if (
             this.props._reduxForm.history.location.state !== undefined &&
