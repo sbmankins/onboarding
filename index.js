@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const keys = require('./config/keys');
 const PORT = 5000;
 
 require('./models/Employee');
@@ -18,10 +19,17 @@ require('./models/Leader');
 require('./models/Platform');
 require('./models/Computer');
 
+// mongoose.connect(
+//     'mongodb://localhost:27017/onboardingDB',
+//     { useNewUrlParser: true },
+//     () => console.log('Mongodb connected on port 27017')
+// );
+
 mongoose.connect(
-    'mongodb://localhost:27017/onboardingDB',
-    { useNewUrlParser: true },
-    () => console.log('Mongodb connected on port 27017')
+    keys.mongoURI,
+    {
+        useNewUrlParser: true,
+    }
 );
 
 const app = express();
