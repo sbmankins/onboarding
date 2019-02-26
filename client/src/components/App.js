@@ -17,6 +17,11 @@ const App = () => {
                     render={props => <Dashboard {...props} />}
                 />
                 <Route
+                    exact
+                    path="/dashboard"
+                    render={props => <Dashboard {...props} />}
+                />
+                <Route
                     path="/new"
                     render={props => <EmployeeNew {...props} />}
                 />
