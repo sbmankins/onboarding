@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
-const PORT = 5000;
 
 require('./models/Employee');
 require('./models/Admin');
@@ -53,4 +52,5 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT);
