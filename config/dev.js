@@ -2,4 +2,5 @@
 module.exports = {
     mongoURI:
         'mongodb://smankins:usaf2020@ds153495.mlab.com:53495/onboardingdb',
+    redirectDomain: 'http://localhost:3000',
 };
