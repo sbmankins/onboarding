@@ -22,7 +22,6 @@ const employeeSchema = new Schema({
     _team: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'teams',
-        required: true,
     },
     _platform: {
         type: mongoose.Schema.Types.ObjectId,
