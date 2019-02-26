@@ -18,6 +18,11 @@ const App = () => {
                 />
                 <Route
                     exact
+                    path="/onboarding"
+                    render={props => <Dashboard {...props} />}
+                />
+                <Route
+                    exact
                     path="/dashboard"
                     render={props => <Dashboard {...props} />}
                 />

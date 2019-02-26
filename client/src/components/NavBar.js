@@ -8,6 +8,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import Logo from '../images/bayer-logo.svg';
 
@@ -98,6 +99,24 @@ const NavBar = props => {
                             justify="flex-end"
                             alignItems="baseline"
                         >
+                            <Grid item>
+                                <Tooltip
+                                    title="Access Amber"
+                                    aria-label="Access VLAseyMqZeBjW0AHJoxOtYqSUZNJxauErmLbVm2FW1y"
+                                >
+                                    <Button
+                                        href="https://www.google.com"
+                                        target="_blank"
+                                    >
+                                        <Typography
+                                            variant="button"
+                                            style={{ color: 'white' }}
+                                        >
+                                            Amber
+                                        </Typography>
+                                    </Button>
+                                </Tooltip>
+                            </Grid>
                             <Grid item>
                                 <Tooltip
                                     title="Dashboard"
