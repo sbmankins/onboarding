@@ -19,7 +19,6 @@ class DashboardTable extends Component {
 
     handleEditClick = (event, rowData) => {
         event.preventDefault();
-        console.log(rowData);
         this.setState({
             employeeID: rowData,
             toDashboard: true,

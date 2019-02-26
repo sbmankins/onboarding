@@ -70,7 +70,6 @@ class EmployeeForm extends Component {
     };
 
     componentDidMount() {
-        console.log(this.props);
         if (this.props.history.location.state === undefined) {
             this.populateDropdown();
         } else if (this.props.history.location.state.ticket === false) {

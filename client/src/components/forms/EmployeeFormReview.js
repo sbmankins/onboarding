@@ -84,7 +84,6 @@ class EmployeeFormReview extends Component {
 
     componentDidMount() {
         this.populateOptions();
-        console.log('fromformreview  ', this.props);
         this.setState({ ticket: this.props.history.location.state.ticket });
     }
 

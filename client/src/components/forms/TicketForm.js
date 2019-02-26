@@ -66,20 +66,13 @@ class TicketForm extends Component {
     };
 
     componentDidMount() {
-        console.log('from ticket form ', this.props);
-
         if (
             this.props.location.state !== undefined &&
             this.props.location.state.employee !== undefined
         ) {
-            this.setState(
-                {
-                    employeeID: this.props.location.state.employee,
-                },
-                () => {
-                    console.log(this.state);
-                }
-            );
+            this.setState({
+                employeeID: this.props.location.state.employee,
+            });
         }
 
         if (

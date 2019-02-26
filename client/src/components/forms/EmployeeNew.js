@@ -19,8 +19,6 @@ class EmployeeNew extends Component {
     };
 
     componentDidMount() {
-        console.log(this.props);
-
         if (
             this.props.history.location.state !== undefined &&
             this.props.history.location.state.ticket !== undefined
