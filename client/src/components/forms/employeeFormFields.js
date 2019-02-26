@@ -1,4 +1,3 @@
-import DateField from './DateField';
 import FormField from './FormField';
 
 export default [
@@ -40,12 +39,5 @@ export default [
         name: 'seat',
         component: FormField,
         type: 'text',
-    },
-
-    {
-        label: 'Start Date',
-        name: 'dateStart',
-        component: DateField,
-        type: 'date',
     },
 ];

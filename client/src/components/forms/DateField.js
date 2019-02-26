@@ -9,7 +9,7 @@ import DatePicker, {
 } from './DatePicker';
 import Grid from '@material-ui/core/Grid';
 
-export default ({ label }) => {
+export default ({ label, name, placeholder, required }) => {
     return (
         //
         <Grid item xs={6}>
@@ -18,10 +18,11 @@ export default ({ label }) => {
                     <Typography variant="body1">{label}</Typography>
                 </FormLabel>
                 <FieldDatePicker
+                    name={name}
+                    required={required}
                     style={{ width: '100%' }}
-                    name="dateStart"
-                    placeholder="Start Date"
                     component={DatePicker}
+                    placeholder={placeholder}
                     parse={normalizeDates}
                     format={formatDates}
                 />

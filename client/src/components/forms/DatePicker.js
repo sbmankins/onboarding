@@ -27,7 +27,8 @@ class DatePicker extends PureComponent {
             meta: { touched, error /*, warning */ },
             placeholder,
             disabled,
-            //  required,
+
+            required,
         } = this.props;
         const { focused } = this.state;
         //const invalid = error !== undefined && error !== null;
@@ -37,9 +38,9 @@ class DatePicker extends PureComponent {
                 <SingleDatePicker
                     showClearDate={true}
                     showDefaultInputIcon={true}
-                    displayFormat="YYYY-MM-DD"
+                    displayFormat="MM-DD-YYYY"
                     numberOfMonths={1}
-                    required={true}
+                    required={required}
                     disabled={disabled}
                     placeholder={placeholder}
                     date={input.value}
@@ -48,7 +49,9 @@ class DatePicker extends PureComponent {
                     onFocusChange={this.onFocusChange}
                     id={input.name}
                 />
-                {error && touched && <span>{error}</span>}
+                {error && touched && (
+                    <span style={{ color: 'red' }}>{error}</span>
+                )}
             </React.Fragment>
         );
     }

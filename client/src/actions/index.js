@@ -6,7 +6,6 @@ import {
     DELETE_EMPLOYEE,
     FETCH_ONE_EMPLOYEE,
     EDIT_EMPLOYEE,
-    FETCH_ADMINS,
 } from './types.js';
 
 export const submitEmployee = (values, history) => async dispatch => {
@@ -27,11 +26,6 @@ export const submitTicket = (values, history, id) => async dispatch => {
 export const fetchEmployees = () => async dispatch => {
     const res = await axios.get('/api/employees');
     dispatch({ type: FETCH_EMPLOYEES, payload: res.data });
-};
-
-export const fetchAdmins = () => async dispatch => {
-    const res = await axios.get('/api/admins');
-    dispatch({ type: FETCH_ADMINS, payload: res.data });
 };
 
 export const deleteEmployee = id => async dispatch => {

@@ -99,7 +99,10 @@ class Dashboard extends Component {
             start = employee.dateStart;
 
             const between = daysBetween(start);
-            if (between < 0 || between === undefined) {
+            if (
+                (between < 0 || between === undefined) &&
+                employee._status.name !== 'Complete'
+            ) {
                 lateCount++;
             }
         });

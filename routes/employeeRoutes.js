@@ -73,7 +73,6 @@ module.exports = app => {
             .populate('_leader')
             .populate('_platform')
             .populate('_computer')
-            .populate('_ticket')
             .sort({
                 dateStart: 'ascending',
                 _status: 'ascending',
@@ -102,7 +101,6 @@ module.exports = app => {
                 .populate('_leader')
                 .populate('_platform')
                 .populate('_computer')
-                .populate('ticket')
                 .exec();
             res.send(employee);
         } catch (err) {
@@ -141,7 +139,6 @@ module.exports = app => {
             .populate('_leader')
             .populate('_platform')
             .populate('_computer')
-            .populate('ticket')
             .sort({
                 dateStart: 'ascending',
                 lastName: 'ascending',
@@ -175,6 +172,14 @@ module.exports = app => {
             _platform,
             _computer,
             neID,
+            newHireReHire,
+            newHireReHireDate,
+            macTicket,
+            macTicketDate,
+            laptopDelivered,
+            buddyMail,
+            welcomeMail,
+            dlPdOrg,
         } = req.body;
 
         const employee = new Employee({
@@ -198,9 +203,15 @@ module.exports = app => {
             _leader,
             _platform,
             _computer,
-
             neID,
-
+            newHireReHire,
+            newHireReHireDate,
+            macTicket,
+            macTicketDate,
+            laptopDelivered,
+            buddyMail,
+            welcomeMail,
+            dlPdOrg,
             dateCreated: Date.now(),
         });
 
@@ -236,19 +247,19 @@ module.exports = app => {
         }
     });
 
-    app.delete('/api/:id', async (req, res) => {
-        try {
-            await Employee.deleteOne({ _id: req.params.id });
-            res.status(200).send({ response: 'Employee Deleted' });
-        } catch (err) {
-            if (err.name === 'MongoError' && err.code === 11000) {
-                res.status(409).send(
-                    new MyError('Duplicate key', [err.message])
-                );
-                console.log(err.name);
-            }
-            res.status(500).send(err);
-            console.log(err.name);
-        }
-    });
+    // app.delete('/api/:id', async (req, res) => {
+    //     try {
+    //         await Employee.deleteOne({ _id: req.params.id });
+    //         res.status(200).send({ response: 'Employee Deleted' });
+    //     } catch (err) {
+    //         if (err.name === 'MongoError' && err.code === 11000) {
+    //             res.status(409).send(
+    //                 new MyError('Duplicate key', [err.message])
+    //             );
+    //             console.log(err.name);
+    //         }
+    //         res.status(500).send(err);
+    //         console.log(err.name);
+    //     }
+    // });
 };

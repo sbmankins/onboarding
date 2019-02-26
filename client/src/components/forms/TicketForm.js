@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import Button from '@material-ui/core/Button';
@@ -6,14 +5,11 @@ import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import ticketFormFields from './ticketFormFields';
-//import SearchSelect from './SearchSelect';
-//import FormGroup from '@material-ui/core/FormGroup';
-//import FormLabel from '@material-ui/core/FormLabel';
+import FormField from './FormField';
+import DateField from './DateField';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-//import axios from 'axios';
-//import validate from './validate';
+import validate from './validate';
 
 const styles = theme => ({
     outerContainer: {
@@ -61,17 +57,16 @@ const styles = theme => ({
 });
 class TicketForm extends Component {
     state = {
-        // vendorOptions: [],
-        // typeOptions: [],
-        // hireStatusOptions: [],
         employeeID: '',
         editing: '',
-        ticket: '',
+        ticket: true,
+        newHireReHire: true,
+        macTicket: false,
+        confirmations: false,
     };
 
     componentDidMount() {
-        //this.populateDropdown();
-        console.log(this.props);
+        console.log('from ticket form ', this.props);
 
         if (
             this.props.location.state !== undefined &&
@@ -80,7 +75,6 @@ class TicketForm extends Component {
             this.setState(
                 {
                     employeeID: this.props.location.state.employee,
-                    ticket: this.props.location.state.ticket,
                 },
                 () => {
                     console.log(this.state);
@@ -98,16 +92,6 @@ class TicketForm extends Component {
         }
     }
 
-    //async populateDropdown() {
-    // const result = await axios.get('/api/form1selects');
-    //
-    // await this.setState({
-    //     vendorOptions: result.data.vendors,
-    //     typeOptions: result.data.types,
-    //     hireStatusOptions: result.data.hirestatuses,
-    // });
-    //  }
-
     handleSubmit(event) {
         this.props.history.push({
             pathname: '/new',
@@ -119,18 +103,115 @@ class TicketForm extends Component {
         });
     }
 
-    renderTicketFields() {
-        return _.map(ticketFormFields, ({ label, name, component, type }) => {
+    handleTicketClick(event) {
+        const id = event.currentTarget.id;
+        if (id === 'newHireReHire') {
+            this.setState({
+                newHireReHire: true,
+                macTicket: false,
+                confirmations: false,
+            });
+        } else if (id === 'macTicket') {
+            this.setState({
+                newHireReHire: false,
+                macTicket: true,
+                confirmations: false,
+            });
+        } else if (id === 'confirmations') {
+            this.setState({
+                newHireReHire: false,
+                macTicket: false,
+                confirmations: true,
+            });
+        }
+    }
+
+    renderTicketContent() {
+        const { classes } = this.props;
+        if (
+            this.state.newHireReHire === true &&
+            this.state.macTicket === false &&
+            this.state.confirmations === false
+        ) {
             return (
-                <Field
-                    key={name}
-                    component={component}
-                    type={type}
-                    label={label}
-                    name={name}
-                />
+                <Paper className={classes.formContainer}>
+                    <Grid container spacing={24} justify="flex-start">
+                        <Field
+                            component={FormField}
+                            type={'text'}
+                            label={'New Hire/Rehire Ticket'}
+                            name={'newHireReHire'}
+                        />
+
+                        <DateField
+                            name={'newHireReHireDate'}
+                            placeholder={'Ticket Date'}
+                            label={'New Hire/Rehire Date'}
+                            required={true}
+                        />
+                    </Grid>
+                </Paper>
             );
-        });
+        } else if (
+            this.state.newHireReHire === false &&
+            this.state.macTicket === true &&
+            this.state.confirmations === false
+        ) {
+            return (
+                <Paper className={classes.formContainer}>
+                    <Grid container spacing={24} justify="flex-start">
+                        <Field
+                            component={FormField}
+                            type={'text'}
+                            label={'MAC Ticket'}
+                            name={'macTicket'}
+                        />
+
+                        <DateField
+                            name={'macTicketDate'}
+                            placeholder={'Ticket Date'}
+                            label={'MAC Ticket Date'}
+                            required={true}
+                        />
+                    </Grid>
+                </Paper>
+            );
+        } else if (
+            this.state.newHireReHire === false &&
+            this.state.macTicket === false &&
+            this.state.confirmations === true
+        ) {
+            return (
+                <Paper className={classes.formContainer}>
+                    <Grid container spacing={24} justify="flex-start">
+                        <DateField
+                            name={'laptopDelivered'}
+                            placeholder={'Laptop Delivery'}
+                            label={'Laptop Delivery Date'}
+                            required={false}
+                        />
+                        <DateField
+                            name={'buddyMail'}
+                            placeholder={'Buddy Mail'}
+                            label={'Buddy E-mail Date'}
+                            required={false}
+                        />
+                        <DateField
+                            name={'welcomeMail'}
+                            placeholder={'Welcome Mail'}
+                            label={'Welcome E-mail Date'}
+                            required={false}
+                        />
+                        <DateField
+                            name={'dlPdOrg'}
+                            placeholder={"DL's/PD Org"}
+                            label={"Added DL's/PD Org Date"}
+                            required={false}
+                        />
+                    </Grid>
+                </Paper>
+            );
+        }
     }
 
     render() {
@@ -138,9 +219,80 @@ class TicketForm extends Component {
         return (
             <Paper className={classes.outerContainer} elevation={1}>
                 <Paper className={classes.headingContainer} elevation={1}>
-                    <Typography className={classes.titleText} variant="title">
-                        Ticket Detail
-                    </Typography>
+                    <Grid
+                        container
+                        direction="row"
+                        justify="space-evenly"
+                        alignItems="center"
+                    >
+                        <Grid item xs={12}>
+                            <Typography
+                                className={classes.titleText}
+                                variant="title"
+                            >
+                                Ticket/Confirmations Detail
+                            </Typography>
+                        </Grid>
+                        <Grid
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="flex-end"
+                        >
+                            <Grid item>
+                                <Button
+                                    id="newHireReHire"
+                                    onClick={event => {
+                                        this.handleTicketClick(event);
+                                    }}
+                                    variant="contained"
+                                    color="primary"
+                                    style={{
+                                        maxWidth: '200px',
+                                        margin: '30px 30px 0 10px',
+                                        borderRadius: '20px',
+                                    }}
+                                >
+                                    {' '}
+                                    New Hire/ Rehire{' '}
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    id="macTicket"
+                                    onClick={event => {
+                                        this.handleTicketClick(event);
+                                    }}
+                                    style={{
+                                        maxWidth: '200px',
+                                        margin: '30px 30px 0 10px',
+                                        borderRadius: '20px',
+                                    }}
+                                    color="primary"
+                                    variant="contained"
+                                >
+                                    MAC
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button
+                                    id="confirmations"
+                                    onClick={event => {
+                                        this.handleTicketClick(event);
+                                    }}
+                                    color="primary"
+                                    style={{
+                                        maxWidth: '200px',
+                                        margin: '30px 30px 0 10px',
+                                        borderRadius: '20px',
+                                    }}
+                                    variant="contained"
+                                >
+                                    Confirmations
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </Paper>
                 <Grid container justify="space-around" spacing={24}>
                     <form
@@ -148,11 +300,7 @@ class TicketForm extends Component {
                             this.props.handleSubmit(this.props.onTicketSubmit)
                         )}
                     >
-                        <Paper className={classes.formContainer}>
-                            <Grid container spacing={24} justify="flex-start">
-                                {this.renderTicketFields()}
-                            </Grid>
-                        </Paper>
+                        {this.renderTicketContent()}
                         <Grid
                             container
                             direction="row"
@@ -191,7 +339,7 @@ class TicketForm extends Component {
 }
 
 TicketForm = reduxForm({
-    //validate,
+    validate,
     form: 'employeeForm',
     destroyOnUnmount: false,
     enableReinitialize: true,

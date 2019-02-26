@@ -10,6 +10,15 @@ const employeeSchema = new Schema({
     seat: String,
     comments: String,
     buddy: String,
+    neID: String,
+    newHireReHire: String,
+    newHireReHireDate: Date,
+    macTicket: String,
+    macTicketDate: Date,
+    buddyMail: Date,
+    welcomeMail: Date,
+    dlPdOrg: Date,
+    laptopDelivered: Date,
     _team: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'teams',
@@ -71,8 +80,6 @@ const employeeSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'leaders',
     },
-
-    neID: String,
 });
 
 mongoose.model('employees', employeeSchema);

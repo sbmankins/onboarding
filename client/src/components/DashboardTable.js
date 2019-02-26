@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { fetchEmployees, deleteEmployee } from '../actions';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+//import Grid from '@material-ui/core/Grid';
 
 class DashboardTable extends Component {
     state = {
@@ -38,9 +39,9 @@ class DashboardTable extends Component {
         } else if (!cwID && neID) {
             window.alert('Employee does not have a CWID');
         } else if (!neID && cwID) {
-            window.alert('Employee does not have an NEID');
+            window.alert('Employee does not have an EID/NEID');
         } else if (!neID && !cwID) {
-            window.alert('Employee does not have an NEID or CWID');
+            window.alert('Employee does not have an EID/NEID or CWID');
         }
     };
 

@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
-import ticketFormFields from './ticketFormFields';
+//import ticketFormFields from './ticketFormFields';
 
 const styles = theme => ({
     outerContainer: {
@@ -79,11 +79,13 @@ class EmployeeFormReview extends Component {
         platformName: [],
         computerOptions: [],
         computerName: '',
+        ticket: false,
     };
 
     componentDidMount() {
         this.populateOptions();
-        console.log(this.props);
+        console.log('fromformreview  ', this.props);
+        this.setState({ ticket: this.props.history.location.state.ticket });
     }
 
     async populateOptions() {
@@ -223,19 +225,225 @@ class EmployeeFormReview extends Component {
         }
     }
 
-    reviewFields() {
-        let fields;
-        if (
-            this.props.history.location.state.ticket === undefined ||
-            this.props.history.location.state.ticket === false
-        ) {
-            fields = employeeFormFields;
-        } else if (this.props.history.location.state.ticket === true) {
-            fields = ticketFormFields;
-        }
+    renderTicketFields() {
         const { formValues } = this.props;
-        return _.map(fields, ({ name, label }) => {
-            if (name !== 'dateStart') {
+        let newHireReHireDate;
+        let macTicketDate;
+        let buddyMail;
+        let dlPdOrg;
+        let welcomeMail;
+        let laptopDelivered;
+
+        if (formValues.newHireReHireDate) {
+            newHireReHireDate = new Date(
+                formValues.newHireReHireDate
+            ).toLocaleDateString('en-US', {
+                timeZone: 'UTC',
+            });
+        } else {
+            newHireReHireDate = formValues.macTicketDate;
+        }
+
+        if (formValues.macTicketDate) {
+            macTicketDate = new Date(
+                formValues.macTicketDate
+            ).toLocaleDateString('en-US', {
+                timeZone: 'UTC',
+            });
+        } else {
+            macTicketDate = formValues.macTicketDate;
+        }
+
+        if (formValues.buddyMail) {
+            buddyMail = new Date(formValues.buddyMail).toLocaleDateString(
+                'en-US',
+                {
+                    timeZone: 'UTC',
+                }
+            );
+        } else {
+            buddyMail = formValues.buddyMail;
+        }
+
+        if (formValues.welcomeMail) {
+            welcomeMail = new Date(formValues.welcomeMail).toLocaleDateString(
+                'en-US',
+                {
+                    timeZone: 'UTC',
+                }
+            );
+        } else {
+            welcomeMail = formValues.welcomeMail;
+        }
+
+        if (formValues.laptopDelivered) {
+            laptopDelivered = new Date(
+                formValues.laptopDelivered
+            ).toLocaleDateString('en-US', {
+                timeZone: 'UTC',
+            });
+        } else {
+            laptopDelivered = formValues.laptopDelivered;
+        }
+
+        if (formValues.dlPdOrg) {
+            dlPdOrg = new Date(formValues.dlPdOrg).toLocaleDateString('en-US', {
+                timeZone: 'UTC',
+            });
+        } else {
+            dlPdOrg = formValues.dlPdOrg;
+        }
+
+        return (
+            <Grid container style={{ padding: '20px' }}>
+                <Grid item xs={4}>
+                    <div
+                        style={{
+                            display: 'inline-block',
+                            marginBottom: '20px',
+                        }}
+                    >
+                        <Typography
+                            style={{
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            New Hire/ Rehire Ticket
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {formValues.newHireReHire}
+                            </Typography>
+                        </div>
+                    </div>
+                </Grid>
+                <Grid item xs={4}>
+                    <div
+                        style={{
+                            display: 'inline-block',
+                            marginBottom: '20px',
+                        }}
+                    >
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            New hire/Rehire Date
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {newHireReHireDate}
+                            </Typography>
+                        </div>
+                    </div>
+                </Grid>
+                <Grid item xs={4}>
+                    <div
+                        style={{
+                            display: 'inline-block',
+                            marginBottom: '20px',
+                        }}
+                    >
+                        <Typography
+                            style={{
+                                fontWeight: 'bold',
+                            }}
+                        >
+                            MAC Ticket
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {formValues.macTicket}
+                            </Typography>
+                        </div>
+                    </div>
+                </Grid>
+                <Grid item xs={4}>
+                    <div
+                        style={{
+                            display: 'inline-block',
+                            marginBottom: '20px',
+                        }}
+                    >
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            MAC Ticket Date
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {macTicketDate}
+                            </Typography>
+                        </div>
+                    </div>
+                </Grid>
+                <Grid item xs={4}>
+                    <div
+                        style={{
+                            display: 'inline-block',
+                            marginBottom: '20px',
+                        }}
+                    >
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            Added to DLs/PD Org
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">{dlPdOrg}</Typography>
+                        </div>
+                    </div>
+                </Grid>
+                <Grid item xs={4}>
+                    <div
+                        style={{
+                            display: 'inline-block',
+                            marginBottom: '20px',
+                        }}
+                    >
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            Laptop Delivered
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {laptopDelivered}
+                            </Typography>
+                        </div>
+                    </div>
+                </Grid>
+                <Grid item xs={4}>
+                    <div
+                        style={{
+                            display: 'inline-block',
+                            marginBottom: '20px',
+                        }}
+                    >
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            Buddy E-mail Sent
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">{buddyMail}</Typography>
+                        </div>
+                    </div>
+                </Grid>
+                <Grid item xs={4}>
+                    <div
+                        style={{
+                            display: 'inline-block',
+                            marginBottom: '20px',
+                        }}
+                    >
+                        <Typography style={{ fontWeight: 'bold' }}>
+                            Welcome E-mail Sent
+                        </Typography>
+                        <div>
+                            <Typography variant="body1">
+                                {welcomeMail}
+                            </Typography>
+                        </div>
+                    </div>
+                </Grid>
+            </Grid>
+        );
+    }
+
+    reviewFields() {
+        const { formValues } = this.props;
+        return _.map(employeeFormFields, ({ name, label }) => {
+            if (name !== 'dateStart' && name !== 'newHireReHireDate') {
                 return (
                     <Grid item xs={4} key={name}>
                         <div
@@ -263,332 +471,327 @@ class EmployeeFormReview extends Component {
         });
     }
 
-    render() {
+    renderContent() {
         const { classes } = this.props;
         const { formValues } = this.props;
+
+        if (this.state.ticket === false) {
+            return (
+                <Paper className={classes.formContainer}>
+                    <Grid container justify="flex-start" spacing={24}>
+                        {this.reviewFields()}
+
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Start Date
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {new Date(
+                                            formValues.dateStart
+                                        ).toLocaleDateString('en-US', {
+                                            timeZone: 'UTC',
+                                        })}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Vendor
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.vendorName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Hire Type
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.typeName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Hire Status
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.hireStatusName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Computer Name
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.computerName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Role
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.roleName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Leader/Contributor
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.leaderName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Platform
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.platformName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Region
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.regionName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Campus
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.campusName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Admin
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.adminName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Team
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.teamName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Manager
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.managerName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Status
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.statusName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div
+                                style={{
+                                    display: 'inline-block',
+                                    marginBottom: '20px',
+                                }}
+                            >
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Comments
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {formValues.comments}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                    </Grid>
+                </Paper>
+            );
+        } else if (this.state.ticket === true) {
+            return (
+                <Paper className={classes.formContainer}>
+                    <Grid
+                        container
+                        justify="flex-start"
+                        spacing={24}
+                        direction="row"
+                    >
+                        {this.renderTicketFields()}
+                    </Grid>
+                </Paper>
+            );
+        } else
+            return (
+                <div style={{ marginTop: '40px' }}>
+                    {' '}
+                    <Typography>
+                        Sorry, there was an error. Plese return to the dashboard
+                        and try again
+                    </Typography>
+                </div>
+            );
+    }
+
+    render() {
+        const { classes } = this.props;
         const { onCancel } = this.props;
-        if (
-            this.props.history.location.state.ticket === undefined ||
-            this.props.history.location.state.ticket === false
-        ) {
-            return (
-                <Paper className={classes.outerContainer} elevation={1}>
-                    <Paper className={classes.headingContainer} elevation={1}>
-                        <Typography
-                            className={classes.titleText}
-                            variant="title"
-                        >
-                            Please confirm entries
-                        </Typography>
-                    </Paper>
 
-                    <Paper className={classes.formContainer}>
-                        <Grid container justify="flex-start" spacing={24}>
-                            {this.reviewFields()}
-
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Start Date
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {new Date(
-                                                formValues.dateStart
-                                            ).toLocaleDateString('en-US', {
-                                                timeZone: 'UTC',
-                                            })}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Vendor
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.vendorName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Hire Type
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.typeName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Hire Status
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.hireStatusName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Computer Name
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.computerName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Role
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.roleName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Leader/Contributor
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.leaderName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Platform
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.platformName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Region
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.regionName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Campus
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.campusName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Admin
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.adminName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Team
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.teamName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Manager
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.managerName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Status
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {this.state.statusName}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <div
-                                    style={{
-                                        display: 'inline-block',
-                                        marginBottom: '20px',
-                                    }}
-                                >
-                                    <Typography style={{ fontWeight: 'bold' }}>
-                                        Comments
-                                    </Typography>
-                                    <div>
-                                        <Typography variant="body1">
-                                            {formValues.comments}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        className={classes.formButton}
-                        onClick={onCancel}
-                    >
-                        Back
-                    </Button>
-
-                    {this.renderButton()}
+        return (
+            <Paper className={classes.outerContainer} elevation={1}>
+                <Paper className={classes.headingContainer} elevation={1}>
+                    <Typography className={classes.titleText} variant="title">
+                        Please confirm entries
+                    </Typography>
                 </Paper>
-            );
-        } else if (this.props.history.location.state.ticket === true) {
-            return (
-                <Paper className={classes.outerContainer} elevation={1}>
-                    <Paper className={classes.headingContainer} elevation={1}>
-                        <Typography
-                            className={classes.titleText}
-                            variant="title"
-                        >
-                            Please confirm entries
-                        </Typography>
-                    </Paper>
+                {this.renderContent()}
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.formButton}
+                    onClick={onCancel}
+                >
+                    Back
+                </Button>
 
-                    <Paper className={classes.formContainer}>
-                        <Grid container justify="flex-start" spacing={24}>
-                            {this.reviewFields()}
-                        </Grid>
-                    </Paper>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        className={classes.formButton}
-                        onClick={onCancel}
-                    >
-                        Back
-                    </Button>
-
-                    {this.renderButton()}
-                </Paper>
-            );
-        }
+                {this.renderButton()}
+            </Paper>
+        );
     }
 }
 

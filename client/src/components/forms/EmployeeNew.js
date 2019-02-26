@@ -77,6 +77,30 @@ class EmployeeNew extends Component {
                 neID: this.state.employee
                     ? this.state.employee.neID
                     : undefined,
+                newHireReHire: this.state.employee
+                    ? this.state.employee.newHireReHire
+                    : undefined,
+                newHireReHireDate: this.state.employee
+                    ? this.state.employee.newHireReHireDate
+                    : undefined,
+                macTicket: this.state.employee
+                    ? this.state.employee.macTicket
+                    : undefined,
+                macTicketDate: this.state.employee
+                    ? this.state.employee.macTicketDate
+                    : undefined,
+                buddyMail: this.state.employee
+                    ? this.state.employee.buddyMail
+                    : undefined,
+                welcomeMail: this.state.employee
+                    ? this.state.employee.welcomeMail
+                    : undefined,
+                laptopDelivered: this.state.employee
+                    ? this.state.employee.laptopDelivered
+                    : undefined,
+                dlPdOrg: this.state.employee
+                    ? this.state.employee.dlPdOrg
+                    : undefined,
                 _manager: this.state.employee._manager
                     ? this.state.employee._manager._id
                     : undefined,
@@ -126,7 +150,6 @@ class EmployeeNew extends Component {
         }
     }
 
-    //state = { showFormReview: false};
     renderContent() {
         if (this.state.showFormReview && this.state.page === 3) {
             return (

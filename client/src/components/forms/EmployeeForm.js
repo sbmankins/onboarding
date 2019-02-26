@@ -12,6 +12,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import DateField from './DateField';
 import axios from 'axios';
 import validate from './validate';
 
@@ -65,6 +66,7 @@ class EmployeeForm extends Component {
         vendorOptions: [],
         employeeID: '',
         editing: '',
+        ticket: false,
     };
 
     componentDidMount() {
@@ -108,6 +110,7 @@ class EmployeeForm extends Component {
             state: {
                 editing: this.state.editing,
                 employeeID: this.state.employeeID,
+                ticket: false,
             },
         });
     }
@@ -144,6 +147,12 @@ class EmployeeForm extends Component {
                         <Paper className={classes.formContainer}>
                             <Grid container spacing={24} justify="flex-start">
                                 {this.renderFields()}
+                                <DateField
+                                    name={'dateStart'}
+                                    placeholder={'Start Date'}
+                                    label={'Start Date'}
+                                    required={true}
+                                />
                                 <Grid item>
                                     <FormGroup style={{ margin: '10px ' }}>
                                         <FormLabel>

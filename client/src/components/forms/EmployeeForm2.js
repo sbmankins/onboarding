@@ -80,6 +80,7 @@ class EmployeeForm2 extends Component {
         hireStatusOptions: [],
         employeeID: '',
         editing: '',
+        ticket: false,
     };
 
     componentDidMount() {
@@ -120,6 +121,7 @@ class EmployeeForm2 extends Component {
             state: {
                 editing: this.state.editing,
                 employeeID: this.state.employeeID,
+                ticket: false,
             },
         });
     }

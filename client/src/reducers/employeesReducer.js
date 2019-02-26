@@ -3,15 +3,11 @@ import {
     DELETE_EMPLOYEE,
     FETCH_ONE_EMPLOYEE,
     EDIT_EMPLOYEE,
-    FETCH_ADMINS,
 } from '../actions/types';
 
 export default function(state = [], action) {
     switch (action.type) {
         case FETCH_EMPLOYEES:
-            return action.payload;
-
-        case FETCH_ADMINS:
             return action.payload;
 
         case FETCH_ONE_EMPLOYEE:

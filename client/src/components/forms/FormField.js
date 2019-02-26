@@ -18,4 +18,3 @@ export default ({ input, label, meta: { touched, error } }) => {
         </Grid>
     );
 };
-//<Paper style={{ margin: '0px 20px', padding: '10px' }}>

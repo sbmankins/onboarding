@@ -191,7 +191,9 @@ class Dashboard extends Component {
                     </Grid>
 
                     <div className={classes.cardContainer}>
-                        {this.renderContent()}
+                        <Grid item xs={12}>
+                            {this.renderContent()}
+                        </Grid>
                     </div>
                 </Grid>
                 <Tooltip title="Add" aria-label="Add">
