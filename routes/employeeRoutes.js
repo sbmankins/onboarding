@@ -149,7 +149,6 @@ module.exports = app => {
     });
 
     app.post('/api/employees', async (req, res) => {
-        console.log(req.body);
         const {
             firstName,
             lastName,

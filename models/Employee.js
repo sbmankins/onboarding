@@ -33,7 +33,6 @@ const employeeSchema = new Schema({
     _campus: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'campuses',
-        required: true,
     },
     _computer: {
         type: mongoose.Schema.Types.ObjectId,
