@@ -146,11 +146,6 @@ class EmployeeFormReview extends Component {
                 ).name;
                 this.setState({ regionName: regionName });
 
-                const campusName = this.state.campusOptions.find(
-                    o => o._id === this.props.formValues._campus
-                ).name;
-                this.setState({ campusName: campusName });
-
                 const platformName = this.state.platformOptions.find(
                     o => o._id === this.props.formValues._platform
                 ).name;
@@ -176,6 +171,15 @@ class EmployeeFormReview extends Component {
                     this.setState({ leaderName: leaderName });
                 } else {
                     this.setState({ leaderName: 'N/A' });
+                }
+
+                if (this.props.formValues._campus !== undefined) {
+                    const campusName = this.state.campusOptions.find(
+                        o => o._id === this.props.formValues._campus
+                    ).name;
+                    this.setState({ campusName: campusName });
+                } else {
+                    this.setState({ campusName: 'N/A' });
                 }
             }
         );
