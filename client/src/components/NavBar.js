@@ -134,7 +134,10 @@ const NavBar = props => {
                             </Grid>
 
                             <Grid item>
-                                <Tooltip title="Add" aria-label="Add">
+                                <Tooltip
+                                    title="New Employee"
+                                    aria-label="New Employee"
+                                >
                                     <IconButton>
                                         <Link
                                             className={classes.linkStyleRight}
