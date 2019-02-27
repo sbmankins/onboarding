@@ -28,10 +28,10 @@ const styles = theme => ({
     },
 
     statsBar: {
-        width: '90%',
+        width: '60%',
         margin: '0 auto ',
         backgroundColor: '#3f51b5',
-        borderRadius: '50px',
+        borderRadius: '20px',
     },
 
     topStats: {
