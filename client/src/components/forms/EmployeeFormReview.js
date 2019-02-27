@@ -165,7 +165,7 @@ class EmployeeFormReview extends Component {
                     ).name;
                     this.setState({ vendorName: vendorName });
                 } else {
-                    this.setState({ vendorName: 'N/A' });
+                    this.setState({ vendorName: '' });
                 }
                 if (this.props.formValues._leader !== undefined) {
                     const leaderName = this.state.leaderOptions.find(
@@ -173,7 +173,7 @@ class EmployeeFormReview extends Component {
                     ).name;
                     this.setState({ leaderName: leaderName });
                 } else {
-                    this.setState({ leaderName: 'N/A' });
+                    this.setState({ leaderName: '' });
                 }
 
                 if (this.props.formValues._campus !== undefined) {
@@ -182,7 +182,7 @@ class EmployeeFormReview extends Component {
                     ).name;
                     this.setState({ campusName: campusName });
                 } else {
-                    this.setState({ campusName: 'N/A' });
+                    this.setState({ campusName: '' });
                 }
             }
         );
