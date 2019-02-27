@@ -14,7 +14,6 @@ export default ({ input, label, meta: { touched, error } }) => {
                 </FormLabel>
                 <TextField
                     {...input}
-                    label="Comments"
                     multiline
                     rowsMax="4"
                     margin="normal"
@@ -25,4 +24,3 @@ export default ({ input, label, meta: { touched, error } }) => {
         </Grid>
     );
 };
-//<Paper style={{ margin: '0px 20px', padding: '10px' }}>

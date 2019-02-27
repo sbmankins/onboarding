@@ -38,6 +38,16 @@ const styles = theme => ({
         color: 'white',
         fontSize: '1.3rem',
     },
+
+    ticketButton: {
+        padding: '3px',
+        borderRadius: '20px',
+        backgroundColor: '#bd512f',
+    },
+
+    cardDivider: {
+        margin: '5px 0 5px 0',
+    },
 });
 
 const Normaltext = {
@@ -123,12 +133,7 @@ class EmployeeList extends Component {
                     <Button
                         variant="contained"
                         editing="true"
-                        className={classes.button}
-                        style={{
-                            padding: '3px',
-                            borderRadius: '20px',
-                            backgroundColor: '#bd512f',
-                        }}
+                        className={`${classes.button} ${classes.ticketButton}`}
                         onClick={(e, key) => this.handleTicketClick(e, id)}
                     >
                         <LocalActivityIcon
@@ -148,7 +153,6 @@ class EmployeeList extends Component {
             this.props.employees &&
             this.props.employees.map(employee => {
                 const id = employee._id;
-                //const name = employee.firstName + ' ' + employee.lastName;
 
                 let start = new Date();
                 start = employee.dateStart;
@@ -185,7 +189,7 @@ class EmployeeList extends Component {
                                     {employee.firstName} {employee.lastName}
                                 </Typography>
                                 <Divider
-                                    style={{ margin: '5px 0 5px 0' }}
+                                    className={classes.cardDivider}
                                     variant="middle"
                                 />
                                 <div style={{ textAlign: 'Left' }}>
@@ -198,9 +202,7 @@ class EmployeeList extends Component {
                                         {employee._admin.name}
                                     </Typography>
                                     <Divider
-                                        style={{
-                                            margin: '5px 0 5px 0',
-                                        }}
+                                        className={classes.cardDivider}
                                         variant="middle"
                                     />
                                     <Grid container spacing={24}>

@@ -28,6 +28,11 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
     },
+
+    logo: {
+        margin: '10px 5px 5px 5px',
+        width: '70px',
+    },
 });
 
 const NavBar = props => {
@@ -51,10 +56,7 @@ const NavBar = props => {
                                     <img
                                         src={Logo}
                                         alt="Bayer logo"
-                                        style={{
-                                            margin: '10px 5px 5px 5px',
-                                            width: '70px',
-                                        }}
+                                        className={classes.logo}
                                     />
                                 </Link>
                             </Grid>

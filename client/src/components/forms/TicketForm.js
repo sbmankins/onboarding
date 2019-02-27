@@ -9,7 +9,6 @@ import FormField from './FormField';
 import DateField from './DateField';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import validate from './validate';
 
 const styles = theme => ({
     outerContainer: {
@@ -24,7 +23,6 @@ const styles = theme => ({
     headingContainer: {
         background: '#dbe2ef',
         padding: '20px',
-
         borderRadius: '20px',
         margin: '0 auto',
         marginBottom: '40px',
@@ -52,6 +50,12 @@ const styles = theme => ({
     formButton: {
         margin: '30px 30px 0 10px',
         width: '100px',
+        borderRadius: '20px',
+    },
+
+    ticketButton: {
+        maxWidth: '200px',
+        margin: '30px 30px 0 10px',
         borderRadius: '20px',
     },
 });
@@ -240,14 +244,9 @@ class TicketForm extends Component {
                                     }}
                                     variant="contained"
                                     color="primary"
-                                    style={{
-                                        maxWidth: '200px',
-                                        margin: '30px 30px 0 10px',
-                                        borderRadius: '20px',
-                                    }}
+                                    className={classes.ticketButton}
                                 >
-                                    {' '}
-                                    New Hire/ Rehire{' '}
+                                    New Hire/ Rehire
                                 </Button>
                             </Grid>
                             <Grid item>
@@ -256,11 +255,7 @@ class TicketForm extends Component {
                                     onClick={event => {
                                         this.handleTicketClick(event);
                                     }}
-                                    style={{
-                                        maxWidth: '200px',
-                                        margin: '30px 30px 0 10px',
-                                        borderRadius: '20px',
-                                    }}
+                                    className={classes.ticketButton}
                                     color="primary"
                                     variant="contained"
                                 >
@@ -274,11 +269,7 @@ class TicketForm extends Component {
                                         this.handleTicketClick(event);
                                     }}
                                     color="primary"
-                                    style={{
-                                        maxWidth: '200px',
-                                        margin: '30px 30px 0 10px',
-                                        borderRadius: '20px',
-                                    }}
+                                    className={classes.ticketButton}
                                     variant="contained"
                                 >
                                     Confirmations
@@ -332,7 +323,6 @@ class TicketForm extends Component {
 }
 
 TicketForm = reduxForm({
-    validate,
     form: 'employeeForm',
     destroyOnUnmount: false,
     enableReinitialize: true,

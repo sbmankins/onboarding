@@ -10,7 +10,6 @@ import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
-//import ticketFormFields from './ticketFormFields';
 
 const styles = theme => ({
     outerContainer: {
@@ -48,11 +47,15 @@ const styles = theme => ({
         width: '100px',
         borderRadius: '20px',
     },
+
+    fieldSpacing: {
+        display: 'inline-block',
+        marginBottom: '20px',
+    },
 });
 
 class EmployeeFormReview extends Component {
     state = {
-        // editing: false,
         statusOptions: [],
         statusName: '',
         hireStatusOptions: [],
@@ -229,7 +232,7 @@ class EmployeeFormReview extends Component {
     }
 
     renderTicketFields() {
-        const { formValues } = this.props;
+        const { formValues, classes } = this.props;
         let newHireReHireDate;
         let macTicketDate;
         let buddyMail;
@@ -300,12 +303,7 @@ class EmployeeFormReview extends Component {
         return (
             <Grid container style={{ padding: '20px' }}>
                 <Grid item xs={4}>
-                    <div
-                        style={{
-                            display: 'inline-block',
-                            marginBottom: '20px',
-                        }}
-                    >
+                    <div className={classes.fieldSpacing}>
                         <Typography
                             style={{
                                 fontWeight: 'bold',
@@ -321,12 +319,7 @@ class EmployeeFormReview extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={4}>
-                    <div
-                        style={{
-                            display: 'inline-block',
-                            marginBottom: '20px',
-                        }}
-                    >
+                    <div className={classes.fieldSpacing}>
                         <Typography style={{ fontWeight: 'bold' }}>
                             New hire/Rehire Date
                         </Typography>
@@ -338,12 +331,7 @@ class EmployeeFormReview extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={4}>
-                    <div
-                        style={{
-                            display: 'inline-block',
-                            marginBottom: '20px',
-                        }}
-                    >
+                    <div className={classes.fieldSpacing}>
                         <Typography
                             style={{
                                 fontWeight: 'bold',
@@ -359,12 +347,7 @@ class EmployeeFormReview extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={4}>
-                    <div
-                        style={{
-                            display: 'inline-block',
-                            marginBottom: '20px',
-                        }}
-                    >
+                    <div className={classes.fieldSpacing}>
                         <Typography style={{ fontWeight: 'bold' }}>
                             MAC Ticket Date
                         </Typography>
@@ -376,12 +359,7 @@ class EmployeeFormReview extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={4}>
-                    <div
-                        style={{
-                            display: 'inline-block',
-                            marginBottom: '20px',
-                        }}
-                    >
+                    <div className={classes.fieldSpacing}>
                         <Typography style={{ fontWeight: 'bold' }}>
                             Added to DLs/PD Org
                         </Typography>
@@ -391,12 +369,7 @@ class EmployeeFormReview extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={4}>
-                    <div
-                        style={{
-                            display: 'inline-block',
-                            marginBottom: '20px',
-                        }}
-                    >
+                    <div className={classes.fieldSpacing}>
                         <Typography style={{ fontWeight: 'bold' }}>
                             Laptop Delivered
                         </Typography>
@@ -408,12 +381,7 @@ class EmployeeFormReview extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={4}>
-                    <div
-                        style={{
-                            display: 'inline-block',
-                            marginBottom: '20px',
-                        }}
-                    >
+                    <div className={classes.fieldSpacing}>
                         <Typography style={{ fontWeight: 'bold' }}>
                             Buddy E-mail Sent
                         </Typography>
@@ -423,12 +391,7 @@ class EmployeeFormReview extends Component {
                     </div>
                 </Grid>
                 <Grid item xs={4}>
-                    <div
-                        style={{
-                            display: 'inline-block',
-                            marginBottom: '20px',
-                        }}
-                    >
+                    <div className={classes.fieldSpacing}>
                         <Typography style={{ fontWeight: 'bold' }}>
                             Welcome E-mail Sent
                         </Typography>
@@ -444,17 +407,12 @@ class EmployeeFormReview extends Component {
     }
 
     reviewFields() {
-        const { formValues } = this.props;
+        const { formValues, classes } = this.props;
         return _.map(employeeFormFields, ({ name, label }) => {
             if (name !== 'dateStart' && name !== 'newHireReHireDate') {
                 return (
                     <Grid item xs={4} key={name}>
-                        <div
-                            style={{
-                                display: 'inline-block',
-                                marginBottom: '20px',
-                            }}
-                        >
+                        <div className={classes.fieldSpacing}>
                             <Typography
                                 style={{
                                     fontWeight: 'bold',
@@ -485,12 +443,7 @@ class EmployeeFormReview extends Component {
                         {this.reviewFields()}
 
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Start Date
                                 </Typography>
@@ -506,12 +459,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Vendor
                                 </Typography>
@@ -523,12 +471,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Hire Type
                                 </Typography>
@@ -540,12 +483,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Hire Status
                                 </Typography>
@@ -557,12 +495,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Computer Name
                                 </Typography>
@@ -574,12 +507,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Role
                                 </Typography>
@@ -591,12 +519,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Leader/Contributor
                                 </Typography>
@@ -608,12 +531,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Platform
                                 </Typography>
@@ -625,12 +543,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Region
                                 </Typography>
@@ -642,12 +555,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Campus
                                 </Typography>
@@ -659,12 +567,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Admin
                                 </Typography>
@@ -676,12 +579,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Team
                                 </Typography>
@@ -693,12 +591,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Manager
                                 </Typography>
@@ -710,12 +603,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Status
                                 </Typography>
@@ -727,12 +615,7 @@ class EmployeeFormReview extends Component {
                             </div>
                         </Grid>
                         <Grid item xs={4}>
-                            <div
-                                style={{
-                                    display: 'inline-block',
-                                    marginBottom: '20px',
-                                }}
-                            >
+                            <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
                                     Comments
                                 </Typography>

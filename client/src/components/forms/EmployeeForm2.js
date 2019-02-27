@@ -62,6 +62,10 @@ const styles = theme => ({
         width: '100px',
         borderRadius: '20px',
     },
+
+    formMargin: {
+        margin: '10px ',
+    },
 });
 
 class EmployeeForm2 extends Component {
@@ -145,7 +149,7 @@ class EmployeeForm2 extends Component {
                             <Grid container>
                                 <div />
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Hire Type
@@ -170,7 +174,7 @@ class EmployeeForm2 extends Component {
                                     </FormGroup>
                                 </Grid>
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Hire Status
@@ -195,7 +199,7 @@ class EmployeeForm2 extends Component {
                                     </FormGroup>
                                 </Grid>
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Computer
@@ -221,7 +225,7 @@ class EmployeeForm2 extends Component {
                                 </Grid>
 
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Role
@@ -246,7 +250,7 @@ class EmployeeForm2 extends Component {
                                     </FormGroup>
                                 </Grid>
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Leader/Contributor
@@ -271,7 +275,7 @@ class EmployeeForm2 extends Component {
                                     </FormGroup>
                                 </Grid>
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Platform
@@ -296,7 +300,7 @@ class EmployeeForm2 extends Component {
                                     </FormGroup>
                                 </Grid>
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Region
@@ -321,7 +325,7 @@ class EmployeeForm2 extends Component {
                                     </FormGroup>
                                 </Grid>
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Campus
@@ -346,7 +350,7 @@ class EmployeeForm2 extends Component {
                                     </FormGroup>
                                 </Grid>
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Admin
@@ -371,7 +375,7 @@ class EmployeeForm2 extends Component {
                                     </FormGroup>
                                 </Grid>
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Manager
@@ -396,7 +400,7 @@ class EmployeeForm2 extends Component {
                                     </FormGroup>
                                 </Grid>
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Team
@@ -421,7 +425,7 @@ class EmployeeForm2 extends Component {
                                     </FormGroup>
                                 </Grid>
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Status

@@ -66,6 +66,11 @@ const styles = theme => ({
         textDecoration: 'none',
         color: 'white',
     },
+
+    dashButton: {
+        float: 'right',
+        display: 'inline-block',
+    },
 });
 
 class Dashboard extends Component {
@@ -161,21 +166,11 @@ class Dashboard extends Component {
                         Dashboard
                     </Typography>
 
-                    <div
-                        style={{
-                            float: 'right',
-                            display: 'inline-block',
-                        }}
-                    >
+                    <div className={classes.dashButton}>
                         {this.renderStatsButton()}
                     </div>
 
-                    <div
-                        style={{
-                            float: 'right',
-                            display: 'inline-block',
-                        }}
-                    >
+                    <div className={classes.dashButton}>
                         {this.renderTableButton()}
                     </div>
                 </Paper>

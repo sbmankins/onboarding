@@ -59,6 +59,10 @@ const styles = theme => ({
         width: '100px',
         borderRadius: '20px',
     },
+
+    formMargin: {
+        margin: '10px',
+    },
 });
 
 class EmployeeForm extends Component {
@@ -153,7 +157,7 @@ class EmployeeForm extends Component {
                                     required={true}
                                 />
                                 <Grid item>
-                                    <FormGroup style={{ margin: '10px ' }}>
+                                    <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
                                                 Vendor
