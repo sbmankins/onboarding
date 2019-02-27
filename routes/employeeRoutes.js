@@ -245,20 +245,4 @@ module.exports = app => {
             console.log(err.name);
         }
     });
-
-    // app.delete('/api/:id', async (req, res) => {
-    //     try {
-    //         await Employee.deleteOne({ _id: req.params.id });
-    //         res.status(200).send({ response: 'Employee Deleted' });
-    //     } catch (err) {
-    //         if (err.name === 'MongoError' && err.code === 11000) {
-    //             res.status(409).send(
-    //                 new MyError('Duplicate key', [err.message])
-    //             );
-    //             console.log(err.name);
-    //         }
-    //         res.status(500).send(err);
-    //         console.log(err.name);
-    //     }
-    // });
 };
