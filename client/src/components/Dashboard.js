@@ -186,7 +186,7 @@ class Dashboard extends Component {
                     {this.renderContent()}
                 </div>
 
-                <Tooltip title="Add" aria-label="Add">
+                <Tooltip title="New Employee" aria-label="New Employee">
                     <Fab
                         color="primary"
                         aria-label="Add"
