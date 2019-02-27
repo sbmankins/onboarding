@@ -43,6 +43,9 @@ const styles = theme => ({
         padding: '3px',
         borderRadius: '20px',
         backgroundColor: '#bd512f',
+        '&:hover': {
+            backgroundColor: '#B34725',
+        },
     },
 
     cardDivider: {
