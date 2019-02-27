@@ -67,6 +67,7 @@ class DashboardTable extends Component {
         }
         return (
             <MaterialTable
+                style={{ minWidth: 700 }}
                 columns={[
                     {
                         title: 'First Name',
@@ -131,8 +132,6 @@ class DashboardTable extends Component {
                             }
                         },
                     },
-
-                    //},
                 ]}
                 data={this.props.employees.map(employee => {
                     return {

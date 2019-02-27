@@ -142,17 +142,11 @@ class Dashboard extends Component {
 
     renderContent() {
         if (this.state.showTable === true) {
-            return (
-                <Grid item xs={12}>
-                    <DashboardTable />
-                </Grid>
-            );
+            return <DashboardTable />;
         } else
             return (
-                <Grid item xs={12}>
-                    <Grid container justify="space-evenly" spacing={24}>
-                        <EmployeeList onDelete={this.onEmployeeDelete} />
-                    </Grid>
+                <Grid container justify="space-evenly" spacing={24}>
+                    <EmployeeList onDelete={this.onEmployeeDelete} />
                 </Grid>
             );
     }
@@ -185,17 +179,13 @@ class Dashboard extends Component {
                         {this.renderTableButton()}
                     </div>
                 </Paper>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <div>{this.renderStats()}</div>
-                    </Grid>
 
-                    <div className={classes.cardContainer}>
-                        <Grid item xs={12}>
-                            {this.renderContent()}
-                        </Grid>
-                    </div>
-                </Grid>
+                <div>{this.renderStats()}</div>
+
+                <div className={classes.cardContainer}>
+                    {this.renderContent()}
+                </div>
+
                 <Tooltip title="Add" aria-label="Add">
                     <Fab
                         color="primary"
