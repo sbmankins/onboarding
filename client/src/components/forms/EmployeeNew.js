@@ -46,6 +46,7 @@ class EmployeeNew extends Component {
         }
     }
 
+    //Get initial data to populate form if editing
     handleInitialize() {
         if (this.state.employee) {
             this.setState({ editing: true });
@@ -150,6 +151,7 @@ class EmployeeNew extends Component {
 
     renderContent() {
         if (this.state.showFormReview && this.state.page === 3) {
+            //Show Revew Form
             return (
                 <EmployeeFormReview
                     onCancel={() =>
@@ -162,6 +164,7 @@ class EmployeeNew extends Component {
             );
         } else if (this.state.page === 2 && this.state.ticket === false) {
             return (
+                //Show employee form pg 2
                 <EmployeeForm2
                     onEmployeeSubmit={() =>
                         this.setState({
@@ -177,6 +180,7 @@ class EmployeeNew extends Component {
                     }
                 />
             );
+            //show employee form pg 1
         } else if (this.state.page === 1 && this.state.ticket === false) {
             return (
                 <EmployeeForm
@@ -191,6 +195,7 @@ class EmployeeNew extends Component {
                     }}
                 />
             );
+            //show ticket form
         } else if (this.state.ticket === true) {
             return (
                 <TicketForm

@@ -53,6 +53,8 @@ class Dashboard extends Component {
         let complete = 0;
         let emplStatus = {};
 
+        //Determine total number by status
+
         this.props.employees.forEach(function(employee) {
             if (employee._status.name === 'In progress') {
                 inProgress++;
@@ -73,6 +75,7 @@ class Dashboard extends Component {
         return emplStatus;
     }
 
+    //Determine number of employees onboarding in the next 7 days
     getNextSevenCount() {
         let sevenCount = 0;
         this.props.employees.forEach(function(employee) {
@@ -91,7 +94,7 @@ class Dashboard extends Component {
 
         return sevenCount;
     }
-
+    //Determine the number of employees who are past start date and not status = complete
     getLateCount() {
         let lateCount = 0;
         this.props.employees.forEach(function(employee) {
@@ -108,7 +111,7 @@ class Dashboard extends Component {
         });
         return lateCount;
     }
-
+    //Determine the number of employees onboarding today
     getTodayCount() {
         let todayCount = 0;
         this.props.employees.forEach(function(employee) {

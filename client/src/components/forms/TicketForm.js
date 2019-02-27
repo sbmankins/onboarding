@@ -99,7 +99,7 @@ class TicketForm extends Component {
             },
         });
     }
-
+    //Determine which form to show
     handleTicketClick(event) {
         const id = event.currentTarget.id;
         if (id === 'newHireReHire') {
@@ -122,7 +122,7 @@ class TicketForm extends Component {
             });
         }
     }
-
+    // Show selected form
     renderTicketContent() {
         const { classes } = this.props;
         if (

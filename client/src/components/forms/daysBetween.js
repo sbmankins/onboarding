@@ -1,4 +1,5 @@
 export function daysBetween(start) {
+    //Calculates the numbers of days between two dates
     const oneDay = 24 * 60 * 60 * 1000;
     start = new Date(start).toLocaleDateString('en-US', {
         timeZone: 'UTC',

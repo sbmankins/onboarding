@@ -93,6 +93,7 @@ class EmployeeFormReview extends Component {
     async populateOptions() {
         const result = await axios.get('/api/form1selects');
         await this.setState(
+            //map ids to options
             {
                 adminOptions: result.data.admins,
                 managerOptions: result.data.managers,
@@ -201,6 +202,7 @@ class EmployeeFormReview extends Component {
             this.props.history.location.state.editing !== undefined &&
             this.props.history.location.state.editing === true
         ) {
+            //Render submit button for edit or submit
             return (
                 <Button
                     variant="contained"
@@ -230,7 +232,7 @@ class EmployeeFormReview extends Component {
             );
         }
     }
-
+    //Create fields for tickets
     renderTicketFields() {
         const { formValues, classes } = this.props;
         let newHireReHireDate;
@@ -299,7 +301,7 @@ class EmployeeFormReview extends Component {
         } else {
             dlPdOrg = formValues.dlPdOrg;
         }
-
+        //show ticket review fields
         return (
             <Grid container style={{ padding: '20px' }}>
                 <Grid item xs={4}>
@@ -405,11 +407,11 @@ class EmployeeFormReview extends Component {
             </Grid>
         );
     }
-
+    //Create review fields form eployee form
     reviewFields() {
         const { formValues, classes } = this.props;
         return _.map(employeeFormFields, ({ name, label }) => {
-            if (name !== 'dateStart' && name !== 'newHireReHireDate') {
+            if (name !== 'dateStart') {
                 return (
                     <Grid item xs={4} key={name}>
                         <div className={classes.fieldSpacing}>
@@ -436,6 +438,7 @@ class EmployeeFormReview extends Component {
         const { classes } = this.props;
         const { formValues } = this.props;
 
+        //show employee review form
         if (this.state.ticket === false) {
             return (
                 <Paper className={classes.formContainer}>
@@ -629,6 +632,7 @@ class EmployeeFormReview extends Component {
                     </Grid>
                 </Paper>
             );
+            //show ticket review form
         } else if (this.state.ticket === true) {
             return (
                 <Paper className={classes.formContainer}>
