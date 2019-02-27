@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
 import StatsBar from './StatsBar';
 import IconButton from '@material-ui/core/IconButton';
 import InsertChartIcon from '@material-ui/icons/InsertChart';
@@ -197,12 +197,12 @@ class Dashboard extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        employees: state.employees,
-    };
-}
-
-Dashboard = connect(mapStateToProps)(Dashboard);
+// function mapStateToProps(state) {
+//     return {
+//         employees: state.employees,
+//     };
+// }
+//
+// Dashboard = connect(mapStateToProps)(Dashboard);
 
 export default withStyles(styles)(Dashboard);
