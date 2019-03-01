@@ -6,7 +6,18 @@ import {
     DELETE_EMPLOYEE,
     FETCH_ONE_EMPLOYEE,
     EDIT_EMPLOYEE,
+    DASH_STATE,
 } from './types.js';
+
+export const getDashState = (tableState, statsState) => async dispatch => {
+    return {
+        type: DASH_STATE,
+        payload: {
+            showStatsBar: statsState,
+            showTable: tableState,
+        },
+    };
+};
 
 export const submitEmployee = (values, history) => async dispatch => {
     const res = await axios.post('/api/employees', values);
@@ -19,7 +30,6 @@ export const submitTicket = (values, history, id) => async dispatch => {
     const value = { values: values, id: id };
     const res = await axios.post(`/api/tickets/`, value);
     history.push('/');
-    //console.log(req.data);
     dispatch({ type: ADD_TICKET, payload: res.data });
 };
 
