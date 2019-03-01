@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
-import EmployeeList from './forms/EmployeeList';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import { Link } from 'react-router-dom';
-import StatsBar from './StatsBar';
 import IconButton from '@material-ui/core/IconButton';
 import InsertChartIcon from '@material-ui/icons/InsertChart';
 import ClearIcon from '@material-ui/icons/Clear';
-import DashboardTable from './DashboardTable';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import EmployeeList from './forms/EmployeeList';
+import DashboardTable from './DashboardTable';
+import StatsBar from './StatsBar';
+import { getDashState } from '../actions';
 
 const styles = theme => ({
     outerContainer: {
@@ -197,5 +199,15 @@ class Dashboard extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    console.log(state);
+    return { dashState: state.dashState };
+};
+
+Dashboard = connect(
+    mapStateToProps,
+    { getDashState }
+)(Dashboard);
 
 export default withStyles(styles)(Dashboard);

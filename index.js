@@ -18,12 +18,13 @@ require('./models/Leader');
 require('./models/Platform');
 require('./models/Computer');
 
+//Connect statement for local mongodb
 // mongoose.connect(
 //     'mongodb://localhost:27017/onboardingDB',
 //     { useNewUrlParser: true },
 //     () => console.log('Mongodb connected on port 27017')
 // );
-
+//Connect statement for MLab mongodb
 mongoose.connect(
     keys.mongoURI,
     {
@@ -45,7 +46,6 @@ require('./routes/employeeRoutes')(app);
 if (process.env.NODE_ENV === 'production') {
     // Exprees will serve up production assets
     app.use(express.static('client/build'));
-
     // Express serve up index.html file if it doesn't recognize route
     const path = require('path');
     app.get('*', (req, res) => {

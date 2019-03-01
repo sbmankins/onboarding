@@ -53,6 +53,7 @@ const styles = theme => ({
     },
 });
 
+//conditional styles for card background
 const Normaltext = {
     color: 'black',
 };
@@ -122,7 +123,7 @@ class EmployeeList extends Component {
             ticket: true,
         });
     };
-
+    //Determine whether or not to show ticket button
     renderButton(cwID, neID, id) {
         const { classes } = this.props;
 
@@ -149,17 +150,17 @@ class EmployeeList extends Component {
             );
         } else return <div />;
     }
-
+    //Create individual employee cards
     renderEmployees() {
         const { classes } = this.props;
         return (
             this.props.employees &&
             this.props.employees.map(employee => {
                 const id = employee._id;
-
                 let start = new Date();
                 start = employee.dateStart;
 
+                //get the number of days until employee onboarding and conditionallly style card color
                 const between = daysBetween(start);
 
                 if (between >= 7) {
