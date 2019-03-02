@@ -109,7 +109,7 @@ const NavBar = props => {
                             <Grid item>
                                 <Tooltip
                                     title="Access Amber"
-                                    aria-label="Access VLAseyMqZeBjW0AHJoxOtYqSUZNJxauErmLbVm2FW1y"
+                                    aria-label="Access Amber"
                                 >
                                     <Button
                                         href="https://www.google.com"
