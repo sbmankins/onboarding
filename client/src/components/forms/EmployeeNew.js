@@ -1,11 +1,11 @@
 import { reduxForm } from 'redux-form';
 import React, { Component } from 'react';
-import EmployeeForm from './EmployeeForm';
-import EmployeeFormReview from './EmployeeFormReview';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import EmployeeForm2 from './EmployeeForm2';
 import TicketForm from './TicketForm';
+import EmployeeForm from './EmployeeForm';
+import EmployeeFormReview from './EmployeeFormReview';
 
 class EmployeeNew extends Component {
     state = {

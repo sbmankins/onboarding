@@ -5,7 +5,6 @@ const initState = {
     showTable: false,
 };
 export default function(state = initState, action) {
-    console.log(action.payload);
     switch (action.type) {
         case TABLE_STATE:
             return { ...state, showTable: action.payload };

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchEmployees, deleteEmployee } from '../../actions';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,12 +8,13 @@ import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-import { daysBetween } from './daysBetween';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
+import { fetchEmployees, deleteEmployee } from '../../actions';
+import { daysBetween } from './daysBetween';
 
 const styles = theme => ({
     button: {
@@ -322,7 +322,6 @@ class EmployeeList extends Component {
 const mapStateToProps = state => {
     return {
         employees: state.employees,
-        employee: state.employee,
         employeeID: state.employeeID,
     };
 };

@@ -212,7 +212,6 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log(state);
     return { dashState: state.dashState };
 };
 
