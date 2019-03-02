@@ -33,13 +33,18 @@ const styles = theme => ({
         margin: '10px 5px 5px 5px',
         width: '70px',
     },
+
+    navBarContainer: {
+        marginBottom: '50px',
+        flexGrow: 1,
+    },
 });
 
 const NavBar = props => {
     const { classes } = props;
 
     return (
-        <div style={{ marginBottom: '20px', flexGrow: 1 }}>
+        <div className={classes.navBarContainer}>
             <Grid
                 container
                 direction="row"
