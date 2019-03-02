@@ -6,16 +6,21 @@ import {
     DELETE_EMPLOYEE,
     FETCH_ONE_EMPLOYEE,
     EDIT_EMPLOYEE,
-    DASH_STATE,
+    TABLE_STATE,
+    STATS_STATE,
 } from './types.js';
 
-export const getDashState = (tableState, statsState) => async dispatch => {
+export const getTableState = tableState => {
     return {
-        type: DASH_STATE,
-        payload: {
-            showStatsBar: statsState,
-            showTable: tableState,
-        },
+        type: TABLE_STATE,
+        payload: tableState,
+    };
+};
+
+export const getStatsState = statsState => {
+    return {
+        type: STATS_STATE,
+        payload: statsState,
     };
 };
 

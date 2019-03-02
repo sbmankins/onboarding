@@ -1,9 +1,19 @@
-import { DASH_STATE } from '../actions/types';
+import { TABLE_STATE, STATS_STATE } from '../actions/types';
 
-export default function(dashState = {}, action) {
-    if (action.type === DASH_STATE) {
-        return action.payload;
+const initState = {
+    showStatsBar: false,
+    showTable: false,
+};
+export default function(state = initState, action) {
+    console.log(action.payload);
+    switch (action.type) {
+        case TABLE_STATE:
+            return { ...state, showTable: action.payload };
+
+        case STATS_STATE:
+            return { ...state, showStatsBar: action.payload };
+
+        default:
+            return state;
     }
-
-    return dashState;
 }

@@ -16,7 +16,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import EmployeeList from './forms/EmployeeList';
 import DashboardTable from './DashboardTable';
 import StatsBar from './StatsBar';
-import { getDashState } from '../actions';
+import { getTableState, getStatsState } from '../actions';
 
 const styles = theme => ({
     outerContainer: {
@@ -77,12 +77,23 @@ const styles = theme => ({
 class Dashboard extends Component {
     state = { showStatsBar: false, showTable: false };
 
-    handleStatsClick(event, status) {
-        this.setState({ showStatsBar: status });
+    componentDidMount() {
+        this.setState({
+            showStatsBar: this.props.dashState.showStatsBar,
+            showTable: this.props.dashState.showTable,
+        });
     }
 
-    handleTableClick(event, status) {
-        this.setState({ showTable: status });
+    async handleStatsClick(event, status) {
+        await this.props.getStatsState(status);
+        await this.setState({
+            showStatsBar: this.props.dashState.showStatsBar,
+        });
+    }
+
+    async handleTableClick(event, status) {
+        await this.props.getTableState(status);
+        await this.setState({ showTable: this.props.dashState.showTable });
     }
 
     renderTableButton() {
@@ -207,7 +218,7 @@ const mapStateToProps = state => {
 
 Dashboard = connect(
     mapStateToProps,
-    { getDashState }
+    { getTableState, getStatsState }
 )(Dashboard);
 
 export default withStyles(styles)(Dashboard);
