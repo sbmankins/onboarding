@@ -28,7 +28,7 @@ import {
 } from '../../actions';
 import { daysBetween } from './daysBetween';
 import { filterList } from './filterList';
-
+//filter keys
 const KEYS_TO_FILTERS = [
     'firstName',
     'lastName',
