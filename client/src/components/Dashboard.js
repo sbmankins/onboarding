@@ -40,7 +40,7 @@ const styles = theme => ({
     dashTitle: {
         textAlign: 'center',
         position: 'relative',
-        marginLeft: '48px',
+        marginLeft: '100px',
         color: '#626f78',
         display: 'inline',
     },
