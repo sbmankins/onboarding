@@ -15,7 +15,7 @@ export default function(state = [], action) {
 
         case DELETE_EMPLOYEE:
             const employeeID = action.payload;
-            return state.filter(employee => employee.id !== employeeID);
+            return state.filter(employee => employee._id !== employeeID);
 
         case EDIT_EMPLOYEE:
             return action.payload;

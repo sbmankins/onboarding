@@ -8,39 +8,39 @@ import {
     EDIT_EMPLOYEE,
     TABLE_STATE,
     STATS_STATE,
-    // COMPLETE_STATE,
-    // PROGRESS_STATE,
-    // HOLD_STATE,
-    // ROADBLOCK_STATE,
+    COMPLETE_STATE,
+    PROGRESS_STATE,
+    HOLD_STATE,
+    ROADBLOCK_STATE,
 } from './types.js';
 
-// export const getCompleteState = completeState => {
-//     return {
-//         type: COMPLETE_STATE,
-//         payload: completeState,
-//     };
-// };
-//
-// export const getProgressState = progressState => {
-//     return {
-//         type: PROGRESS_STATE,
-//         payload: progressState,
-//     };
-// };
-//
-// export const getHoldState = holdState => {
-//     return {
-//         type: HOLD_STATE,
-//         payload: holdState,
-//     };
-// };
-//
-// export const getRoadblockState = roadblockState => {
-//     return {
-//         type: ROADBLOCK_STATE,
-//         payload: roadblockState,
-//     };
-// };
+export const getCompleteState = completeState => {
+    return {
+        type: COMPLETE_STATE,
+        payload: completeState,
+    };
+};
+
+export const getProgressState = progressState => {
+    return {
+        type: PROGRESS_STATE,
+        payload: progressState,
+    };
+};
+
+export const getHoldState = holdState => {
+    return {
+        type: HOLD_STATE,
+        payload: holdState,
+    };
+};
+
+export const getRoadblockState = roadblockState => {
+    return {
+        type: ROADBLOCK_STATE,
+        payload: roadblockState,
+    };
+};
 
 export const getTableState = tableState => {
     return {

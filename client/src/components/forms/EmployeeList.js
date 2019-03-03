@@ -16,8 +16,16 @@ import EditIcon from '@material-ui/icons/Edit';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
-import { fetchEmployees, deleteEmployee } from '../../actions';
+import {
+    fetchEmployees,
+    deleteEmployee,
+    getHoldState,
+    getCompleteState,
+    getRoadblockState,
+    getProgressState,
+} from '../../actions';
 import { daysBetween } from './daysBetween';
+import { filterList } from './filterList';
 
 const styles = theme => ({
     button: {
@@ -93,10 +101,10 @@ class EmployeeList extends Component {
         toDashboard: false,
         editing: false,
         ticket: false,
-        showProgress: true,
-        showComplete: true,
-        showRoadblock: true,
-        showHold: true,
+        showProgress: false,
+        showComplete: false,
+        showRoadblock: false,
+        showHold: false,
         filteredEmployees: [],
     };
 
@@ -105,117 +113,47 @@ class EmployeeList extends Component {
 
         this.setState({ editing: false });
 
-        let progressArray;
-        let holdArray;
-        let roadblockArray;
-        let completeArray;
-        if (this.state.showProgress) {
-            progressArray = this.props.employees.filter(
-                employee => employee._status.name === 'In progress'
-            );
-        } else {
-            progressArray = [];
-        }
-
-        if (this.state.showComplete) {
-            completeArray = this.props.employees.filter(
-                employee => employee._status.name === 'Complete'
-            );
-        } else {
-            completeArray = [];
-        }
-
-        if (this.state.showRoadblock) {
-            roadblockArray = this.props.employees.filter(
-                employee => employee._status.name === 'Roadblock'
-            );
-        } else {
-            roadblockArray = [];
-        }
-
-        if (this.state.showHold) {
-            holdArray = this.props.employees.filter(
-                employee => employee._status.name === 'On hold'
-            );
-        } else {
-            holdArray = [];
-        }
-
-        const filteredEmployeesList = [
-            ...progressArray,
-            ...completeArray,
-            ...roadblockArray,
-            ...holdArray,
-        ];
-
-        const filteredEmployees = filteredEmployeesList.sort(function(a, b) {
-            // convert date object into number to resolve issue in typescript
-            return +new Date(a.dateStart) - +new Date(b.dateStart);
+        await this.setState({
+            showProgress: this.props.filterState.showProgress,
+            showComplete: this.props.filterState.showComplete,
+            showRoadblock: this.props.filterState.showRoadblock,
+            showHold: this.props.filterState.showHold,
         });
 
-        this.setState(
-            { filteredEmployees: filteredEmployees },
-            console.log(this.state.filteredEmployees)
+        const filteredEmployees = filterList(
+            this.props.filterState.showProgress,
+            this.props.filterState.showComplete,
+            this.props.filterState.showHold,
+            this.props.filterState.showRoadblock,
+            this.props.employees
         );
+        await this.setState({ filteredEmployees: filteredEmployees });
     }
 
     handleChange = name => event => {
+        if (name === 'showProgress') {
+            this.props.getProgressState(event.target.checked);
+        }
+        if (name === 'showComplete') {
+            this.props.getCompleteState(event.target.checked);
+        }
+        if (name === 'showHold') {
+            this.props.getHoldState(event.target.checked);
+        }
+        if (name === 'showRoadblock') {
+            this.props.getRoadblockState(event.target.checked);
+        }
+
         this.setState({ [name]: event.target.checked }, () => {
-            let progressArray;
-            let holdArray;
-            let roadblockArray;
-            let completeArray;
-            if (this.state.showProgress) {
-                progressArray = this.props.employees.filter(
-                    employee => employee._status.name === 'In progress'
-                );
-            } else {
-                progressArray = [];
-            }
-
-            if (this.state.showComplete) {
-                completeArray = this.props.employees.filter(
-                    employee => employee._status.name === 'Complete'
-                );
-            } else {
-                completeArray = [];
-            }
-
-            if (this.state.showRoadblock) {
-                roadblockArray = this.props.employees.filter(
-                    employee => employee._status.name === 'Roadblock'
-                );
-            } else {
-                roadblockArray = [];
-            }
-
-            if (this.state.showHold) {
-                holdArray = this.props.employees.filter(
-                    employee => employee._status.name === 'On hold'
-                );
-            } else {
-                holdArray = [];
-            }
-
-            const filteredEmployeesList = [
-                ...progressArray,
-                ...completeArray,
-                ...roadblockArray,
-                ...holdArray,
-            ];
-
-            const filteredEmployees = filteredEmployeesList.sort(function(
-                a,
-                b
-            ) {
-                // convert date object into number to resolve issue in typescript
-                return +new Date(a.dateStart) - +new Date(b.dateStart);
-            });
-
-            this.setState(
-                { filteredEmployees: filteredEmployees },
-                console.log(this.state.filteredEmployees)
+            const filteredEmployees = filterList(
+                this.state.showProgress,
+                this.state.showComplete,
+                this.state.showHold,
+                this.state.showRoadblock,
+                this.props.employees
             );
+
+            this.setState({ filteredEmployees: filteredEmployees });
         });
     };
 
@@ -525,6 +463,10 @@ EmployeeList = connect(
     {
         fetchEmployees,
         deleteEmployee,
+        getHoldState,
+        getCompleteState,
+        getProgressState,
+        getRoadblockState,
     }
 )(EmployeeList);
 
