@@ -28,6 +28,7 @@ import {
 } from '../../actions';
 import { daysBetween } from './daysBetween';
 import { filterList } from './filterList';
+
 //filter keys
 const KEYS_TO_FILTERS = [
     'firstName',
@@ -35,6 +36,7 @@ const KEYS_TO_FILTERS = [
     '_admin.name',
     '_manager.name',
     '_status.name',
+    'startDate',
 ];
 
 const styles = theme => ({
@@ -257,6 +259,16 @@ class EmployeeList extends Component {
                 NewColor = Dangertext;
             }
 
+            const startDate = new Date(employee.dateStart).toLocaleDateString(
+                'en-US',
+                {
+                    timeZone: 'UTC',
+                }
+            );
+
+            employee.startDate = startDate;
+            console.log(employee.startDate);
+
             return (
                 <Grid
                     item
@@ -299,11 +311,7 @@ class EmployeeList extends Component {
                                             component="p"
                                         >
                                             <strong>Start Date:</strong>{' '}
-                                            {new Date(
-                                                employee.dateStart
-                                            ).toLocaleDateString('en-US', {
-                                                timeZone: 'UTC',
-                                            })}
+                                            {startDate}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6}>
