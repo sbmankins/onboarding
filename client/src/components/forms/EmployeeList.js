@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import SearchInput, { createFilter } from 'react-search-input';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,6 +12,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
@@ -26,6 +28,14 @@ import {
 } from '../../actions';
 import { daysBetween } from './daysBetween';
 import { filterList } from './filterList';
+
+const KEYS_TO_FILTERS = [
+    'firstName',
+    'lastName',
+    '_admin.name',
+    '_manager.name',
+    '_status.name',
+];
 
 const styles = theme => ({
     button: {
@@ -72,6 +82,7 @@ const Warning = {
     backgroundColor: '#faf096',
     margin: '20px',
     borderRadius: '30px',
+    minWidth: '265px',
 };
 
 const Dangertext = {
@@ -82,12 +93,14 @@ const Danger = {
     backgroundColor: '#c82121',
     margin: '20px',
     borderRadius: '30px',
+    minWidth: '265px',
 };
 
 const Good = {
     backgroundColor: '#acdeaa',
     margin: '20px',
     borderRadius: '30px',
+    minWidth: '265px',
 };
 
 let New = {};
@@ -106,6 +119,7 @@ class EmployeeList extends Component {
         showRoadblock: false,
         showHold: false,
         filteredEmployees: [],
+        searchTerm: '',
     };
 
     async componentDidMount() {
@@ -187,6 +201,10 @@ class EmployeeList extends Component {
             ticket: true,
         });
     };
+
+    searchUpdated = term => {
+        this.setState({ searchTerm: term });
+    };
     //Determine whether or not to show ticket button
     renderButton(cwID, neID, id) {
         const { classes } = this.props;
@@ -216,152 +234,147 @@ class EmployeeList extends Component {
     }
     //Create individual employee cards
     renderEmployees() {
+        const filtered = this.state.filteredEmployees.filter(
+            createFilter(this.state.searchTerm, KEYS_TO_FILTERS)
+        );
         const { classes } = this.props;
-        return (
-            this.state.filteredEmployees &&
-            this.state.filteredEmployees.map(employee => {
-                const id = employee._id;
-                let start = new Date();
-                start = employee.dateStart;
+        return filtered.map(employee => {
+            const id = employee._id;
+            let start = new Date();
+            start = employee.dateStart;
 
-                //get the number of days until employee onboarding and conditionallly style card color
-                const between = daysBetween(start);
+            //get the number of days until employee onboarding and conditionallly style card color
+            const between = daysBetween(start);
 
-                if (between >= 7) {
-                    New = Good;
-                    NewColor = Normaltext;
-                } else if (between >= 0 && between <= 7) {
-                    New = Warning;
-                    NewColor = Normaltext;
-                } else {
-                    New = Danger;
-                    NewColor = Dangertext;
-                }
+            if (between >= 7) {
+                New = Good;
+                NewColor = Normaltext;
+            } else if (between >= 0 && between <= 7) {
+                New = Warning;
+                NewColor = Normaltext;
+            } else {
+                New = Danger;
+                NewColor = Dangertext;
+            }
 
-                return (
-                    <Grid
-                        item
-                        style={{
-                            display: 'inline-block',
-                        }}
-                        xs={12}
-                        key={employee._id}
-                    >
-                        <Card style={New} raised={true}>
-                            <CardContent>
-                                <Typography
-                                    style={NewColor}
-                                    variant="title"
-                                    component="h6"
-                                >
-                                    {employee.firstName} {employee.lastName}
+            return (
+                <Grid
+                    item
+                    style={{
+                        display: 'inline-block',
+                    }}
+                    xs={12}
+                    key={employee._id}
+                >
+                    <Card style={New} raised={true}>
+                        <CardContent>
+                            <Typography
+                                style={NewColor}
+                                variant="title"
+                                component="h6"
+                            >
+                                {employee.firstName} {employee.lastName}
+                            </Typography>
+                            <Divider
+                                className={classes.cardDivider}
+                                variant="middle"
+                            />
+                            <div style={{ textAlign: 'Left' }}>
+                                <Typography style={NewColor} component="p">
+                                    <strong>Manager:</strong>{' '}
+                                    {employee._manager.name}
+                                </Typography>
+                                <Typography style={NewColor} component="p">
+                                    <strong>Admin:</strong>{' '}
+                                    {employee._admin.name}
                                 </Typography>
                                 <Divider
                                     className={classes.cardDivider}
                                     variant="middle"
                                 />
-                                <div style={{ textAlign: 'Left' }}>
-                                    <Typography style={NewColor} component="p">
-                                        <strong>Manager:</strong>{' '}
-                                        {employee._manager.name}
-                                    </Typography>
-                                    <Typography style={NewColor} component="p">
-                                        <strong>Admin:</strong>{' '}
-                                        {employee._admin.name}
-                                    </Typography>
-                                    <Divider
-                                        className={classes.cardDivider}
-                                        variant="middle"
-                                    />
-                                    <Grid container spacing={24}>
-                                        <Grid item xs={6}>
-                                            <Typography
-                                                style={NewColor}
-                                                component="p"
-                                            >
-                                                <strong>Start Date:</strong>{' '}
-                                                {new Date(
-                                                    employee.dateStart
-                                                ).toLocaleDateString('en-US', {
-                                                    timeZone: 'UTC',
-                                                })}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Typography
-                                                style={NewColor}
-                                                component="p"
-                                            >
-                                                <strong>Status:</strong>
-                                                <br />
-                                                {employee._status.name}
-                                            </Typography>
-                                        </Grid>
+                                <Grid container spacing={24}>
+                                    <Grid item xs={6}>
+                                        <Typography
+                                            style={NewColor}
+                                            component="p"
+                                        >
+                                            <strong>Start Date:</strong>{' '}
+                                            {new Date(
+                                                employee.dateStart
+                                            ).toLocaleDateString('en-US', {
+                                                timeZone: 'UTC',
+                                            })}
+                                        </Typography>
                                     </Grid>
-                                </div>
-                            </CardContent>
-                            <CardActions disableActionSpacing={true}>
-                                <Tooltip title="Edit" aria-label="Edit">
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        editing="true"
-                                        className={classes.button}
-                                        style={{
-                                            padding: '3px',
-                                            borderRadius: '20px',
-                                        }}
-                                        onClick={(e, key) =>
-                                            this.handleEditClick(e, id)
+                                    <Grid item xs={6}>
+                                        <Typography
+                                            style={NewColor}
+                                            component="p"
+                                        >
+                                            <strong>Status:</strong>
+                                            <br />
+                                            {employee._status.name}
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                            </div>
+                        </CardContent>
+                        <CardActions disableActionSpacing={true}>
+                            <Tooltip title="Edit" aria-label="Edit">
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    editing="true"
+                                    className={classes.button}
+                                    style={{
+                                        padding: '3px',
+                                        borderRadius: '20px',
+                                    }}
+                                    onClick={(e, key) =>
+                                        this.handleEditClick(e, id)
+                                    }
+                                >
+                                    <EditIcon
+                                        className={`${classes.iconRight} ${
+                                            classes.editIcon
+                                        }`}
+                                    />
+                                </Button>
+                            </Tooltip>
+                            {this.renderButton(
+                                employee.cwID,
+                                employee.neID,
+                                id
+                            )}
+                            <Tooltip title="Delete" aria-label="Delete">
+                                <Button
+                                    style={{
+                                        padding: '3px',
+                                        borderRadius: '20px',
+                                    }}
+                                    variant="contained"
+                                    color="secondary"
+                                    className={classes.button}
+                                    onClick={(event, key) => {
+                                        if (
+                                            window.confirm('Delete the item?')
+                                        ) {
+                                            this.onEmployeeDelete(event, id);
                                         }
-                                    >
-                                        <EditIcon
-                                            className={`${classes.iconRight} ${
-                                                classes.editIcon
-                                            }`}
-                                        />
-                                    </Button>
-                                </Tooltip>
-                                {this.renderButton(
-                                    employee.cwID,
-                                    employee.neID,
-                                    id
-                                )}
-                                <Tooltip title="Delete" aria-label="Delete">
-                                    <Button
-                                        style={{
-                                            padding: '3px',
-                                            borderRadius: '20px',
-                                        }}
-                                        variant="contained"
-                                        color="secondary"
-                                        className={classes.button}
-                                        onClick={(event, key) => {
-                                            if (
-                                                window.confirm(
-                                                    'Delete the item?'
-                                                )
-                                            ) {
-                                                this.onEmployeeDelete(
-                                                    event,
-                                                    id
-                                                );
-                                            }
-                                        }}
-                                    >
-                                        <DeleteForeverIcon
-                                            className={`${classes.iconRight} ${
-                                                classes.deleteIcon
-                                            }`}
-                                        />
-                                    </Button>
-                                </Tooltip>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                );
-            })
-        );
+                                    }}
+                                >
+                                    <DeleteForeverIcon
+                                        className={`${classes.iconRight} ${
+                                            classes.deleteIcon
+                                        }`}
+                                    />
+                                </Button>
+                            </Tooltip>
+                        </CardActions>
+                    </Card>
+                </Grid>
+            );
+        });
     }
 
     render() {
@@ -381,69 +394,101 @@ class EmployeeList extends Component {
         }
         return (
             <div>
-                <Grid container justify="center">
-                    <div>
-                        <FormGroup
-                            row
-                            style={{ margin: '20px', color: 'white' }}
-                        >
-                            <FormControlLabel
-                                style={{ color: 'white' }}
-                                control={
-                                    <Checkbox
-                                        checked={this.state.showProgress}
-                                        onChange={this.handleChange(
-                                            'showProgress'
-                                        )}
-                                        value="showProgress"
-                                        color="primary"
-                                    />
-                                }
-                                label="In progress"
+                <Paper
+                    style={{
+                        margin: '20px auto',
+                        width: '80%',
+                        borderRadius: '20px',
+                        background: '#F5F6F7',
+                    }}
+                >
+                    <Grid
+                        container
+                        direction="row"
+                        justify="center"
+                        alignItems="center"
+                    >
+                        <Grid item xs={4}>
+                            <SearchInput
+                                style={{
+                                    minWidth: '200px',
+                                    fontSize: '20px',
+                                    marginRight: '40px',
+                                    marginTop: '20px',
+                                }}
+                                className="search-input"
+                                onChange={this.searchUpdated}
                             />
-                            <FormControlLabel
-                                style={{ color: 'white' }}
-                                control={
-                                    <Checkbox
-                                        checked={this.state.showHold}
-                                        onChange={this.handleChange('showHold')}
-                                        value="showHold"
-                                        color="primary"
-                                    />
-                                }
-                                label="On hold"
-                            />
-                            <FormControlLabel
-                                style={{ color: 'white' }}
-                                control={
-                                    <Checkbox
-                                        checked={this.state.showRoadblock}
-                                        onChange={this.handleChange(
-                                            'showRoadblock'
-                                        )}
-                                        value="showRoadblock"
-                                        color="primary"
-                                    />
-                                }
-                                label="Roadblock"
-                            />
-                            <FormControlLabel
-                                style={{ color: 'white' }}
-                                control={
-                                    <Checkbox
-                                        checked={this.state.showComplete}
-                                        onChange={this.handleChange(
-                                            'showComplete'
-                                        )}
-                                        value="showComplete"
-                                        color="primary"
-                                    />
-                                }
-                                label="Complete"
-                            />
-                        </FormGroup>
-                    </div>
-                </Grid>
+                        </Grid>
+                        <Grid item>
+                            <FormGroup
+                                row
+                                style={{
+                                    margin: '20px',
+                                    color: 'white',
+                                }}
+                            >
+                                <FormControlLabel
+                                    style={{ color: 'white' }}
+                                    control={
+                                        <Checkbox
+                                            checked={this.state.showProgress}
+                                            onChange={this.handleChange(
+                                                'showProgress'
+                                            )}
+                                            value="showProgress"
+                                            color="primary"
+                                        />
+                                    }
+                                    label="In progress"
+                                />
+                                <FormControlLabel
+                                    style={{ color: 'white' }}
+                                    control={
+                                        <Checkbox
+                                            checked={this.state.showHold}
+                                            onChange={this.handleChange(
+                                                'showHold'
+                                            )}
+                                            value="showHold"
+                                            color="primary"
+                                        />
+                                    }
+                                    label="On hold"
+                                />
+                                <FormControlLabel
+                                    style={{ color: 'white' }}
+                                    control={
+                                        <Checkbox
+                                            checked={this.state.showRoadblock}
+                                            onChange={this.handleChange(
+                                                'showRoadblock'
+                                            )}
+                                            value="showRoadblock"
+                                            color="primary"
+                                        />
+                                    }
+                                    label="Roadblock"
+                                />
+                                <FormControlLabel
+                                    style={{ color: 'white' }}
+                                    control={
+                                        <Checkbox
+                                            checked={this.state.showComplete}
+                                            onChange={this.handleChange(
+                                                'showComplete'
+                                            )}
+                                            value="showComplete"
+                                            color="primary"
+                                        />
+                                    }
+                                    label="Complete"
+                                />
+                            </FormGroup>
+                        </Grid>
+                    </Grid>
+                </Paper>
+
                 <div>{this.renderEmployees()}</div>
             </div>
         );

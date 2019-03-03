@@ -46,6 +46,6 @@ export function filterList(progress, complete, hold, roadblock, employees) {
         // convert date object into number to resolve issue in typescript
         return +new Date(a.dateStart) - +new Date(b.dateStart);
     });
-    console.log(filteredEmployees);
+
     return filteredEmployees;
 }

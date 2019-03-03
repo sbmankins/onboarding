@@ -160,6 +160,7 @@ class Dashboard extends Component {
     }
 
     renderContent() {
+        const { classes } = this.props;
         if (this.state.showTable === true) {
             return <DashboardTable />;
         } else
