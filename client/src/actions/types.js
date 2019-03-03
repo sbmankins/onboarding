@@ -6,3 +6,7 @@ export const FETCH_ONE_EMPLOYEE = 'fetch_one_employee';
 export const EDIT_EMPLOYEE = 'edit_employee';
 export const TABLE_STATE = 'table_state';
 export const STATS_STATE = 'stats_state';
+// export const COMPLETE_STATE = 'complete_state';
+// export const HOLD_STATE = 'hold_state';
+// export const PROGRESS_STATE = 'progress_state';
+// export const ROADBLOCK_STATE = 'roadblock_State';

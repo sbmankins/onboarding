@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchEmployees, deleteEmployee } from '../../actions';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,13 +7,17 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
-import { daysBetween } from './daysBetween';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
+import { fetchEmployees, deleteEmployee } from '../../actions';
+import { daysBetween } from './daysBetween';
 
 const styles = theme => ({
     button: {
@@ -90,18 +93,136 @@ class EmployeeList extends Component {
         toDashboard: false,
         editing: false,
         ticket: false,
+        showProgress: true,
+        showComplete: true,
+        showRoadblock: true,
+        showHold: true,
+        filteredEmployees: [],
     };
 
-    componentDidMount() {
-        this.setState({ employees: this.props.fetchEmployees() });
+    async componentDidMount() {
+        this.setState({ employees: await this.props.fetchEmployees() });
 
         this.setState({ editing: false });
+
+        let progressArray;
+        let holdArray;
+        let roadblockArray;
+        let completeArray;
+        if (this.state.showProgress) {
+            progressArray = this.props.employees.filter(
+                employee => employee._status.name === 'In progress'
+            );
+        } else {
+            progressArray = [];
+        }
+
+        if (this.state.showComplete) {
+            completeArray = this.props.employees.filter(
+                employee => employee._status.name === 'Complete'
+            );
+        } else {
+            completeArray = [];
+        }
+
+        if (this.state.showRoadblock) {
+            roadblockArray = this.props.employees.filter(
+                employee => employee._status.name === 'Roadblock'
+            );
+        } else {
+            roadblockArray = [];
+        }
+
+        if (this.state.showHold) {
+            holdArray = this.props.employees.filter(
+                employee => employee._status.name === 'On hold'
+            );
+        } else {
+            holdArray = [];
+        }
+
+        const filteredEmployeesList = [
+            ...progressArray,
+            ...completeArray,
+            ...roadblockArray,
+            ...holdArray,
+        ];
+
+        const filteredEmployees = filteredEmployeesList.sort(function(a, b) {
+            // convert date object into number to resolve issue in typescript
+            return +new Date(a.dateStart) - +new Date(b.dateStart);
+        });
+
+        this.setState(
+            { filteredEmployees: filteredEmployees },
+            console.log(this.state.filteredEmployees)
+        );
     }
 
-    onEmployeeDelete = (event, id) => {
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.checked }, () => {
+            let progressArray;
+            let holdArray;
+            let roadblockArray;
+            let completeArray;
+            if (this.state.showProgress) {
+                progressArray = this.props.employees.filter(
+                    employee => employee._status.name === 'In progress'
+                );
+            } else {
+                progressArray = [];
+            }
+
+            if (this.state.showComplete) {
+                completeArray = this.props.employees.filter(
+                    employee => employee._status.name === 'Complete'
+                );
+            } else {
+                completeArray = [];
+            }
+
+            if (this.state.showRoadblock) {
+                roadblockArray = this.props.employees.filter(
+                    employee => employee._status.name === 'Roadblock'
+                );
+            } else {
+                roadblockArray = [];
+            }
+
+            if (this.state.showHold) {
+                holdArray = this.props.employees.filter(
+                    employee => employee._status.name === 'On hold'
+                );
+            } else {
+                holdArray = [];
+            }
+
+            const filteredEmployeesList = [
+                ...progressArray,
+                ...completeArray,
+                ...roadblockArray,
+                ...holdArray,
+            ];
+
+            const filteredEmployees = filteredEmployeesList.sort(function(
+                a,
+                b
+            ) {
+                // convert date object into number to resolve issue in typescript
+                return +new Date(a.dateStart) - +new Date(b.dateStart);
+            });
+
+            this.setState(
+                { filteredEmployees: filteredEmployees },
+                console.log(this.state.filteredEmployees)
+            );
+        });
+    };
+
+    onEmployeeDelete = async (event, id) => {
         event.preventDefault();
         this.props.deleteEmployee(id);
-        this.setState({ employees: this.props.fetchEmployees() });
+        await this.setState({ filteredEmployees: this.props.fetchEmployees() });
     };
 
     handleEditClick = (event, id) => {
@@ -154,8 +275,8 @@ class EmployeeList extends Component {
     renderEmployees() {
         const { classes } = this.props;
         return (
-            this.props.employees &&
-            this.props.employees.map(employee => {
+            this.state.filteredEmployees &&
+            this.state.filteredEmployees.map(employee => {
                 const id = employee._id;
                 let start = new Date();
                 start = employee.dateStart;
@@ -315,7 +436,74 @@ class EmployeeList extends Component {
                 />
             );
         }
-        return <div>{this.renderEmployees()}</div>;
+        return (
+            <div>
+                <Grid container justify="center">
+                    <div>
+                        <FormGroup
+                            row
+                            style={{ margin: '20px', color: 'white' }}
+                        >
+                            <FormControlLabel
+                                style={{ color: 'white' }}
+                                control={
+                                    <Checkbox
+                                        checked={this.state.showProgress}
+                                        onChange={this.handleChange(
+                                            'showProgress'
+                                        )}
+                                        value="showProgress"
+                                        color="primary"
+                                    />
+                                }
+                                label="In progress"
+                            />
+                            <FormControlLabel
+                                style={{ color: 'white' }}
+                                control={
+                                    <Checkbox
+                                        checked={this.state.showHold}
+                                        onChange={this.handleChange('showHold')}
+                                        value="showHold"
+                                        color="primary"
+                                    />
+                                }
+                                label="On hold"
+                            />
+                            <FormControlLabel
+                                style={{ color: 'white' }}
+                                control={
+                                    <Checkbox
+                                        checked={this.state.showRoadblock}
+                                        onChange={this.handleChange(
+                                            'showRoadblock'
+                                        )}
+                                        value="showRoadblock"
+                                        color="primary"
+                                    />
+                                }
+                                label="Roadblock"
+                            />
+                            <FormControlLabel
+                                style={{ color: 'white' }}
+                                control={
+                                    <Checkbox
+                                        checked={this.state.showComplete}
+                                        onChange={this.handleChange(
+                                            'showComplete'
+                                        )}
+                                        value="showComplete"
+                                        color="primary"
+                                    />
+                                }
+                                label="Complete"
+                            />
+                        </FormGroup>
+                    </div>
+                </Grid>
+                <div>{this.renderEmployees()}</div>
+            </div>
+        );
     }
 }
 
