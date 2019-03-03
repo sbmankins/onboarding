@@ -400,7 +400,6 @@ class EmployeeList extends Component {
                         width: '80%',
                         borderRadius: '20px',
                         background: '#F5F6F7',
-                        padding: '10px',
                     }}
                 >
                     <Grid
@@ -409,82 +408,106 @@ class EmployeeList extends Component {
                         justify="center"
                         alignItems="center"
                     >
-                        <Grid item xs={4}>
+                        <Grid item>
                             <SearchInput
                                 style={{
                                     minWidth: '200px',
                                     fontSize: '20px',
                                     marginRight: '40px',
+                                    marginTop: '20px',
                                 }}
                                 className="search-input"
                                 onChange={this.searchUpdated}
                             />
                         </Grid>
                         <Grid item>
-                            <FormGroup
-                                row
-                                style={{
-                                    margin: '20px',
-                                    color: 'white',
-                                }}
+                            <Grid
+                                container
+                                direction="row"
+                                justify="center"
+                                alignItems="center"
                             >
-                                <FormControlLabel
-                                    style={{ color: 'white' }}
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.showProgress}
-                                            onChange={this.handleChange(
-                                                'showProgress'
-                                            )}
-                                            value="showProgress"
-                                            color="primary"
+                                <FormGroup
+                                    row
+                                    style={{
+                                        margin: '20px',
+                                        color: 'white',
+                                    }}
+                                >
+                                    <Grid item>
+                                        <FormControlLabel
+                                            style={{ color: 'white' }}
+                                            control={
+                                                <Checkbox
+                                                    checked={
+                                                        this.state.showProgress
+                                                    }
+                                                    onChange={this.handleChange(
+                                                        'showProgress'
+                                                    )}
+                                                    value="showProgress"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="In progress"
                                         />
-                                    }
-                                    label="In progress"
-                                />
-                                <FormControlLabel
-                                    style={{ color: 'white' }}
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.showHold}
-                                            onChange={this.handleChange(
-                                                'showHold'
-                                            )}
-                                            value="showHold"
-                                            color="primary"
+                                    </Grid>
+                                    <Grid item>
+                                        <FormControlLabel
+                                            style={{ color: 'white' }}
+                                            control={
+                                                <Checkbox
+                                                    checked={
+                                                        this.state.showHold
+                                                    }
+                                                    onChange={this.handleChange(
+                                                        'showHold'
+                                                    )}
+                                                    value="showHold"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="On hold"
                                         />
-                                    }
-                                    label="On hold"
-                                />
-                                <FormControlLabel
-                                    style={{ color: 'white' }}
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.showRoadblock}
-                                            onChange={this.handleChange(
-                                                'showRoadblock'
-                                            )}
-                                            value="showRoadblock"
-                                            color="primary"
+                                    </Grid>
+                                    <Grid item>
+                                        <FormControlLabel
+                                            style={{ color: 'white' }}
+                                            control={
+                                                <Checkbox
+                                                    checked={
+                                                        this.state.showRoadblock
+                                                    }
+                                                    onChange={this.handleChange(
+                                                        'showRoadblock'
+                                                    )}
+                                                    value="showRoadblock"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Roadblock"
                                         />
-                                    }
-                                    label="Roadblock"
-                                />
-                                <FormControlLabel
-                                    style={{ color: 'white' }}
-                                    control={
-                                        <Checkbox
-                                            checked={this.state.showComplete}
-                                            onChange={this.handleChange(
-                                                'showComplete'
-                                            )}
-                                            value="showComplete"
-                                            color="primary"
+                                    </Grid>
+                                    <Grid item>
+                                        <FormControlLabel
+                                            style={{ color: 'white' }}
+                                            control={
+                                                <Checkbox
+                                                    checked={
+                                                        this.state.showComplete
+                                                    }
+                                                    onChange={this.handleChange(
+                                                        'showComplete'
+                                                    )}
+                                                    value="showComplete"
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Complete"
                                         />
-                                    }
-                                    label="Complete"
-                                />
-                            </FormGroup>
+                                    </Grid>
+                                </FormGroup>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Paper>
