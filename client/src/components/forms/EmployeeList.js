@@ -400,11 +400,12 @@ class EmployeeList extends Component {
                         width: '80%',
                         borderRadius: '20px',
                         background: '#F5F6F7',
+                        padding: '10px',
                     }}
                 >
                     <Grid
                         container
-                        direction="row"
+                        direction="column"
                         justify="center"
                         alignItems="center"
                     >
@@ -414,7 +415,6 @@ class EmployeeList extends Component {
                                     minWidth: '200px',
                                     fontSize: '20px',
                                     marginRight: '40px',
-                                    marginTop: '20px',
                                 }}
                                 className="search-input"
                                 onChange={this.searchUpdated}
