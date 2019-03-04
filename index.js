@@ -44,9 +44,9 @@ app.get('/', (req, res) => {
 require('./routes/employeeRoutes')(app);
 
 if (process.env.NODE_ENV === 'production') {
-    // Exprees will serve up production assets
+    //Express will serve main.js, main.css, etc
     app.use(express.static('client/build'));
-    // Express serve up index.html file if it doesn't recognize route
+    //Express will serve index.html if route unrecognized(hand off to react router)
     const path = require('path');
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
