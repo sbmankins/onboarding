@@ -4,7 +4,7 @@ import 'typeface-roboto';
 import NavBar from './NavBar';
 import Dashboard from './Dashboard';
 import EmployeeNew from './forms/EmployeeNew';
-//test
+
 const App = () => {
     return (
         <BrowserRouter>

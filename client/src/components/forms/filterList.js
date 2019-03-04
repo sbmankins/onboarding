@@ -3,6 +3,8 @@ export function filterList(progress, complete, hold, roadblock, employees) {
     let holdArray;
     let roadblockArray;
     let completeArray;
+
+    //build filterd list based on checkboxes
     if (progress) {
         progressArray = employees.filter(
             employee => employee._status.name === 'In progress'

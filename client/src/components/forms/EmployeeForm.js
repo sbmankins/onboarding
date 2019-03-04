@@ -6,15 +6,15 @@ import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import employeeFormFields from './employeeFormFields';
-import SearchSelect from './SearchSelect';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import DateField from './DateField';
 import axios from 'axios';
 import validate from './validate';
+import DateField from './DateField';
+import employeeFormFields from './employeeFormFields';
+import SearchSelect from './SearchSelect';
 
 const styles = theme => ({
     outerContainer: {

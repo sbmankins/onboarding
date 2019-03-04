@@ -1,4 +1,5 @@
 const validate = values => {
+    //Fields to validate on employee form pg1 & pg2
     const errors = {};
     if (!values.firstName) {
         errors.firstName = 'Required';

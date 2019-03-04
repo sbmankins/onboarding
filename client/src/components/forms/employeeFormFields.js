@@ -1,5 +1,5 @@
 import FormField from './FormField';
-
+//used to create first 6 fields on EmployeeForm
 export default [
     {
         label: 'First Name',

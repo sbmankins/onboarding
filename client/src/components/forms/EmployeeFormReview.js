@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
+import { withRouter } from 'react-router-dom';
+import axios from 'axios';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux';
-import employeeFormFields from './employeeFormFields';
-import _ from 'lodash';
-import * as actions from '../../actions';
-import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
-import { withStyles } from '@material-ui/core/styles';
+import * as actions from '../../actions';
+import employeeFormFields from './employeeFormFields';
 
 const styles = theme => ({
     outerContainer: {

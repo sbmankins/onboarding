@@ -5,10 +5,10 @@ import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import FormField from './FormField';
-import DateField from './DateField';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import FormField from './FormField';
+import DateField from './DateField';
 
 const styles = theme => ({
     outerContainer: {

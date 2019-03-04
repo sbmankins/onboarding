@@ -9,11 +9,11 @@ import Grid from '@material-ui/core/Grid';
 import SearchSelect from './SearchSelect';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
-import validate from './validate';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import MultiLineFormField from './MultiLineFormField';
+import validate from './validate';
 
 const styles = theme => ({
     outerContainer: {

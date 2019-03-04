@@ -1,10 +1,10 @@
 import MaterialTable from 'material-table';
 import React, { Component } from 'react';
-import { fetchEmployees, deleteEmployee } from '../actions';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-//import Grid from '@material-ui/core/Grid';
+import { fetchEmployees, deleteEmployee } from '../actions';
 
+//Dashboard table component
 class DashboardTable extends Component {
     state = {
         employees: {},

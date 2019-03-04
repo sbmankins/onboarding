@@ -176,12 +176,12 @@ class EmployeeList extends Component {
     onEmployeeDelete = async (event, id) => {
         event.preventDefault();
         this.props.deleteEmployee(id);
+        //remove deleted employee from filtered list
         const newFilterList = this.state.filteredEmployees.filter(
             employee => employee._id !== id
         );
-
+        //update state of filtered list after deleting employee
         this.setState({ filteredEmployees: newFilterList });
-        console.log(newFilterList);
     };
 
     handleEditClick = (event, id) => {
@@ -259,6 +259,8 @@ class EmployeeList extends Component {
                 NewColor = Dangertext;
             }
 
+            //Convert start date to formatted string
+
             const startDate = new Date(employee.dateStart).toLocaleDateString(
                 'en-US',
                 {
@@ -266,8 +268,8 @@ class EmployeeList extends Component {
                 }
             );
 
+            //assign start date string to employee object to allow search by date
             employee.startDate = startDate;
-            console.log(employee.startDate);
 
             return (
                 <Grid
@@ -400,6 +402,7 @@ class EmployeeList extends Component {
                 />
             );
         }
+        //Show search bar, checkbox status filters, and employee cards
         return (
             <div>
                 <Paper
