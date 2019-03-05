@@ -36,6 +36,7 @@ const KEYS_TO_FILTERS = [
     '_admin.name',
     '_manager.name',
     '_status.name',
+    '_role.name',
     'startDate',
 ];
 
