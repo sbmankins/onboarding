@@ -40,7 +40,7 @@ const styles = theme => ({
     dashTitle: {
         textAlign: 'center',
         position: 'relative',
-        marginLeft: '100px',
+
         color: '#626f78',
         display: 'inline',
     },
@@ -176,17 +176,33 @@ class Dashboard extends Component {
         return (
             <Paper className={classes.outerContainer} elevation={1}>
                 <Paper className={classes.headerContainer} elevation={1}>
-                    <Typography className={classes.dashTitle} variant="title">
-                        Dashboard
-                    </Typography>
-
-                    <div className={classes.dashButton}>
-                        {this.renderStatsButton()}
-                    </div>
-
-                    <div className={classes.dashButton}>
-                        {this.renderTableButton()}
-                    </div>
+                    <Grid container justify="center">
+                        <Grid item>
+                            <Typography
+                                className={classes.dashTitle}
+                                variant="title"
+                            >
+                                Dashboard
+                            </Typography>
+                        </Grid>
+                        <Grid
+                            container
+                            direction="row"
+                            justify="flex-end"
+                            alignItems="center"
+                        >
+                            <Grid item>
+                                <div className={classes.dashButton}>
+                                    {this.renderTableButton()}
+                                </div>
+                            </Grid>
+                            <Grid item>
+                                <div className={classes.dashButton}>
+                                    {this.renderStatsButton()}
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </Paper>
 
                 <div>{this.renderStats()}</div>
