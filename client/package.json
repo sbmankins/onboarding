@@ -30,6 +30,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
+    "homepage": "https://morning-falls-54154.herokuapp.com/dashboard",
     "eslintConfig": {
         "extends": "react-app"
     },
