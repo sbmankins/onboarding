@@ -15,6 +15,10 @@ const validate = values => {
         errors._hirestatus = 'Required';
     }
 
+    if (!values._team) {
+        errors._team = 'Required';
+    }
+
     if (!values._manager) {
         errors._manager = 'Required';
     }
