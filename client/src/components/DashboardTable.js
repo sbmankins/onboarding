@@ -134,13 +134,18 @@ class DashboardTable extends Component {
                     },
                 ]}
                 data={this.props.employees.map(employee => {
+                    var options = {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                    };
                     return {
                         id: employee._id,
                         lastName: employee.lastName,
                         firstName: employee.firstName,
                         dateStart: new Date(
                             employee.dateStart
-                        ).toLocaleDateString('en-US', {
+                        ).toLocaleDateString('en-US', options, {
                             timeZone: 'UTC',
                         }),
                         manager: employee._manager.name,
