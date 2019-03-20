@@ -311,7 +311,7 @@ class TicketForm extends Component {
                                     type="submit"
                                     onClick={e => this.handleSubmit(e)}
                                 >
-                                    Next
+                                    Finished
                                 </Button>
                             </Grid>
                         </Grid>

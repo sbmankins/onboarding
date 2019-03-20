@@ -99,7 +99,6 @@ class DashboardTable extends Component {
                     {
                         title: 'Status',
                         field: 'status',
-
                         sorting: true,
                     },
                 ]}
