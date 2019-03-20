@@ -13,6 +13,7 @@ const Campus = mongoose.model('campuses');
 const Leader = mongoose.model('leaders');
 const Platform = mongoose.model('platforms');
 const Computer = mongoose.model('computers');
+const Archive = mongoose.model('archives');
 
 module.exports = app => {
     app.get('/api/form1selects', async (req, res) => {
@@ -125,6 +126,7 @@ module.exports = app => {
                 }
             }
         );
+
         const employees = await Employee.find()
             .populate('_admin')
             .populate('_manager')
@@ -231,7 +233,75 @@ module.exports = app => {
     });
 
     app.delete('/api/:id', async (req, res) => {
+        const archive = await Employee.findById(req.params.id).exec();
+        const {
+            firstName,
+            lastName,
+            dateStart,
+            buddy,
+            seat,
+            cwID,
+            comments,
+            _admin,
+            _manager,
+            _status,
+            _team,
+            _role,
+            _vendor,
+            _type,
+            _hirestatus,
+            _region,
+            _campus,
+            _leader,
+            _platform,
+            _computer,
+            neID,
+            newHireReHire,
+            newHireReHireDate,
+            macTicket,
+            macTicketDate,
+            laptopDelivered,
+            buddyMail,
+            welcomeMail,
+            dlPdOrg,
+            dateCreated,
+        } = archive;
+
+        const archiveEmployee = new Archive({
+            firstName,
+            lastName,
+            dateStart,
+            buddy,
+            seat,
+            cwID,
+            comments,
+            _admin,
+            _manager,
+            _status,
+            _team,
+            _role,
+            _vendor,
+            _type,
+            _hirestatus,
+            _region,
+            _campus,
+            _leader,
+            _platform,
+            _computer,
+            neID,
+            newHireReHire,
+            newHireReHireDate,
+            macTicket,
+            macTicketDate,
+            laptopDelivered,
+            buddyMail,
+            welcomeMail,
+            dlPdOrg,
+            dateCreated,
+        });
+
         try {
+            await archiveEmployee.save();
             await Employee.deleteOne({ _id: req.params.id });
             res.status(200).send({ response: 'Employee Deleted' });
         } catch (err) {

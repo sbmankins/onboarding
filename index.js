@@ -17,6 +17,7 @@ require('./models/Campus');
 require('./models/Leader');
 require('./models/Platform');
 require('./models/Computer');
+require('./models/Archive');
 
 //Connect statement for local mongodb
 // mongoose.connect(
