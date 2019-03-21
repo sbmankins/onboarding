@@ -165,7 +165,7 @@ class DashboardTable extends Component {
                         cwID: employee.cwID,
                         neID: employee.neID,
                         status: employee._status.name,
-                        roles: employee._role.name,
+                        role: employee._role.name,
                         comments: employee.comments,
                     };
                 })}
