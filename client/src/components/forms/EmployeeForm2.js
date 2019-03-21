@@ -73,7 +73,6 @@ class EmployeeForm2 extends Component {
         adminOptions: [],
         teamOptions: [],
         roleOptions: [],
-        statusOptions: [],
         managerOptions: [],
         regionOptions: [],
         campusOptions: [],
@@ -82,6 +81,7 @@ class EmployeeForm2 extends Component {
         computerOptions: [],
         typeOptions: [],
         hireStatusOptions: [],
+        vendorOptions: [],
         employeeID: '',
         editing: '',
         ticket: false,
@@ -106,7 +106,6 @@ class EmployeeForm2 extends Component {
         await this.setState({
             adminOptions: result.data.admins,
             managerOptions: result.data.managers,
-            statusOptions: result.data.statuses,
             teamOptions: result.data.teams,
             roleOptions: result.data.roles,
             regionOptions: result.data.regions,
@@ -116,6 +115,7 @@ class EmployeeForm2 extends Component {
             computerOptions: result.data.computers,
             typeOptions: result.data.types,
             hireStatusOptions: result.data.hirestatuses,
+            vendorOptions: result.data.vendors,
         });
     }
 
@@ -147,308 +147,368 @@ class EmployeeForm2 extends Component {
                     >
                         <Paper className={classes.formContainer}>
                             <Grid container>
+                                <Grid container style={{ margin: '20px' }}>
+                                    <Grid item xs={12}>
+                                        <Typography variant="title">
+                                            Basic Information cont'd
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
                                 <div />
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Hire Type
-                                            </Typography>
-                                        </FormLabel>
+                                <Grid container>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Vendor
+                                                </Typography>
+                                            </FormLabel>
 
-                                        <Field
-                                            name="_type"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.typeOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a hire type"
-                                        />
-                                    </FormGroup>
+                                            <Field
+                                                name="_vendor"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.vendorOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a vendor"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Hire Type
+                                                </Typography>
+                                            </FormLabel>
+
+                                            <Field
+                                                name="_type"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.typeOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a hire type"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Hire Status
+                                                </Typography>
+                                            </FormLabel>
+
+                                            <Field
+                                                name="_hirestatus"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.hireStatusOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a hire type"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Hire Status
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_hirestatus"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.hireStatusOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a hire type"
-                                        />
-                                    </FormGroup>
+                                <Grid container style={{ margin: '20px' }}>
+                                    <Grid item xs={12}>
+                                        <Typography variant="title">
+                                            Job Information
+                                        </Typography>
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Computer
-                                            </Typography>
-                                        </FormLabel>
+                                <Grid container>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Role
+                                                </Typography>
+                                            </FormLabel>
 
-                                        <Field
-                                            name="_computer"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.computerOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a computer"
-                                        />
-                                    </FormGroup>
+                                            <Field
+                                                name="_role"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.roleOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a role"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Leader/Contributor
+                                                </Typography>
+                                            </FormLabel>
+
+                                            <Field
+                                                name="_leader"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.leaderOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a role"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Computer
+                                                </Typography>
+                                            </FormLabel>
+
+                                            <Field
+                                                name="_computer"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.computerOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a computer"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                </Grid>
+                                <Grid container style={{ margin: '20px' }}>
+                                    <Grid item xs={12}>
+                                        <Typography variant="title">
+                                            Location Details
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid container>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Region
+                                                </Typography>
+                                            </FormLabel>
+
+                                            <Field
+                                                name="_region"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.regionOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a region"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Campus
+                                                </Typography>
+                                            </FormLabel>
+
+                                            <Field
+                                                name="_campus"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.campusOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a campus"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                </Grid>
+                                <Grid container style={{ margin: '20px' }}>
+                                    <Grid item xs={12}>
+                                        <Typography variant="title">
+                                            Organizational Details
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
+                                <Grid container>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Manager
+                                                </Typography>
+                                            </FormLabel>
+
+                                            <Field
+                                                name="_manager"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.managerOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a person"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Platform
+                                                </Typography>
+                                            </FormLabel>
+
+                                            <Field
+                                                name="_platform"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.platformOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a platform"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Team
+                                                </Typography>
+                                            </FormLabel>
+
+                                            <Field
+                                                name="_team"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.teamOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a team"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
+                                    <Grid item>
+                                        <FormGroup
+                                            className={classes.formMargin}
+                                        >
+                                            <FormLabel>
+                                                <Typography variant="body1">
+                                                    Admin
+                                                </Typography>
+                                            </FormLabel>
+
+                                            <Field
+                                                name="_admin"
+                                                simpleValue={false}
+                                                component={SearchSelect}
+                                                options={this.state.adminOptions.map(
+                                                    ({ name, _id }) => {
+                                                        return {
+                                                            label: name,
+                                                            value: _id,
+                                                        };
+                                                    }
+                                                )}
+                                                clearable={true}
+                                                placeholder="Select a person"
+                                            />
+                                        </FormGroup>
+                                    </Grid>
                                 </Grid>
 
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Role
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_role"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.roleOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a role"
-                                        />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Leader/Contributor
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_leader"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.leaderOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a role"
-                                        />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Platform
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_platform"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.platformOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a platform"
-                                        />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Region
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_region"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.regionOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a region"
-                                        />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Campus
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_campus"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.campusOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a campus"
-                                        />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Admin
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_admin"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.adminOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a person"
-                                        />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Manager
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_manager"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.managerOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a person"
-                                        />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Team
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_team"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.teamOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a team"
-                                        />
-                                    </FormGroup>
-                                </Grid>
-                                <Grid item>
-                                    <FormGroup className={classes.formMargin}>
-                                        <FormLabel>
-                                            <Typography variant="body1">
-                                                Status
-                                            </Typography>
-                                        </FormLabel>
-
-                                        <Field
-                                            name="_status"
-                                            simpleValue={false}
-                                            component={SearchSelect}
-                                            options={this.state.statusOptions.map(
-                                                ({ name, _id }) => {
-                                                    return {
-                                                        label: name,
-                                                        value: _id,
-                                                    };
-                                                }
-                                            )}
-                                            clearable={true}
-                                            placeholder="Select a status"
-                                        />
-                                    </FormGroup>
-                                </Grid>
                                 <Grid item xs={12}>
                                     <Field
                                         component={MultiLineFormField}

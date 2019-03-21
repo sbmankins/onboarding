@@ -67,7 +67,7 @@ const styles = theme => ({
 
 class EmployeeForm extends Component {
     state = {
-        vendorOptions: [],
+        statusOptions: [],
         employeeID: '',
         editing: '',
         ticket: false,
@@ -103,7 +103,7 @@ class EmployeeForm extends Component {
         const result = await axios.get('/api/form1selects');
 
         await this.setState({
-            vendorOptions: result.data.vendors,
+            statusOptions: result.data.statuses,
         });
     }
 
@@ -149,6 +149,13 @@ class EmployeeForm extends Component {
                     >
                         <Paper className={classes.formContainer}>
                             <Grid container spacing={24} justify="flex-start">
+                                <Grid container style={{ margin: '20px' }}>
+                                    <Grid item xs={12}>
+                                        <Typography variant="title">
+                                            Basic Information
+                                        </Typography>
+                                    </Grid>
+                                </Grid>
                                 {this.renderFields()}
                                 <DateField
                                     name={'dateStart'}
@@ -160,15 +167,15 @@ class EmployeeForm extends Component {
                                     <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
-                                                Vendor
+                                                Status
                                             </Typography>
                                         </FormLabel>
 
                                         <Field
-                                            name="_vendor"
+                                            name="_status"
                                             simpleValue={false}
                                             component={SearchSelect}
-                                            options={this.state.vendorOptions.map(
+                                            options={this.state.statusOptions.map(
                                                 ({ name, _id }) => {
                                                     return {
                                                         label: name,
@@ -177,7 +184,7 @@ class EmployeeForm extends Component {
                                                 }
                                             )}
                                             clearable={true}
-                                            placeholder="Select a vendor"
+                                            placeholder="Select a status"
                                         />
                                     </FormGroup>
                                 </Grid>
