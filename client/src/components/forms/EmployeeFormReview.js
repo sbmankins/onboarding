@@ -487,18 +487,7 @@ class EmployeeFormReview extends Component {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid item xs={4}>
-                            <div className={classes.fieldSpacing}>
-                                <Typography style={{ fontWeight: 'bold' }}>
-                                    Status
-                                </Typography>
-                                <div>
-                                    <Typography variant="body1">
-                                        {this.state.statusName}
-                                    </Typography>
-                                </div>
-                            </div>
-                        </Grid>
+
                         <Grid item xs={4}>
                             <div className={classes.fieldSpacing}>
                                 <Typography style={{ fontWeight: 'bold' }}>
@@ -519,6 +508,18 @@ class EmployeeFormReview extends Component {
                                 <div>
                                     <Typography variant="body1">
                                         {this.state.hireStatusName}
+                                    </Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <div className={classes.fieldSpacing}>
+                                <Typography style={{ fontWeight: 'bold' }}>
+                                    Status
+                                </Typography>
+                                <div>
+                                    <Typography variant="body1">
+                                        {this.state.statusName}
                                     </Typography>
                                 </div>
                             </div>
