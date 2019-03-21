@@ -147,7 +147,10 @@ class EmployeeForm2 extends Component {
                     >
                         <Paper className={classes.formContainer}>
                             <Grid container>
-                                <Grid container style={{ margin: '20px' }}>
+                                <Grid
+                                    container
+                                    style={{ margin: '20px 0 20px 10px' }}
+                                >
                                     <Grid item xs={12}>
                                         <Typography variant="title">
                                             Basic Information cont'd
@@ -238,7 +241,10 @@ class EmployeeForm2 extends Component {
                                         </FormGroup>
                                     </Grid>
                                 </Grid>
-                                <Grid container style={{ margin: '20px' }}>
+                                <Grid
+                                    container
+                                    style={{ margin: '20px 0 20px 10px' }}
+                                >
                                     <Grid item xs={12}>
                                         <Typography variant="title">
                                             Job Information
@@ -328,7 +334,10 @@ class EmployeeForm2 extends Component {
                                         </FormGroup>
                                     </Grid>
                                 </Grid>
-                                <Grid container style={{ margin: '20px' }}>
+                                <Grid
+                                    container
+                                    style={{ margin: '20px 0 20px 10px' }}
+                                >
                                     <Grid item xs={12}>
                                         <Typography variant="title">
                                             Location Details
@@ -391,7 +400,10 @@ class EmployeeForm2 extends Component {
                                         </FormGroup>
                                     </Grid>
                                 </Grid>
-                                <Grid container style={{ margin: '20px' }}>
+                                <Grid
+                                    container
+                                    style={{ margin: '20px 0 20px 10px' }}
+                                >
                                     <Grid item xs={12}>
                                         <Typography variant="title">
                                             Organizational Details
