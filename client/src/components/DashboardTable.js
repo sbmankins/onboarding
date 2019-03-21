@@ -80,6 +80,12 @@ class DashboardTable extends Component {
                         defaultSort: 'asc',
                     },
                     {
+                        title: 'Role',
+                        field: 'role',
+                        sorting: true,
+                        hidden: true,
+                    },
+                    {
                         title: 'Manager',
                         field: 'manager',
                         sorting: true,
@@ -100,6 +106,13 @@ class DashboardTable extends Component {
                         title: 'Status',
                         field: 'status',
                         sorting: true,
+                    },
+
+                    {
+                        title: 'Comments',
+                        field: 'comments',
+                        sorting: false,
+                        hidden: true,
                     },
                 ]}
                 actions={[
@@ -152,6 +165,8 @@ class DashboardTable extends Component {
                         cwID: employee.cwID,
                         neID: employee.neID,
                         status: employee._status.name,
+                        roles: employee._role.name,
+                        comments: employee.comments,
                     };
                 })}
                 title="Onboarding"
