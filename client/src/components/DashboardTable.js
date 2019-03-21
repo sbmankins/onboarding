@@ -74,7 +74,7 @@ class DashboardTable extends Component {
                         field: 'firstName',
                     },
                     {
-                        title: 'LastName',
+                        title: 'Last Name',
                         field: 'lastName',
                         sorting: true,
                         defaultSort: 'asc',
@@ -90,7 +90,7 @@ class DashboardTable extends Component {
                         sorting: true,
                     },
                     {
-                        title: 'StartDate',
+                        title: 'Start Date',
                         field: 'dateStart',
                         type: 'date',
                         sorting: true,
