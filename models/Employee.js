@@ -6,7 +6,7 @@ const employeeSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     dateStart: { type: Date, required: true },
-    dateCreated: Date,
+    dateCreated: { type: Date, required: true },
     seat: String,
     comments: String,
     buddy: String,
