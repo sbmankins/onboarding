@@ -133,6 +133,7 @@ module.exports = app => {
             { $set: req.body },
             await web.chat.postMessage({
                 channel: conversationID,
+                username: 'Onboarding Bot',
                 text: `${req.body.firstName} ${
                     req.body.lastName
                 } was edited in the Onboarding App
@@ -248,6 +249,7 @@ module.exports = app => {
             await employee.save();
             await web.chat.postMessage({
                 channel: conversationID,
+                username: 'Onboarding Bot',
                 text: `${firstName} ${lastName} was added to the Onboarding App
                 Start Date: ${start}
                 Manager: ${manager.name}
