@@ -123,6 +123,11 @@ module.exports = app => {
     });
 
     app.put('/api/:id', async (req, res) => {
+        const manager = await Manager.findById(req.body._manager);
+        const admin = await Admin.findById(req.body._admin);
+        const start = new Date(req.body.dateStart).toLocaleDateString('en-US', {
+            timeZone: 'UTC',
+        });
         const employee = await Employee.findOneAndUpdate(
             { _id: req.params.id },
             { $set: req.body },
@@ -130,7 +135,10 @@ module.exports = app => {
                 channel: conversationID,
                 text: `${req.body.firstName} ${
                     req.body.lastName
-                } was edited in the Onboarding App`,
+                } was edited in the Onboarding App
+                Start Date: ${start}
+                Manager: ${manager.name}
+                Admin: ${admin.name}`,
             }),
 
             console.log('Message posted!'),
@@ -232,11 +240,11 @@ module.exports = app => {
 
         const manager = await Manager.findById(employee._manager);
         const admin = await Admin.findById(employee._admin);
+        const start = new Date(dateStart).toLocaleDateString('en-US', {
+            timeZone: 'UTC',
+        });
 
         try {
-            const start = new Date(dateStart).toLocaleDateString('en-US', {
-                timeZone: 'UTC',
-            });
             await employee.save();
             await web.chat.postMessage({
                 channel: conversationID,
