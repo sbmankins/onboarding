@@ -155,7 +155,8 @@ class SearchSelect extends PureComponent<SearchSelectProps> {
                             : value
                     }
                     onChange={option => onChange(option.value)}
-                    onBlur={() => onBlur(value)}
+                    //onBlur={() => onBlur(value)}
+                    onBlur={event => event.preventDefault()}
                     options={options}
                     placeholder={placeholder}
                     components={components}
