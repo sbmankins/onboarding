@@ -70,6 +70,12 @@ class DashboardTable extends Component {
                 style={{ minWidth: 700 }}
                 columns={[
                     {
+                        title: 'Entered',
+                        field: 'dateCreated',
+                        sorting: true,
+                        hidden: true,
+                    },
+                    {
                         title: 'NEID',
                         field: 'neID',
                         sorting: false,
@@ -121,9 +127,30 @@ class DashboardTable extends Component {
                     },
 
                     {
+                        title: 'Vendor',
+                        field: 'vendor',
+                        sorting: false,
+                        hidden: true,
+                    },
+
+                    {
+                        title: 'Type',
+                        field: 'type',
+                        sorting: true,
+                        hidden: true,
+                    },
+
+                    {
+                        title: 'Hire Status',
+                        field: 'hireStatus',
+                        sorting: true,
+                        hidden: true,
+                    },
+
+                    {
                         title: 'Comments',
                         field: 'comments',
-                        sorting: false,
+                        sorting: true,
                         hidden: true,
                     },
                 ]}
@@ -158,12 +185,23 @@ class DashboardTable extends Component {
                     },
                 ]}
                 data={this.props.employees.map(employee => {
-                    var options = {
+                    let vendor;
+                    const options = {
                         day: '2-digit',
                         month: '2-digit',
                         year: 'numeric',
                     };
+                    if (employee._vendor) {
+                        vendor = employee._vendor.name;
+                    } else {
+                        vendor = '';
+                    }
                     return {
+                        dateCreated: new Date(
+                            employee.dateCreated
+                        ).toLocaleDateString('en-US', options, {
+                            timeZone: 'UTC',
+                        }),
                         id: employee._id,
                         lastName: employee.lastName,
                         firstName: employee.firstName,
@@ -179,6 +217,9 @@ class DashboardTable extends Component {
                         status: employee._status.name,
                         role: employee._role.name,
                         comments: employee.comments,
+                        vendor: vendor,
+                        type: employee._type.name,
+                        hireStatus: employee._hirestatus.name,
                     };
                 })}
                 title="Onboarding"
