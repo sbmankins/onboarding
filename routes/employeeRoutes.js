@@ -230,11 +230,20 @@ module.exports = app => {
             dateCreated: Date.now(),
         });
 
+        const manager = await Manager.findById(employee._manager);
+        const admin = await Admin.findById(employee._admin);
+
         try {
+            const start = new Date(dateStart).toLocaleDateString('en-US', {
+                timeZone: 'UTC',
+            });
             await employee.save();
             await web.chat.postMessage({
                 channel: conversationID,
-                text: `${firstName} ${lastName} was added to the Onboarding App`,
+                text: `${firstName} ${lastName} was added to the Onboarding App
+                Start Date: ${start}
+                Manager: ${manager.name}
+                Admin: ${admin.name}`,
             });
 
             console.log('Message posted!');

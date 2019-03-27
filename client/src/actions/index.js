@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {
     ADD_EMPLOYEE,
-    ADD_TICKET,
     FETCH_EMPLOYEES,
     DELETE_EMPLOYEE,
     FETCH_ONE_EMPLOYEE,
@@ -60,14 +59,6 @@ export const submitEmployee = (values, history) => async dispatch => {
     const res = await axios.post('/api/employees', values);
     history.push('/');
     dispatch({ type: ADD_EMPLOYEE, payload: res.data });
-};
-
-export const submitTicket = (values, history, id) => async dispatch => {
-    console.log(id);
-    const value = { values: values, id: id };
-    const res = await axios.post(`/api/tickets/`, value);
-    history.push('/');
-    dispatch({ type: ADD_TICKET, payload: res.data });
 };
 
 export const fetchEmployees = () => async dispatch => {
