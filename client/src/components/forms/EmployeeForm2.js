@@ -79,9 +79,6 @@ class EmployeeForm2 extends Component {
         leaderOptions: [],
         platformOptions: [],
         computerOptions: [],
-        typeOptions: [],
-        hireStatusOptions: [],
-        vendorOptions: [],
         employeeID: '',
         editing: '',
         ticket: false,
@@ -113,9 +110,6 @@ class EmployeeForm2 extends Component {
             leaderOptions: result.data.leaders,
             platformOptions: result.data.platforms,
             computerOptions: result.data.computers,
-            typeOptions: result.data.types,
-            hireStatusOptions: result.data.hirestatuses,
-            vendorOptions: result.data.vendors,
         });
     }
 
@@ -147,97 +141,6 @@ class EmployeeForm2 extends Component {
                     >
                         <Paper className={classes.formContainer}>
                             <Grid container>
-                                <Grid
-                                    container
-                                    style={{ margin: '20px 0 20px 10px' }}
-                                >
-                                    <Grid item xs={12}>
-                                        <Typography variant="title">
-                                            Basic Information cont'd
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                                <div />
-                                <Grid container>
-                                    <Grid item>
-                                        <FormGroup
-                                            className={classes.formMargin}
-                                        >
-                                            <FormLabel>
-                                                <Typography variant="body1">
-                                                    Vendor
-                                                </Typography>
-                                            </FormLabel>
-
-                                            <Field
-                                                name="_vendor"
-                                                component={SearchSelect}
-                                                options={this.state.vendorOptions.map(
-                                                    ({ name, _id }) => {
-                                                        return {
-                                                            label: name,
-                                                            value: _id,
-                                                        };
-                                                    }
-                                                )}
-                                                clearable={true}
-                                                placeholder="Select a vendor"
-                                            />
-                                        </FormGroup>
-                                    </Grid>
-                                    <Grid item>
-                                        <FormGroup
-                                            className={classes.formMargin}
-                                        >
-                                            <FormLabel>
-                                                <Typography variant="body1">
-                                                    Hire Type
-                                                </Typography>
-                                            </FormLabel>
-
-                                            <Field
-                                                name="_type"
-                                                component={SearchSelect}
-                                                options={this.state.typeOptions.map(
-                                                    ({ name, _id }) => {
-                                                        return {
-                                                            label: name,
-                                                            value: _id,
-                                                        };
-                                                    }
-                                                )}
-                                                clearable={true}
-                                                placeholder="Select a hire type"
-                                            />
-                                        </FormGroup>
-                                    </Grid>
-                                    <Grid item>
-                                        <FormGroup
-                                            className={classes.formMargin}
-                                        >
-                                            <FormLabel>
-                                                <Typography variant="body1">
-                                                    Hire Status
-                                                </Typography>
-                                            </FormLabel>
-
-                                            <Field
-                                                name="_hirestatus"
-                                                component={SearchSelect}
-                                                options={this.state.hireStatusOptions.map(
-                                                    ({ name, _id }) => {
-                                                        return {
-                                                            label: name,
-                                                            value: _id,
-                                                        };
-                                                    }
-                                                )}
-                                                clearable={true}
-                                                placeholder="Select a hire type"
-                                            />
-                                        </FormGroup>
-                                    </Grid>
-                                </Grid>
                                 <Grid
                                     container
                                     style={{ margin: '20px 0 20px 10px' }}

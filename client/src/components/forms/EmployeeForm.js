@@ -68,6 +68,9 @@ const styles = theme => ({
 class EmployeeForm extends Component {
     state = {
         statusOptions: [],
+        typeOptions: [],
+        hireStatusOptions: [],
+        vendorOptions: [],
         employeeID: '',
         editing: '',
         ticket: false,
@@ -104,6 +107,9 @@ class EmployeeForm extends Component {
 
         await this.setState({
             statusOptions: result.data.statuses,
+            typeOptions: result.data.types,
+            hireStatusOptions: result.data.hirestatuses,
+            vendorOptions: result.data.vendors,
         });
     }
 
@@ -166,7 +172,81 @@ class EmployeeForm extends Component {
                                     label={'Start Date'}
                                     required={true}
                                 />
-                                <Grid item>
+
+                                <Grid item xs={6}>
+                                    <FormGroup className={classes.formMargin}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Vendor
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_vendor"
+                                            component={SearchSelect}
+                                            options={this.state.vendorOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a vendor"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormGroup className={classes.formMargin}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Hire Type
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_type"
+                                            component={SearchSelect}
+                                            options={this.state.typeOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a hire type"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <FormGroup className={classes.formMargin}>
+                                        <FormLabel>
+                                            <Typography variant="body1">
+                                                Hire Status
+                                            </Typography>
+                                        </FormLabel>
+
+                                        <Field
+                                            name="_hirestatus"
+                                            component={SearchSelect}
+                                            options={this.state.hireStatusOptions.map(
+                                                ({ name, _id }) => {
+                                                    return {
+                                                        label: name,
+                                                        value: _id,
+                                                    };
+                                                }
+                                            )}
+                                            clearable={true}
+                                            placeholder="Select a hire type"
+                                        />
+                                    </FormGroup>
+                                </Grid>
+
+                                <Grid item xs={6}>
                                     <FormGroup className={classes.formMargin}>
                                         <FormLabel>
                                             <Typography variant="body1">
