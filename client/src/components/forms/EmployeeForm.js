@@ -176,7 +176,6 @@ class EmployeeForm extends Component {
 
                                         <Field
                                             name="_status"
-                                            simpleValue={false}
                                             component={SearchSelect}
                                             options={this.state.statusOptions.map(
                                                 ({ name, _id }) => {

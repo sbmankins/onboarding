@@ -171,7 +171,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_vendor"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.vendorOptions.map(
                                                     ({ name, _id }) => {
@@ -198,7 +197,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_type"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.typeOptions.map(
                                                     ({ name, _id }) => {
@@ -225,7 +223,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_hirestatus"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.hireStatusOptions.map(
                                                     ({ name, _id }) => {
@@ -264,7 +261,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_role"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.roleOptions.map(
                                                     ({ name, _id }) => {
@@ -291,7 +287,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_leader"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.leaderOptions.map(
                                                     ({ name, _id }) => {
@@ -318,7 +313,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_computer"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.computerOptions.map(
                                                     ({ name, _id }) => {
@@ -357,7 +351,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_region"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.regionOptions.map(
                                                     ({ name, _id }) => {
@@ -384,7 +377,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_campus"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.campusOptions.map(
                                                     ({ name, _id }) => {
@@ -423,7 +415,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_manager"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.managerOptions.map(
                                                     ({ name, _id }) => {
@@ -450,7 +441,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_platform"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.platformOptions.map(
                                                     ({ name, _id }) => {
@@ -477,7 +467,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_team"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.teamOptions.map(
                                                     ({ name, _id }) => {
@@ -504,7 +493,6 @@ class EmployeeForm2 extends Component {
 
                                             <Field
                                                 name="_admin"
-                                                simpleValue={false}
                                                 component={SearchSelect}
                                                 options={this.state.adminOptions.map(
                                                     ({ name, _id }) => {
