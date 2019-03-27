@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const keys = require('../config/keys');
 const Admin = mongoose.model('admins');
 const Employee = mongoose.model('employees');
 const Manager = mongoose.model('managers');
@@ -14,6 +15,11 @@ const Leader = mongoose.model('leaders');
 const Platform = mongoose.model('platforms');
 const Computer = mongoose.model('computers');
 const Archive = mongoose.model('archives');
+const { WebClient } = require('@slack/client');
+
+const token = keys.slackAPI;
+const conversationID = keys.conversationID;
+const web = new WebClient(token);
 
 module.exports = app => {
     app.get('/api/form1selects', async (req, res) => {
@@ -120,6 +126,14 @@ module.exports = app => {
         const employee = await Employee.findOneAndUpdate(
             { _id: req.params.id },
             { $set: req.body },
+            await web.chat.postMessage({
+                channel: conversationID,
+                text: `${req.body.firstName} ${
+                    req.body.lastName
+                } was edited in the Onboarding App`,
+            }),
+
+            console.log('Message posted!'),
             function(err, response) {
                 if (err) {
                     console.log(err);
@@ -218,6 +232,12 @@ module.exports = app => {
 
         try {
             await employee.save();
+            await web.chat.postMessage({
+                channel: conversationID,
+                text: `${firstName} ${lastName} was added to the Onboarding App`,
+            });
+
+            console.log('Message posted!');
 
             res.status(201).send({ response: 'Employee created' });
         } catch (err) {

@@ -65,6 +65,7 @@ const employeeSchema = new Schema({
         required: true,
     },
     _vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'vendors' },
+
     _type: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'types',
