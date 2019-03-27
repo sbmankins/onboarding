@@ -70,6 +70,18 @@ class DashboardTable extends Component {
                 style={{ minWidth: 700 }}
                 columns={[
                     {
+                        title: 'NEID',
+                        field: 'neID',
+                        sorting: false,
+                        hidden: true,
+                    },
+                    {
+                        title: 'CWID',
+                        field: 'cwID',
+                        sorting: false,
+                        hidden: true,
+                    },
+                    {
                         title: 'First Name',
                         field: 'firstName',
                     },
