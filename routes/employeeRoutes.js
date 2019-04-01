@@ -75,6 +75,7 @@ module.exports = app => {
             .populate('_vendor')
             .populate('_type')
             .populate('_region')
+            .populate('_team')
             .populate('_hirestatus')
             .populate('_campus')
             .populate('_leader')
