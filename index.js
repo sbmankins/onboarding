@@ -55,7 +55,7 @@ const web = new WebClient(token);
 //Creates rerurrence reule for node-schedule
 const rule = new schedule.RecurrenceRule();
 rule.hour = 13;
-rule.minute = 47;
+rule.minute = 55;
 
 const Employee = mongoose.model('employees');
 // Used to determine what daily messages to post to slack based on employee start date - used for scheduled messages
