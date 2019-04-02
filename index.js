@@ -47,6 +47,7 @@ app.get('/', (req, res) => {
 
 require('./routes/employeeRoutes')(app);
 
+// USED FOR AUTOMATIC SLACK NOTIFICATIONS//
 //Used by slack web client
 const token = keys.slackAPI;
 const conversationID = keys.conversationID;
@@ -54,8 +55,8 @@ const web = new WebClient(token);
 
 //Creates rerurrence reule for node-schedule
 const rule = new schedule.RecurrenceRule();
-rule.hour = 13;
-rule.minute = 55;
+rule.hour = 4;
+rule.minute = 5;
 
 const Employee = mongoose.model('employees');
 // Used to determine what daily messages to post to slack based on employee start date - used for scheduled messages
@@ -112,6 +113,8 @@ const job = async function fetchEmployees() {
 
 //Runs fetchEmployees at the time specified in the rule
 schedule.scheduleJob(rule, job);
+
+//////////////////////////////////////////////////////////////////
 
 if (process.env.NODE_ENV === 'production') {
     //Express will serve main.js, main.css, etc
