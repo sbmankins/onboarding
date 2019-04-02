@@ -6,13 +6,6 @@ const daysBetween = require('./daysBetween');
 const { WebClient } = require('@slack/client');
 const schedule = require('node-schedule');
 
-const token = keys.slackAPI;
-const conversationID = keys.conversationID;
-const web = new WebClient(token);
-
-var rule = new schedule.RecurrenceRule();
-rule.hour = 5;
-
 require('./models/Employee');
 require('./models/Admin');
 require('./models/Manager');
@@ -54,8 +47,14 @@ app.get('/', (req, res) => {
 
 require('./routes/employeeRoutes')(app);
 
-const Employee = mongoose.model('employees');
+const token = keys.slackAPI;
+const conversationID = keys.conversationID;
+const web = new WebClient(token);
 
+const rule = new schedule.RecurrenceRule();
+rule.hour = 4;
+rule.minute = 10;
+const Employee = mongoose.model('employees');
 // Used to determine what daily messages to post to slack based on employee start date - used for scheduled messages
 const job = async function fetchEmployees() {
     const empl = await Employee.find()
@@ -90,17 +89,38 @@ const job = async function fetchEmployees() {
         let dayString;
         let days = daysBetween.daysBetween(start);
         if (days <= 7) {
-            days <= 0 ? (days = 0) : (days = days);
-            days === 1 ? (dayString = 'day') : (dayString = 'days');
-            web.chat.postMessage({
-                channel: conversationID,
-                username: 'Onboarding Bot',
-                text: `${employee.firstName} ${
-                    employee.lastName
-                } starts in ${days} ${dayString} and is not marked complete.
+            if (days === 0) {
+                web.chat.postMessage({
+                    channel: conversationID,
+                    username: 'Onboarding Bot',
+                    text: `${employee.firstName} ${
+                        employee.lastName
+                    } starts today and is not marked complete.
+                Manager: ${employee._manager.name}
+                Admin: ${employee._admin.name}`,
+                });
+            } else if (days < 0) {
+                web.chat.postMessage({
+                    channel: conversationID,
+                    username: 'Onboarding Bot',
+                    text: `${employee.firstName} ${
+                        employee.lastName
+                    } is past due and is not marked complete.
               Manager: ${employee._manager.name}
               Admin: ${employee._admin.name}`,
-            });
+                });
+            } else if (days > 0 && days <= 7) {
+                days === 1 ? (dayString = 'day') : (dayString = 'days');
+                web.chat.postMessage({
+                    channel: conversationID,
+                    username: 'Onboarding Bot',
+                    text: `${employee.firstName} ${
+                        employee.lastName
+                    } starts in ${days} ${dayString} and is not marked complete.
+                Manager: ${employee._manager.name}
+                Admin: ${employee._admin.name}`,
+                });
+            }
         }
     });
     console.log('daily task ran');
