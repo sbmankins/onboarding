@@ -57,6 +57,7 @@ const web = new WebClient(token);
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [new schedule.Range(1, 5)];
 rule.hour = 8;
+rule.minute = 10;
 
 const Employee = mongoose.model('employees');
 // Used to determine what daily messages to post to slack based on employee start date - used for scheduled messages
