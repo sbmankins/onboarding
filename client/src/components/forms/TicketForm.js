@@ -125,6 +125,7 @@ class TicketForm extends Component {
     // Show selected form
     renderTicketContent() {
         const { classes } = this.props;
+
         if (
             this.state.newHireReHire === true &&
             this.state.macTicket === false &&

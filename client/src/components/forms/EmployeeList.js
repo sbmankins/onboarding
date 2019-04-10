@@ -72,6 +72,15 @@ const styles = theme => ({
         },
     },
 
+    ticketButtonDisabled: {
+        padding: '3px',
+        borderRadius: '20px',
+        backgroundColor: '#FF9E7C',
+        '&:hover': {
+            backgroundColor: '#FFB795',
+        },
+    },
+
     cardDivider: {
         margin: '5px 0 5px 0',
     },
@@ -233,7 +242,35 @@ class EmployeeList extends Component {
                     </Button>
                 </Tooltip>
             );
-        } else return <div />;
+        } else {
+            let alertMessage = '';
+            if (!cwID && neID) {
+                alertMessage = 'Employee does not have a CWID';
+            } else if (!neID && cwID) {
+                alertMessage = 'Employee does not have an EID/NEID';
+            } else if (!neID && !cwID) {
+                alertMessage = 'Employee does not have an EID/NEID or CWID';
+            }
+
+            return (
+                <Tooltip title="Tickets" aria-label="Tickets">
+                    <Button
+                        variant="contained"
+                        editing="true"
+                        className={`${classes.button} ${
+                            classes.ticketButtonDisabled
+                        }`}
+                        onClick={(e, key) => window.alert(alertMessage)}
+                    >
+                        <LocalActivityIcon
+                            className={`${classes.iconRight} ${
+                                classes.editIcon
+                            }`}
+                        />
+                    </Button>
+                </Tooltip>
+            );
+        }
     }
     //Create individual employee cards
     renderEmployees() {
