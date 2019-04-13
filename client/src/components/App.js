@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import 'typeface-roboto';
+
 import NavBar from './NavBar';
 import Dashboard from './Dashboard';
 import EmployeeNew from './forms/EmployeeNew';

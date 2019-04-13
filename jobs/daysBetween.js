@@ -1,5 +1,5 @@
 module.exports = {
-    daysBetween: function(start) {
+    days: function(start) {
         //Calculates the numbers of days between two dates
         const oneDay = 24 * 60 * 60 * 1000;
         start = new Date(start).toLocaleDateString('en-US', {

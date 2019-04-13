@@ -2,6 +2,7 @@ import MaterialTable from 'material-table';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+
 import { fetchEmployees, deleteEmployee } from '../actions';
 
 //Dashboard table component

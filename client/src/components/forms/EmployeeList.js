@@ -18,6 +18,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
+
 import {
     fetchEmployees,
     deleteEmployee,

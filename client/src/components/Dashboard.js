@@ -13,6 +13,7 @@ import InsertChartIcon from '@material-ui/icons/InsertChart';
 import ClearIcon from '@material-ui/icons/Clear';
 import TableChartIcon from '@material-ui/icons/TableChart';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+
 import EmployeeList from './forms/EmployeeList';
 import DashboardTable from './DashboardTable';
 import StatsBar from './StatsBar';

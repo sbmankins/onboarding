@@ -2,9 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
-const daysBetween = require('./daysBetween');
-const { WebClient } = require('@slack/client');
 const schedule = require('node-schedule');
+const slackJob = require('./jobs/slackJob');
 
 require('./models/Employee');
 require('./models/Admin');
@@ -29,6 +28,7 @@ require('./models/Archive');
 //     () => console.log('Mongodb connected on port 27017')
 // );
 //Connect statement for MLab mongodb
+
 mongoose.connect(
     keys.mongoURI,
     {
@@ -47,74 +47,16 @@ app.get('/', (req, res) => {
 
 require('./routes/employeeRoutes')(app);
 
-// USED FOR AUTOMATIC SLACK NOTIFICATIONS//
-//Used by slack web client
-const token = keys.slackAPI;
-const conversationID = keys.conversationID;
-const web = new WebClient(token);
-
-//Creates rerurrence reule for node-schedule
+//Creates rerurrence rule for node-schedule
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [new schedule.Range(1, 5)];
 rule.hour = 6;
 rule.minute = 6;
 
-const Employee = mongoose.model('employees');
-// Used to determine what daily messages to post to slack based on employee start date - used for scheduled messages
-const job = async function fetchEmployees() {
-    const empl = await Employee.find()
-        .populate('_admin')
-        .populate('_manager')
-        .populate('_status')
-        .sort({
-            dateStart: 'ascending',
-        })
-        .exec();
+const job = slackJob.job;
 
-    const result = await empl.filter(
-        employee => employee._status.name !== 'Complete'
-    );
-    await result.forEach(employee => {
-        let start = new Date();
-        start = employee.dateStart;
-        let dayString;
-        let days = daysBetween.daysBetween(start);
-        let message;
-        if (days <= 7) {
-            if (days < 0) {
-                message = `${employee.firstName} ${
-                    employee.lastName
-                } is past due and is not marked complete.
-              Manager: ${employee._manager.name}
-              Admin: ${employee._admin.name}`;
-            } else if (days === 0) {
-                message = `${employee.firstName} ${
-                    employee.lastName
-                } starts today and is not marked complete.
-                Manager: ${employee._manager.name}
-                Admin: ${employee._admin.name}`;
-            } else if (days > 0 && days <= 7) {
-                days === 1 ? (dayString = 'day') : (dayString = 'days');
-                message = `${employee.firstName} ${
-                    employee.lastName
-                } starts in ${days} ${dayString} and is not marked complete.
-                Manager: ${employee._manager.name}
-                Admin: ${employee._admin.name}`;
-            }
-            web.chat.postMessage({
-                channel: conversationID,
-                username: 'Onboarding Bot',
-                text: message,
-            });
-        }
-    });
-    console.log('daily task ran');
-};
-
-//Runs fetchEmployees at the time specified in the rule
+//Runs slackJob at the time specified in the rule
 schedule.scheduleJob(rule, job);
-
-//////////////////////////////////////////////////////////////////
 
 if (process.env.NODE_ENV === 'production') {
     //Express will serve main.js, main.css, etc
