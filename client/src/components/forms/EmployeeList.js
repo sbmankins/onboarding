@@ -76,9 +76,9 @@ const styles = theme => ({
     ticketButtonDisabled: {
         padding: '3px',
         borderRadius: '20px',
-        backgroundColor: '#FF9E7C',
+        backgroundColor: '#bd512f',
         '&:hover': {
-            backgroundColor: '#FFB795',
+            backgroundColor: '#bd512f',
         },
     },
 
@@ -254,7 +254,10 @@ class EmployeeList extends Component {
             }
 
             return (
-                <Tooltip title="Tickets" aria-label="Tickets">
+                <Tooltip
+                    title="Tickets disabled due to missing information"
+                    aria-label="Tickets disabled due to missing information"
+                >
                     <Button
                         variant="contained"
                         editing="true"

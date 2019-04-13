@@ -40,20 +40,18 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.get('/', (req, res) => {
     res.send('Welcome to oboarding app');
 });
 
 require('./routes/employeeRoutes')(app);
 
+const job = slackJob.job;
 //Creates rerurrence rule for node-schedule
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [new schedule.Range(1, 5)];
 rule.hour = 6;
 rule.minute = 6;
-
-const job = slackJob.job;
 
 //Runs slackJob at the time specified in the rule
 schedule.scheduleJob(rule, job);
