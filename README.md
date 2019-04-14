@@ -2,7 +2,7 @@
 
 <h2>Starting App</h2>
 To start in Dev</br>
-In the top project directory, run:</br>
+In root directory, run:</br>
 $ npm install</br>
 $ npm run dev</br>
 
