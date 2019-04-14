@@ -1,4 +1,4 @@
-# onboarding
+# Onboarding
 
 <h2>Starting App</h2>
 To start in Dev</br>
@@ -11,6 +11,6 @@ $ npm run dev</br>
 <li>Development and Production keys are in server/config</li>
 <li>Add desired strings and environment variables to dev.js & prod.js</li>
 <li>Populate collections with required data for drop downs</li>
-<li>Statuses must be: “Complete, Roadblock, On hold, In progress”</li>
+<li>Statuses collection must contain: “Complete, Roadblock, On hold, In progress”</li>
 <li>Replace Amber link in server/client/components/NavBar.js</li>
 </ul>
