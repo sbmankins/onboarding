@@ -20,6 +20,6 @@ module.exports = { </br>
 </li>
 <li>Add desired strings and environment variables to dev.js & prod.js</li>
 <li>Populate collections with required data for drop downs</li>
-<li>Statuses collection must contain: “Complete, Roadblock, On hold, In progress” or further customization will be required in the components.  These status are used for logic in multiple places</li>
+<li>Statuses collection must contain: “Complete, Roadblock, On hold, In progress” or further customization will be required in the components.  These statuses are used for logic in multiple places.</li>
 <li>Replace Amber link in server/client/components/NavBar.js</li>
 </ul>
