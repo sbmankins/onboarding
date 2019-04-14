@@ -136,25 +136,29 @@ class EmployeeList extends Component {
     };
 
     async componentDidMount() {
-        this.setState({ employees: await this.props.fetchEmployees() });
+        try {
+            this.setState({ employees: await this.props.fetchEmployees() });
 
-        this.setState({ editing: false });
+            this.setState({ editing: false });
 
-        await this.setState({
-            showProgress: this.props.filterState.showProgress,
-            showComplete: this.props.filterState.showComplete,
-            showRoadblock: this.props.filterState.showRoadblock,
-            showHold: this.props.filterState.showHold,
-        });
+            await this.setState({
+                showProgress: this.props.filterState.showProgress,
+                showComplete: this.props.filterState.showComplete,
+                showRoadblock: this.props.filterState.showRoadblock,
+                showHold: this.props.filterState.showHold,
+            });
 
-        const filteredEmployees = filterList(
-            this.props.filterState.showProgress,
-            this.props.filterState.showComplete,
-            this.props.filterState.showHold,
-            this.props.filterState.showRoadblock,
-            this.props.employees
-        );
-        await this.setState({ filteredEmployees: filteredEmployees });
+            const filteredEmployees = filterList(
+                this.props.filterState.showProgress,
+                this.props.filterState.showComplete,
+                this.props.filterState.showHold,
+                this.props.filterState.showRoadblock,
+                this.props.employees
+            );
+            await this.setState({ filteredEmployees: filteredEmployees });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     handleChange = name => event => {
@@ -185,14 +189,18 @@ class EmployeeList extends Component {
     };
 
     onEmployeeDelete = async (event, id) => {
-        event.preventDefault();
-        this.props.deleteEmployee(id);
-        //remove deleted employee from filtered list
-        const newFilterList = this.state.filteredEmployees.filter(
-            employee => employee._id !== id
-        );
-        //update state of filtered list after deleting employee
-        this.setState({ filteredEmployees: newFilterList });
+        try {
+            event.preventDefault();
+            this.props.deleteEmployee(id);
+            //remove deleted employee from filtered list
+            const newFilterList = this.state.filteredEmployees.filter(
+                employee => employee._id !== id
+            );
+            //update state of filtered list after deleting employee
+            this.setState({ filteredEmployees: newFilterList });
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     handleEditClick = (event, id) => {

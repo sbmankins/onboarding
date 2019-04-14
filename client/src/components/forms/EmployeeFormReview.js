@@ -92,102 +92,106 @@ class EmployeeFormReview extends Component {
     }
 
     async populateOptions() {
-        const result = await axios.get('/api/form1selects');
-        await this.setState(
-            //map ids to options
-            {
-                adminOptions: result.data.admins,
-                managerOptions: result.data.managers,
-                statusOptions: result.data.statuses,
-                teamOptions: result.data.teams,
-                roleOptions: result.data.roles,
-                vendorOptions: result.data.vendors,
-                typeOptions: result.data.types,
-                hireStatusOptions: result.data.hirestatuses,
-                regionOptions: result.data.regions,
-                campusOptions: result.data.campuses,
-                leaderOptions: result.data.leaders,
-                platformOptions: result.data.platforms,
-                computerOptions: result.data.computers,
-            },
-            () => {
-                const adminName = this.state.adminOptions.find(
-                    o => o._id === this.props.formValues._admin
-                ).name;
-                this.setState({ adminName: adminName });
-
-                const teamName = this.state.teamOptions.find(
-                    o => o._id === this.props.formValues._team
-                ).name;
-                this.setState({ teamName: teamName });
-
-                const managerName = this.state.managerOptions.find(
-                    o => o._id === this.props.formValues._manager
-                ).name;
-                this.setState({ managerName: managerName });
-
-                const statusName = this.state.statusOptions.find(
-                    o => o._id === this.props.formValues._status
-                ).name;
-                this.setState({ statusName: statusName });
-
-                const roleName = this.state.roleOptions.find(
-                    o => o._id === this.props.formValues._role
-                ).name;
-                this.setState({ roleName: roleName });
-
-                const typeName = this.state.typeOptions.find(
-                    o => o._id === this.props.formValues._type
-                ).name;
-                this.setState({ typeName: typeName });
-
-                const hireStatusName = this.state.hireStatusOptions.find(
-                    o => o._id === this.props.formValues._hirestatus
-                ).name;
-                this.setState({ hireStatusName: hireStatusName });
-
-                const regionName = this.state.regionOptions.find(
-                    o => o._id === this.props.formValues._region
-                ).name;
-                this.setState({ regionName: regionName });
-
-                const platformName = this.state.platformOptions.find(
-                    o => o._id === this.props.formValues._platform
-                ).name;
-                this.setState({ platformName: platformName });
-
-                const computerName = this.state.computerOptions.find(
-                    o => o._id === this.props.formValues._computer
-                ).name;
-                this.setState({ computerName: computerName });
-
-                if (this.props.formValues._vendor !== undefined) {
-                    const vendorName = this.state.vendorOptions.find(
-                        o => o._id === this.props.formValues._vendor
+        try {
+            const result = await axios.get('/api/form1selects');
+            await this.setState(
+                //map ids to options
+                {
+                    adminOptions: result.data.admins,
+                    managerOptions: result.data.managers,
+                    statusOptions: result.data.statuses,
+                    teamOptions: result.data.teams,
+                    roleOptions: result.data.roles,
+                    vendorOptions: result.data.vendors,
+                    typeOptions: result.data.types,
+                    hireStatusOptions: result.data.hirestatuses,
+                    regionOptions: result.data.regions,
+                    campusOptions: result.data.campuses,
+                    leaderOptions: result.data.leaders,
+                    platformOptions: result.data.platforms,
+                    computerOptions: result.data.computers,
+                },
+                () => {
+                    const adminName = this.state.adminOptions.find(
+                        o => o._id === this.props.formValues._admin
                     ).name;
-                    this.setState({ vendorName: vendorName });
-                } else {
-                    this.setState({ vendorName: '' });
-                }
-                if (this.props.formValues._leader !== undefined) {
-                    const leaderName = this.state.leaderOptions.find(
-                        o => o._id === this.props.formValues._leader
-                    ).name;
-                    this.setState({ leaderName: leaderName });
-                } else {
-                    this.setState({ leaderName: '' });
-                }
+                    this.setState({ adminName: adminName });
 
-                if (this.props.formValues._campus !== undefined) {
-                    const campusName = this.state.campusOptions.find(
-                        o => o._id === this.props.formValues._campus
+                    const teamName = this.state.teamOptions.find(
+                        o => o._id === this.props.formValues._team
                     ).name;
-                    this.setState({ campusName: campusName });
-                } else {
-                    this.setState({ campusName: '' });
+                    this.setState({ teamName: teamName });
+
+                    const managerName = this.state.managerOptions.find(
+                        o => o._id === this.props.formValues._manager
+                    ).name;
+                    this.setState({ managerName: managerName });
+
+                    const statusName = this.state.statusOptions.find(
+                        o => o._id === this.props.formValues._status
+                    ).name;
+                    this.setState({ statusName: statusName });
+
+                    const roleName = this.state.roleOptions.find(
+                        o => o._id === this.props.formValues._role
+                    ).name;
+                    this.setState({ roleName: roleName });
+
+                    const typeName = this.state.typeOptions.find(
+                        o => o._id === this.props.formValues._type
+                    ).name;
+                    this.setState({ typeName: typeName });
+
+                    const hireStatusName = this.state.hireStatusOptions.find(
+                        o => o._id === this.props.formValues._hirestatus
+                    ).name;
+                    this.setState({ hireStatusName: hireStatusName });
+
+                    const regionName = this.state.regionOptions.find(
+                        o => o._id === this.props.formValues._region
+                    ).name;
+                    this.setState({ regionName: regionName });
+
+                    const platformName = this.state.platformOptions.find(
+                        o => o._id === this.props.formValues._platform
+                    ).name;
+                    this.setState({ platformName: platformName });
+
+                    const computerName = this.state.computerOptions.find(
+                        o => o._id === this.props.formValues._computer
+                    ).name;
+                    this.setState({ computerName: computerName });
+
+                    if (this.props.formValues._vendor !== undefined) {
+                        const vendorName = this.state.vendorOptions.find(
+                            o => o._id === this.props.formValues._vendor
+                        ).name;
+                        this.setState({ vendorName: vendorName });
+                    } else {
+                        this.setState({ vendorName: '' });
+                    }
+                    if (this.props.formValues._leader !== undefined) {
+                        const leaderName = this.state.leaderOptions.find(
+                            o => o._id === this.props.formValues._leader
+                        ).name;
+                        this.setState({ leaderName: leaderName });
+                    } else {
+                        this.setState({ leaderName: '' });
+                    }
+
+                    if (this.props.formValues._campus !== undefined) {
+                        const campusName = this.state.campusOptions.find(
+                            o => o._id === this.props.formValues._campus
+                        ).name;
+                        this.setState({ campusName: campusName });
+                    } else {
+                        this.setState({ campusName: '' });
+                    }
                 }
-            }
-        );
+            );
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     renderButton() {

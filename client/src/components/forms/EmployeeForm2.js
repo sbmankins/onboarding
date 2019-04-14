@@ -100,18 +100,22 @@ class EmployeeForm2 extends Component {
     }
 
     async populateDropdown() {
-        const result = await axios.get('/api/form1selects');
-        await this.setState({
-            adminOptions: result.data.admins,
-            managerOptions: result.data.managers,
-            teamOptions: result.data.teams,
-            roleOptions: result.data.roles,
-            regionOptions: result.data.regions,
-            campusOptions: result.data.campuses,
-            leaderOptions: result.data.leaders,
-            platformOptions: result.data.platforms,
-            computerOptions: result.data.computers,
-        });
+        try {
+            const result = await axios.get('/api/form1selects');
+            await this.setState({
+                adminOptions: result.data.admins,
+                managerOptions: result.data.managers,
+                teamOptions: result.data.teams,
+                roleOptions: result.data.roles,
+                regionOptions: result.data.regions,
+                campusOptions: result.data.campuses,
+                leaderOptions: result.data.leaders,
+                platformOptions: result.data.platforms,
+                computerOptions: result.data.computers,
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     handleSubmit(event) {

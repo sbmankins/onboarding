@@ -104,14 +104,17 @@ class EmployeeForm extends Component {
     }
 
     async populateDropdown() {
-        const result = await axios.get('/api/form1selects');
-
-        await this.setState({
-            statusOptions: result.data.statuses,
-            typeOptions: result.data.types,
-            hireStatusOptions: result.data.hirestatuses,
-            vendorOptions: result.data.vendors,
-        });
+        try {
+            const result = await axios.get('/api/form1selects');
+            await this.setState({
+                statusOptions: result.data.statuses,
+                typeOptions: result.data.types,
+                hireStatusOptions: result.data.hirestatuses,
+                vendorOptions: result.data.vendors,
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     handleSubmit(event) {
