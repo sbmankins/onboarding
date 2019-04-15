@@ -86,15 +86,23 @@ class Dashboard extends Component {
     }
 
     async handleStatsClick(event, status) {
-        await this.props.getStatsState(status);
-        await this.setState({
-            showStatsBar: this.props.dashState.showStatsBar,
-        });
+        try {
+            await this.props.getStatsState(status);
+            await this.setState({
+                showStatsBar: this.props.dashState.showStatsBar,
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     async handleTableClick(event, status) {
-        await this.props.getTableState(status);
-        await this.setState({ showTable: this.props.dashState.showTable });
+        try {
+            await this.props.getTableState(status);
+            await this.setState({ showTable: this.props.dashState.showTable });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     renderTableButton() {
