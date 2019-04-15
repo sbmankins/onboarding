@@ -39,7 +39,7 @@ const styles = theme => ({
         flexGrow: 1,
     },
 });
-
+//Navbar component
 const NavBar = props => {
     const { classes } = props;
 
