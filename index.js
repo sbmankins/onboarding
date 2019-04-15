@@ -53,7 +53,7 @@ const job = slackJob.job;
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [new schedule.Range(1, 5)];
 rule.hour = 6;
-rule.minute = 6;
+rule.minute = 10;
 
 //Runs slackJob at the time specified in the rule
 schedule.scheduleJob(rule, job);

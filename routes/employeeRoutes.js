@@ -124,54 +124,61 @@ module.exports = app => {
     });
 
     app.put('/api/:id', async (req, res) => {
-        const manager = await Manager.findById(req.body._manager);
-        const admin = await Admin.findById(req.body._admin);
-        const start = new Date(req.body.dateStart).toLocaleDateString('en-US', {
-            timeZone: 'UTC',
-        });
-        const employee = await Employee.findOneAndUpdate(
-            { _id: req.params.id },
-            { $set: req.body },
-            await web.chat.postMessage({
-                channel: conversationID,
-                username: 'Onboarding Bot',
-                text: `${req.body.firstName} ${
-                    req.body.lastName
-                } was edited in the Onboarding App
+        try {
+            const manager = await Manager.findById(req.body._manager);
+            const admin = await Admin.findById(req.body._admin);
+            const start = new Date(req.body.dateStart).toLocaleDateString(
+                'en-US',
+                {
+                    timeZone: 'UTC',
+                }
+            );
+            const employee = await Employee.findOneAndUpdate(
+                { _id: req.params.id },
+                { $set: req.body },
+                await web.chat.postMessage({
+                    channel: conversationID,
+                    username: 'Onboarding Bot',
+                    text: `${req.body.firstName} ${
+                        req.body.lastName
+                    } was edited in the Onboarding App
                 Start Date: ${start}
                 Manager: ${manager.name}
                 Admin: ${admin.name}`,
-            }),
+                }),
 
-            console.log('Message posted!'),
-            function(err, response) {
-                if (err) {
-                    console.log(err);
+                console.log('Message posted!'),
+                function(err, response) {
+                    if (err) {
+                        console.log(err);
+                    }
                 }
-            }
-        );
+            );
 
-        const employees = await Employee.find()
-            .populate('_admin')
-            .populate('_manager')
-            .populate('_status')
-            .populate('_team')
-            .populate('_role')
-            .populate('_vendor')
-            .populate('_type')
-            .populate('_hirestatus')
-            .populate('_region')
-            .populate('_campus')
-            .populate('_leader')
-            .populate('_platform')
-            .populate('_computer')
-            .sort({
-                dateStart: 'ascending',
-                lastName: 'ascending',
-            })
-            .exec();
+            const employees = await Employee.find()
+                .populate('_admin')
+                .populate('_manager')
+                .populate('_status')
+                .populate('_team')
+                .populate('_role')
+                .populate('_vendor')
+                .populate('_type')
+                .populate('_hirestatus')
+                .populate('_region')
+                .populate('_campus')
+                .populate('_leader')
+                .populate('_platform')
+                .populate('_computer')
+                .sort({
+                    dateStart: 'ascending',
+                    lastName: 'ascending',
+                })
+                .exec();
 
-        res.send(employees);
+            res.send(employees);
+        } catch (error) {
+            console.log(error);
+        }
     });
 
     app.post('/api/employees', async (req, res) => {

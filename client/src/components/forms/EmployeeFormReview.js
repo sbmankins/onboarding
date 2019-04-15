@@ -309,6 +309,11 @@ class EmployeeFormReview extends Component {
         //show ticket review fields
         return (
             <Grid container style={{ padding: '20px' }}>
+                <Grid container style={{ margin: '20px 0 20px 0' }}>
+                    <Grid item xs={12}>
+                        <Typography variant="title">NewHire/ReHire</Typography>
+                    </Grid>
+                </Grid>
                 <Grid item xs={4}>
                     <div className={classes.fieldSpacing}>
                         <Typography
@@ -337,6 +342,11 @@ class EmployeeFormReview extends Component {
                         </div>
                     </div>
                 </Grid>
+                <Grid container style={{ margin: '20px 0 20px 0' }}>
+                    <Grid item xs={12}>
+                        <Typography variant="title">Mac Ticket</Typography>
+                    </Grid>
+                </Grid>
                 <Grid item xs={4}>
                     <div className={classes.fieldSpacing}>
                         <Typography
@@ -364,6 +374,11 @@ class EmployeeFormReview extends Component {
                             </Typography>
                         </div>
                     </div>
+                </Grid>
+                <Grid container style={{ margin: '20px 0 20px 0' }}>
+                    <Grid item xs={12}>
+                        <Typography variant="title">Confirmations</Typography>
+                    </Grid>
                 </Grid>
                 <Grid item xs={4}>
                     <div className={classes.fieldSpacing}>
