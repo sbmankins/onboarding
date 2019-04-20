@@ -21,14 +21,14 @@ class EmployeeNew extends Component {
 
     componentDidMount() {
         if (
-            this.props.history.location.state !== undefined &&
-            this.props.history.location.state.ticket !== undefined
+            this.props.history.location.state &&
+            this.props.history.location.state.ticket
         ) {
             this.setState({ ticket: this.props.history.location.state.ticket });
         }
         if (
-            this.props.history.location.state !== undefined &&
-            this.props.history.location.state.employee !== undefined
+            this.props.history.location.state &&
+            this.props.history.location.state.employee 
         ) {
             const id = this.props.history.location.state.employee;
             axios

@@ -231,9 +231,8 @@ class EmployeeList extends Component {
         const { classes } = this.props;
 
         if (
-            cwID &&
-            (cwID !== undefined || cwID !== '') &&
-            (neID && (neID !== undefined || neID !== ''))
+            cwID && neID
+            
         ) {
             return (
                 <Tooltip title="Tickets" aria-label="Tickets">

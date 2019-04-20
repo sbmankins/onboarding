@@ -72,8 +72,8 @@ class TicketForm extends Component {
 
     componentDidMount() {
         if (
-            this.props.location.state !== undefined &&
-            this.props.location.state.employee !== undefined
+            this.props.location.state &&
+            this.props.location.state.employee 
         ) {
             this.setState({
                 employeeID: this.props.location.state.employee,
@@ -81,8 +81,8 @@ class TicketForm extends Component {
         }
 
         if (
-            this.props._reduxForm.history.location.state !== undefined &&
-            this.props._reduxForm.history.location.state.editing !== undefined
+            this.props._reduxForm.history.location.state &&
+            this.props._reduxForm.history.location.state.editing 
         ) {
             this.setState({
                 editing: this.props._reduxForm.history.location.state.editing,

@@ -88,11 +88,11 @@ class EmployeeForm2 extends Component {
     componentDidMount() {
         this.populateDropdown();
 
-        if (this.props.location.state !== undefined) {
+        if (this.props.location.state ) {
             this.setState({ employeeID: this.props.location.state.employeeID });
         }
 
-        if (this.props._reduxForm.history.location.state !== undefined) {
+        if (this.props._reduxForm.history.location.state ) {
             this.setState({
                 editing: this.props._reduxForm.history.location.state.editing,
             });

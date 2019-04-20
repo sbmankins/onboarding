@@ -162,7 +162,7 @@ class EmployeeFormReview extends Component {
                     ).name;
                     this.setState({ computerName: computerName });
 
-                    if (this.props.formValues._vendor !== undefined) {
+                    if (this.props.formValues._vendor ) {
                         const vendorName = this.state.vendorOptions.find(
                             o => o._id === this.props.formValues._vendor
                         ).name;
@@ -170,7 +170,7 @@ class EmployeeFormReview extends Component {
                     } else {
                         this.setState({ vendorName: '' });
                     }
-                    if (this.props.formValues._leader !== undefined) {
+                    if (this.props.formValues._leader ) {
                         const leaderName = this.state.leaderOptions.find(
                             o => o._id === this.props.formValues._leader
                         ).name;
@@ -179,7 +179,7 @@ class EmployeeFormReview extends Component {
                         this.setState({ leaderName: '' });
                     }
 
-                    if (this.props.formValues._campus !== undefined) {
+                    if (this.props.formValues._campus ) {
                         const campusName = this.state.campusOptions.find(
                             o => o._id === this.props.formValues._campus
                         ).name;
@@ -204,7 +204,7 @@ class EmployeeFormReview extends Component {
             location,
         } = this.props;
         if (
-            this.props.history.location.state.editing !== undefined &&
+            this.props.history.location.state.editing &&
             this.props.history.location.state.editing === true
         ) {
             //Render submit button for edit or submit
